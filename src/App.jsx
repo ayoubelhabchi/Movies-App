@@ -5,7 +5,7 @@ import Layout from './Layout/layout';
 import Movies from './Pages/Movies';
 import TvSeries from './Pages/TvSeries';
 import Anime from './Pages/Anime';
-import Home from './Pages/Home';
+import Home from './Pages/Home/Home';
 
 
 

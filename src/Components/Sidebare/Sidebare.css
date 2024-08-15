@@ -1,21 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yesteryear&display=swap');
+
 .Container{
-    background-color: #581d63;
+    background-color: #960018;
     height: auto;
-    width: max-content;
+    width: 250px;
     display: flex;
     padding: 10px;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
-    border:1.5px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); 
     align-items: center;
     justify-items: center;
 }
 
 h1{
-    /* font-size: 20px; */
-    color: azure;
-    padding: 8px;
-    margin: 0;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .SideBar_Elements{
@@ -28,6 +29,10 @@ h1{
 .Account{
     display: flex;
     align-items: center;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    gap: 6px;
 }
 
 .Account h1{
@@ -39,40 +44,82 @@ h1{
     color: white;
 }
 
-.Search_Bar{
-    display: flex;
-    align-items: center;
+.Search_Bar_Container {
+    position: fixed;
+    top: 13%;
+    padding: 10px;
+    width: 100%;
+    left: 0;
 }
 
-.Search_Bar .IoSearchSharp{
+.Search_Bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.Search_Bar .IoSearchSharp {
     font-size: 30px;
     color: white;
     position: absolute;
-    padding-left: 3px;
+    padding-left: 8px;
+    z-index: 1000;
 }
-.Search_Bar .Search_Input{
-    background-color: #201122;
+
+.Search_Bar .Search_Input {
+    background-color: rgba(255, 255, 255, 0.16);
     height: 40px;
+    padding-left: 40px; 
     border: 0;
+    width: 100%;
     border-radius: 40px;
-    text-align: center;
+    text-align: left;
     color: white;
-    font-weight: 600;
+    font-size: large;
 }
+
 
 .Search_Input::placeholder{
     color: white;
+    font-size: small;
 }
 
 .Feeds_Icons{
     display: grid;
-    gap: 14px;
-    justify-items: center;
+    gap: 20px;
+    justify-items: left;
     
 }
 
 .Feeds_Icons .icon{
     color: azure;
     font-size: 30px;
+    margin-right: 10px;
+}
+.Feeds_Icons h1{
+    color: rgb(184, 181, 181);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.Feed_Container {
+    /* display: flex 1; */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;;
+    
+}
+
+
+.Feed_Container h1{
+    color: white;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 

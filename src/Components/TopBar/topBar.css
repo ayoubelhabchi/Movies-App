@@ -1,8 +1,40 @@
-.container{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yesteryear&display=swap');
+
+
+.container {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: brown;
+    /* background-color: #2D2D2D; */
     height: 70px;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 0 20px;
+}
+
+.Links_Container {
+    display: flex;
+}
+
+.Links {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+.Links li {
+    color: white;
+    opacity: 60%;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.Links li:hover{
+    transform: scale(1.1);
+    color: white;
+    opacity: 100%;
 }
