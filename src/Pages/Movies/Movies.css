@@ -1,0 +1,44 @@
+/* Dark purple background for the entire page
+body {
+    background-color: #2D063A;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+} */
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card styling with blur glassy effect */
+.card {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    backdrop-filter: blur(12px); /* Apply the blur effect */
+    -webkit-backdrop-filter: blur(12px); /* For Safari support */
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for better contrast */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for cards */
+.card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Styling for the card content */
+.card h2 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+.card p {
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5;
+}
