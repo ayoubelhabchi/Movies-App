@@ -1,0 +1,78 @@
+.Container{
+    background-color: #581d63;
+    height: auto;
+    width: max-content;
+    display: flex;
+    padding: 10px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border:1.5px solid rgba(255, 255, 255, 0.2);
+    align-items: center;
+    justify-items: center;
+}
+
+h1{
+    /* font-size: 20px; */
+    color: azure;
+    padding: 8px;
+    margin: 0;
+}
+
+.SideBar_Elements{
+    display: flex 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Account{
+    display: flex;
+    align-items: center;
+}
+
+.Account h1{
+    font-size: medium;
+}
+
+.Account .FaUser{
+    font-size: 20px;
+    color: white;
+}
+
+.Search_Bar{
+    display: flex;
+    align-items: center;
+}
+
+.Search_Bar .IoSearchSharp{
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    padding-left: 3px;
+}
+.Search_Bar .Search_Input{
+    background-color: #201122;
+    height: 40px;
+    border: 0;
+    border-radius: 40px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+
+.Search_Input::placeholder{
+    color: white;
+}
+
+.Feeds_Icons{
+    display: grid;
+    gap: 14px;
+    justify-items: center;
+    
+}
+
+.Feeds_Icons .icon{
+    color: azure;
+    font-size: 30px;
+}
+
