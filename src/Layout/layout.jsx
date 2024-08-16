@@ -4,7 +4,7 @@ import TopBar from '../Components/TopBar/topBar'
 import './Layout.css'
 function Layout({ children }) {
   return (
-    <div className="layout-container">
+    <div className="layout-container w-full">
       <SideBar />
       <div className="main-content">
         <TopBar />

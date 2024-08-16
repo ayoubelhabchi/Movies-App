@@ -1,6 +1,6 @@
-.Components_Container{
-/* height: 100%; */
-gap: 40px;
-display: flex;
-flex-direction: column;
+.Components_Container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    height: 100%;
 }
