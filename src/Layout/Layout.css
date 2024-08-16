@@ -17,5 +17,14 @@
     padding: 20px;
     overflow-y: auto;
     height: calc(100vh - 60px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.39);
   }
   
