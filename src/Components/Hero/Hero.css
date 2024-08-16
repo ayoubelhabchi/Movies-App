@@ -21,17 +21,24 @@
     height: 100%;
     width: 100%;
     border-radius: 40px;
-    background-color: #703C77;
+    /* background-color: #703C77; */
     display: grid;
     align-items: center;
     justify-content: left;
-    padding: 10px;
+    background: rgba(255, 255, 255, 0.043);
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px;
+    border: 1.3px solid rgba(255, 255, 255, 0.39);
+    box-shadow: 0 4px 10px rgba(253, 253, 253, 0.158);
+
 }
 
 .Second_Card .Title{
-    font-size: 30px;
-    font-weight: 600;
-    color: black;
+    font-size: 24px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 6px;
 }
 
 .items {
@@ -40,13 +47,14 @@
 }
 
 .text-content h1{
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .text-content h3{
-    font-size: 12px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    font-family: sans-serif;
 }
 
 .thumbnail {
