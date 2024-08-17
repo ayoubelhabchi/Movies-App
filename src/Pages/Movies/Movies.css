@@ -1,10 +1,4 @@
-/* Dark purple background for the entire page
-body {
-    background-color: #2D063A;
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-} */
+
 
 .cards-container {
     display: grid;

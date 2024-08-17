@@ -3,18 +3,70 @@
     height: 100%;
     max-width: 1000px; 
     margin: 0 auto;
-    padding-bottom: 20px;
-}
-
-
-.slider-container h1{
-    font-size: larger;
-    font-weight: 400;
-    padding-bottom: 12px;
-}
+    padding-bottom: 20px;  }
   
+.movie-card {
+    position: relative;
+    margin: 0 10px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .movie-image {
+    height: 330px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  
+  .blur-background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .blur-overlay {
+    width: 100%;
+    background-color: rgba(148, 148, 148, 0.285);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .card-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .card-info {
+    color: white;
+    text-align: left;
+  }
+  
+  .card-info h1{
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .card-info h2:last-of-type {
+    font-size: 14px;
+    font-weight: normal;
+  }
   
 
+  .rating{
+    color: yellow;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
-  
-  
+  /* .rating {
+    color: yellow;
+  } */

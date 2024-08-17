@@ -1,8 +1,8 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { FaStar } from "react-icons/fa";
 import './TrendingMovies.css';
-import deadpool2 from './../../assets/deadpool2.jpeg'
 import { fetchPopularMovies } from '../../Apis/ApiServices';
 
 function TrendingMovies() {
@@ -10,17 +10,14 @@ function TrendingMovies() {
 
   useEffect(() => {
     fetchPopularMovies()
-    .then((movies) => {
-      setPopularMovies(movies);
-    });
+      .then((movies) => {
+        setPopularMovies(movies);
+      });
   }, []);
 
-  console.log(popularMovies);
-  
-
   return (
-    <div className="slider-container ">
-        <h1>Popular Movies</h1>
+    <div className="slider-container">
+      <h1 className="text">Popular Movies</h1>
       <Carousel
         additionalTransfrom={0}
         arrows
@@ -35,7 +32,7 @@ function TrendingMovies() {
         infinite
         itemClass=""
         keyBoardControl
-        minimumTouchDrag={80}
+        // minimumTouchDrag={80}
         pauseOnHover
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside={false}
@@ -77,13 +74,29 @@ function TrendingMovies() {
         swipeable
     
        >
-          {popularMovies.map((movie,index) =>(
-            <img key={index} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            // className="Image_Card h-[230px] w-[1000px] px-2 ob objectcover rounded-3xl"
-            className="Image_Card h-[330px] w[400px] px2 object-contain objectcover rounded-3xl"
-             alt="" />
-          ))}
-    </Carousel>
+        {popularMovies.map((movie, index) => (
+          <div key={index} className="movie-card">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              className="movie-image"
+              alt={movie.title}
+            />
+            <div className="blur-background">
+              <div className="blur-overlay">
+                <div className="card-info-container">
+                  <div className="card-info">
+                    <h1>{movie.title}</h1>
+                    <div className="rating">
+                    <FaStar/>
+                    <h2>{movie.vote_average}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        ))}
+      </Carousel>
     </div>
   );
 }
