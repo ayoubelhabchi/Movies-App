@@ -1,13 +1,26 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './TrendingMovies.css';
 import deadpool2 from './../../assets/deadpool2.jpeg'
+import { fetchPopularMovies } from '../../Apis/ApiServices';
 
 function TrendingMovies() {
+  const [popularMovies, setPopularMovies] = useState([]);
+
+  useEffect(() => {
+    fetchPopularMovies()
+    .then((movies) => {
+      setPopularMovies(movies);
+    });
+  }, []);
+
+  console.log(popularMovies);
+  
 
   return (
-    <div className="slider-container">
+    <div className="slider-container ">
+        <h1>Popular Movies</h1>
       <Carousel
         additionalTransfrom={0}
         arrows
@@ -64,16 +77,12 @@ function TrendingMovies() {
         swipeable
     
        >
-          {['first', 'second', 'third', 'fourth', 'fifth'].map((item, index) => (
-          <div key={index} className="flex px-2 justify-center items-center">
-            <img
-              src={deadpool2}
-              alt={item}
-              className="h-[180px] w-[400px] object-cover rounded-3xl"
-            />
-          </div>
-        ))}
-         
+          {popularMovies.map((movie,index) =>(
+            <img key={index} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            // className="Image_Card h-[230px] w-[1000px] px-2 ob objectcover rounded-3xl"
+            className="Image_Card h-[330px] w[400px] px2 object-contain objectcover rounded-3xl"
+             alt="" />
+          ))}
     </Carousel>
     </div>
   );

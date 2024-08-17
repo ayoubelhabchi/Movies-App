@@ -8,7 +8,7 @@ function Layout({ children }) {
       <SideBar />
       <div className="main-content">
         <TopBar />
-        <div className="page-content">
+        <div className="page-content overflow-x-hidden">
           {children}
         </div>
       </div>
