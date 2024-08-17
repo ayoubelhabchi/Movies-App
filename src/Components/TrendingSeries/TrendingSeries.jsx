@@ -3,29 +3,29 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import './TrendingMovies.css';
-import { fetchTrendingMovies } from '../../Apis/ApiServices';
+// import './Trending.css';
+import { fetchTrendingSeries } from '../../Apis/ApiServices';
 
-function TrendingMovies() {
-  const [popularMovies, setPopularMovies] = useState([]);
+function TrendingSeries() {
+  const [trendingSeries, settrendingSeries] = useState([]);
 
   useEffect(() => {
-    fetchTrendingMovies()
+    fetchTrendingSeries()
       .then((movies) => {
-        setPopularMovies(movies);
+        settrendingSeries(movies);
       });
   }, []);
 
-  console.log(popularMovies);
+  console.log(trendingSeries);
   
   return (
     <div className="slider-container">
-      <h1 className="text">Trending Movies</h1>
+      <h1 className="text">Tv Shows Of The Week</h1>
       <Carousel
         additionalTransfrom={0}
         arrows
         autoPlay
-        autoPlaySpeed={3000}
+        autoPlaySpeed={2000}
         centerMode={true}
         className=" "
         containerClass="container-with-dots"
@@ -35,7 +35,7 @@ function TrendingMovies() {
         infinite
         itemClass=""
         keyBoardControl
-        // minimumTouchDrag={80}
+        minimumTouchDrag={80}
         pauseOnHover
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside={false}
@@ -69,7 +69,7 @@ function TrendingMovies() {
         
         rewind={false}
         rewindWithAnimation={false}
-        rtl={true}
+        rtl={false}
         shouldResetAutoplay
         showDots={false}
         sliderClass=""
@@ -77,7 +77,7 @@ function TrendingMovies() {
         swipeable
     
        >
-        {popularMovies.map((movie, index) => (
+        {trendingSeries.map((movie, index) => (
           <div key={index} className="movie-card">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -88,8 +88,8 @@ function TrendingMovies() {
               <div className="blur-overlay">
                 <div className="card-info-container">
                   <div className="card-info">
-                    <h1>{movie.title}</h1>
-
+                    <h1>{movie.name}</h1>
+                    {/* <h2>English: {movie.name}</h2> */}
                     <div className="rating">
                     <FaStar/>
                     <h2>{movie.vote_average}</h2>
@@ -111,4 +111,4 @@ function TrendingMovies() {
   );
 }
 
-export default TrendingMovies;
+export default TrendingSeries;

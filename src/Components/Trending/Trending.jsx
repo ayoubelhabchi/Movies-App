@@ -3,29 +3,29 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import './TrendingMovies.css';
-import { fetchTrendingMovies } from '../../Apis/ApiServices';
+import './Trending.css';
+import { fetchTrending } from '../../Apis/ApiServices';
 
-function TrendingMovies() {
-  const [popularMovies, setPopularMovies] = useState([]);
+function Trending() {
+  const [Trending, setTrending] = useState([]);
 
   useEffect(() => {
-    fetchTrendingMovies()
+    fetchTrending()
       .then((movies) => {
-        setPopularMovies(movies);
+        setTrending(movies);
       });
   }, []);
 
-  console.log(popularMovies);
+  console.log(Trending);
   
   return (
     <div className="slider-container">
-      <h1 className="text">Trending Movies</h1>
+      <h1 className="text">Trending This Week</h1>
       <Carousel
         additionalTransfrom={0}
         arrows
         autoPlay
-        autoPlaySpeed={3000}
+        autoPlaySpeed={2000}
         centerMode={true}
         className=" "
         containerClass="container-with-dots"
@@ -69,7 +69,7 @@ function TrendingMovies() {
         
         rewind={false}
         rewindWithAnimation={false}
-        rtl={true}
+        rtl={false}
         shouldResetAutoplay
         showDots={false}
         sliderClass=""
@@ -77,7 +77,7 @@ function TrendingMovies() {
         swipeable
     
        >
-        {popularMovies.map((movie, index) => (
+        {Trending.map((movie, index) => (
           <div key={index} className="movie-card">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -111,4 +111,4 @@ function TrendingMovies() {
   );
 }
 
-export default TrendingMovies;
+export default Trending;
