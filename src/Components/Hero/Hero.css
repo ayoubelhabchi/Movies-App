@@ -1,95 +1,130 @@
 .Cards_Conainer-Hero {
-    height: 100%;
-    width: 100%;
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .Main_card-Hero {
-    height: 530px;
-    width: 100%;
-    max-width: 1000px;
-    border-radius: 40px;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 40px;
-  }
-  
-  .shadow-background-Hero {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .shadow-overlay-Hero {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 70%;
-    width: 100%;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.8) 0%,
-        rgba(0, 0, 0, 0) 100%
-      );    display: flex;
-    justify-content: left;
-    align-items: center;
-    /* border-radius: 40px 0px; */
-  }
-  
-  .card-info-container-Hero {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    padding: 0 20px;
-    z-index: 2;
-    color: #fff;
-    text-align: left;
-  }
-  
-  .card-info-Hero {
-    text-align: left;
-  }
-  
- .card-info-Hero .Movie_Title-Hero {
-    font-size: 2.5rem;
-    /* margin-bottom: 10px; */
-  }
-  
-  .ratings-votes-container-Hero {
-    display: flex;
-    justify-content: left;
-    gap: 16px;
-  }
-  
-  .rating-Hero,
-  .vots-Hero {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  
-  .rating-Hero h2,
-  .vots-Hero h2 {
-    font-size: 1.5rem;
-  }
-  
+  height: 100%;
+  width: 100%;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  
-  
+.Main_card-Hero {
+  height: 100%;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.shadow-background-Hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow-overlay-Hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50%;
+  width: 100%;
+  background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 10%,
+      rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+.card-info-container-Hero {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: auto;
+  width: 100%;
+  padding: 25px;
+  z-index: 2;
+  color: #fff;
+  text-align: left;
+}
+
+.card-info-Hero {
+  text-align: left;
+}
+
+.card-info-Hero .Movie_Title-Hero {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  padding-bottom: 10px;
+}
+
+.ratings-votes-container-Hero {
+  display: flex;
+  justify-content: left;
+  gap: 8px;
+  /* padding-bottom: 4px; */
+}
+
+.rating-Hero,
+.vots-Hero {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-Hero h2,
+.vots-Hero h2 {
+  font-size: 1.5rem;
+}
+
+.rating-Hero {
+  color: rgb(228, 228, 13);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-Hero h2 {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.vots-Hero {
+  color: rgb(47, 222, 85);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vots-Hero h2 {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.text-overview{
+  font-size:medium;
+  font-weight: 400;
+}
+
+.dot-separator-Hero {
+  font-size: 1.1rem;
+  color: #dcdcdc;
+}
+
+.data-Hero h2{
+  font-weight: 500;
+}
