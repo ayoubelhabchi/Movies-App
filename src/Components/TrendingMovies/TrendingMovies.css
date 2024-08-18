@@ -1,4 +1,4 @@
-.slider-container {
+.slider-container-trend-movie {
     width: 100vw;
     height: 100%;
     max-width: 1000px; 
@@ -7,13 +7,13 @@
 }
 
 
-.slider-container .text{
+.slider-container-trend-movie .text-trend-movie{
 padding-bottom: 20px;
 font-size: larger;
 font-weight: 500;
 }
 
-.movie-card {
+.movie-card-trend-movie {
     height: 100%;
     position: relative;
     margin: 0 10px;
@@ -23,19 +23,19 @@ font-weight: 500;
     transition: transform 0.3s ease-in-out;
   }
 
-  .movie-card:hover{
+  .movie-card-trend-movie:hover{
     transform: scale(1.05);
 
 }
   
-  .movie-image {
+  .movie-image-trend-movie {
     height: 330px;
     width: 400px;
     object-fit: cover;
     border-radius: 20px;
   }
   
-  .blur-background {
+  .blur-background-trend-movie {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -45,7 +45,7 @@ font-weight: 500;
     padding: 0;
   }
   
-  .blur-overlay {
+  .blur-overlay-trend-movie {
     width: 100%;
     background-color: rgba(148, 148, 148, 0.285);
     backdrop-filter: blur(10px);
@@ -53,37 +53,38 @@ font-weight: 500;
     padding: 10px;
   }
   
-  .card-info-container {
+  .card-info-container-trend-movie {
     display: flex;
     align-items: center;
     justify-content: left;
   }
   
-  .card-info {
+  .card-info-trend-movie {
     color: white;
     text-align: left;
+    width: 100%;
   }
   
-  .card-info h1{
+  .card-info-trend-movie .title-trend-movie{
     margin: 5px 0;
     font-size: 18px;
     font-weight: 600;
   }
   
-  .card-info h2:last-of-type {
+  .card-info-trend-movie .rating-trend-movie:last-of-type {
     font-size: 14px;
     font-weight: normal;
   }
   
 
-  .rating{
+  .rating-trend-movie{
     color: rgb(228, 228, 13);
     display: flex;
     align-items: center;
     gap: 4px;
   }
 
-  .vots{
+  .vots-trend-movie{
     color: rgb(47, 222, 85);
     display: flex;
     align-items: center;

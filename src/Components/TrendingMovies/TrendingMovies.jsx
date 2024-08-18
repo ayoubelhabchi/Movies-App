@@ -10,36 +10,26 @@ function TrendingMovies() {
   const [popularMovies, setPopularMovies] = useState([]);
 
   useEffect(() => {
-    fetchTrendingMovies()
-      .then((movies) => {
-        setPopularMovies(movies);
-      });
+    fetchTrendingMovies().then((movies) => {
+      setPopularMovies(movies);
+    });
   }, []);
 
-  console.log(popularMovies);
-  
   return (
-    <div className="slider-container">
-      <h1 className="text">Trending Movies</h1>
+    <div className="slider-container-trend-movie">
+      <h1 className="text-trend-movie">Trending Movies</h1>
       <Carousel
         additionalTransfrom={0}
         arrows
         autoPlay
         autoPlaySpeed={3000}
         centerMode={true}
-        className=" "
         containerClass="container-with-dots"
-        dotListClass=""
         draggable
         focusOnSelect={false}
         infinite
-        itemClass=""
         keyBoardControl
-        // minimumTouchDrag={80}
         pauseOnHover
-        renderArrowsWhenDisabled={false}
-        renderButtonGroupOutside={false}
-        renderDotsOutside={false}
         responsive={{
           desktop: {
             breakpoint: {
@@ -66,45 +56,34 @@ function TrendingMovies() {
             partialVisibilityGutter: 30
           }
         }}
-        
-        rewind={false}
-        rewindWithAnimation={false}
-        rtl={true}
-        shouldResetAutoplay
-        showDots={false}
-        sliderClass=""
-        slidesToSlide={1}
-        swipeable
-    
-       >
+      >
         {popularMovies.map((movie, index) => (
-          <div key={index} className="movie-card">
+          <div key={index} className="movie-card-trend-movie">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              className="movie-image"
+              className="movie-image-trend-movie"
               alt={movie.title}
             />
-            <div className="blur-background">
-              <div className="blur-overlay">
-                <div className="card-info-container">
-                  <div className="card-info">
-                    <h1>{movie.title}</h1>
-
-                    <div className="rating">
-                    <FaStar/>
-                    <h2>{movie.vote_average}</h2>
+            <div className="blur-background-trend-movie">
+              <div className="blur-overlay-trend-movie">
+                <div className="card-info-container-trend-movie">
+                  <div className="card-info-trend-movie">
+                    <h1 className="title-trend-movie">{movie.title}</h1>
+                    <div className="ratings-votes-container">
+                      <div className="rating-trend-movie">
+                        <FaStar />
+                        <h2>{movie.vote_average}</h2>
+                      </div>
+                      <div className="vots-trend-movie">
+                        <AiFillLike className="AiFillLike" />
+                        <h2>{movie.vote_count}</h2>
+                      </div>
                     </div>
-
-                    <div className="vots">
-                    <AiFillLike className="AiFillLike"/>
-                    <h2>{movie.vote_count}</h2>
-                    </div>
-
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
         ))}
       </Carousel>
     </div>

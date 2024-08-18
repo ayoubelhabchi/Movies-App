@@ -1,66 +1,95 @@
-.Cards_Conainer{
+.Cards_Conainer-Hero {
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 20px;
-}
-
-.Main_card{
-    height: 350px; 
-    width: 100%;
-    background-image: url('./../../assets/deadpol.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 40px;
-}
-
-.Second_Card{
-    /* height: 350px;  */
-    height: 100%;
-    width: 100%;
-    border-radius: 40px;
-    /* background-color: #703C77; */
-    display: grid;
-    align-items: center;
-    justify-content: left;
-    background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    padding: 20px;
-    border: 1.3px solid rgba(255, 255, 255, 0.39);
-    box-shadow: 0 4px 10px rgba(253, 253, 253, 0.158);
-
-}
-
-.Second_Card .Title{
-    font-size: 20px;
-    font-weight: 400;
-    color: white;
-    margin-bottom: 6px;
-}
-
-.items {
+    padding-bottom: 20px;
     display: flex;
-    gap: 10px;
-}
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Main_card-Hero {
+    height: 530px;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 40px;
+  }
+  
+  .shadow-background-Hero {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .shadow-overlay-Hero {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 70%;
+    width: 100%;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* border-radius: 40px 0px; */
+  }
+  
+  .card-info-container-Hero {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+    z-index: 2;
+    color: #fff;
+    text-align: left;
+  }
+  
+  .card-info-Hero {
+    text-align: left;
+  }
+  
+ .card-info-Hero .Movie_Title-Hero {
+    font-size: 2.5rem;
+    /* margin-bottom: 10px; */
+  }
+  
+  .ratings-votes-container-Hero {
+    display: flex;
+    justify-content: left;
+    gap: 16px;
+  }
+  
+  .rating-Hero,
+  .vots-Hero {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .rating-Hero h2,
+  .vots-Hero h2 {
+    font-size: 1.5rem;
+  }
+  
 
-.text-content h1{
-    font-size: 15px;
-    font-weight: 400;
-    padding-bottom: 4px;
-}
-
-.text-content h3{
-    font-size: 10px;
-    font-weight: 400;
-    font-family: sans-serif;
-}
-
-.thumbnail {
-    width: 60px;
-    height: 80px;
-    border-radius: 10px;
-    object-fit: cover; 
-}
+  
+  
