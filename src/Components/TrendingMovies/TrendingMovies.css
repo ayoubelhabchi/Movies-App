@@ -1,5 +1,5 @@
 .slider-container-trend-movie {
-    width: 100vw;
+    width: 100%;
     height: 100%;
     max-width: 1000px; 
     margin: 0 auto;
@@ -90,7 +90,12 @@ font-weight: 500;
     align-items: center;
     gap: 4px;
   }
-
+.ratings-votes-container{
+  display: flex;
+  justify-content: left;
+  gap: 5px;
+}
+  
   /* .rating {
     color: yellow;
   } */

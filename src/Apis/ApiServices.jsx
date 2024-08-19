@@ -53,6 +53,24 @@ export async function fetchTrendingSeries(){
   }
 }
 
+export async function fetchSearching(search){
+  // console.log(search,"serach");
+  
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/multi?query=${search}&language=en-US&api_key=41ffedf396cc16675a2bc485b84f084e`
+    )
+    const data = await response.json()
+    // console.log("data",data);
+    
+    return data.results
+
+
+  } catch (error) {
+    console.error("Error while fetching data",error)
+  }
+}
+
 function ApiServices() {
 
   return (

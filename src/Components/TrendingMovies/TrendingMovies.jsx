@@ -24,6 +24,7 @@ function TrendingMovies() {
         autoPlay
         autoPlaySpeed={3000}
         centerMode={true}
+        rtl={true}
         containerClass="container-with-dots"
         draggable
         focusOnSelect={false}

@@ -88,7 +88,7 @@ function Trending() {
               <div className="blur-overlay">
                 <div className="card-info-container">
                   <div className="card-info">
-                    <h1>{movie.title}</h1>
+                    <h1>{movie.title || movie.name}</h1>
 
                     <div className="rating">
                     <FaStar/>
