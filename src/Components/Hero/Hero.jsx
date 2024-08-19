@@ -6,6 +6,11 @@ import 'react-multi-carousel/lib/styles.css';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import getCarouselSettings from '../../tools/carouselSettings';
+import { genreMap, genreColors } from "../../tools/geners";
+
+
+  
+
 
 function Hero() {
     const [popularMovies, setPopularMovies] = useState([]);
@@ -18,6 +23,31 @@ function Hero() {
     }, []);
 
     console.log(popularMovies);
+
+    const getGenreNames = (genreIds) => {
+        return genreIds.map(id => {
+          const genre = genreMap.find(g => g.id === id);
+          if (!genre) return null;
+      
+          const backgroundColor = genreColors[id] || "#ccc";
+          return (
+            <span
+              key={id}
+              style={{
+                backgroundColor: backgroundColor,
+                color: "#fff",
+                padding: "0.5px 5px",
+                borderRadius: "30px",
+                margin: "1px 3px",
+                display: "inline-block"
+              }}
+            >
+              {genre.name}
+            </span>
+          );
+        });
+      };
+
 
     const settings = getCarouselSettings();
 
@@ -53,6 +83,11 @@ function Hero() {
                                         <div className="data-Hero">
                                           <h2>{movie.release_date.substring(0, 4)}</h2>
                                         </div>
+                                        <span className="dot-separator-Hero">•</span>
+                                        <div className="genres-Hero">
+                                            <p className="gener-Hero">{getGenreNames(movie.genre_ids)}</p>
+                                        </div>
+
                                     </div>
                                         <div className="overview-Hero">
                                           <p className="text-overview">{movie.overview}</p>
