@@ -1,38 +1,41 @@
-
-
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+.main_container{
+    width: 100%; 
+    height:100%;
+    /* background-color: beige;  */
     padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Card styling with blur glassy effect */
-.card {
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
-    backdrop-filter: blur(12px); /* Apply the blur effect */
-    -webkit-backdrop-filter: blur(12px); /* For Safari support */
-    border-radius: 15px;
-    padding: 20px;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for better contrast */
-    transition: transform 0.3s ease; /* Smooth hover effect */
+.top_search_bar{
+    /* background-color: aqua;  */
+    width: 100%;
+    height: 40px;
 }
 
-/* Hover effect for cards */
-.card:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
+.container_main_tags{
+    display: flex;
+    flex-direction:row;
+    /* padding: 30px; */
+    /* background-color: burlywood;  */
+    width: 100%;
+    height: 100%;
 }
 
-/* Styling for the card content */
-.card h2 {
-    font-size: 24px;
-    margin: 0 0 10px 0;
+.main_content{
+    /* background-color: gainsboro; */
+    height: 100%;
+    width: 100%;
+    flex: 1;
+
 }
 
-.card p {
-    font-size: 16px;
-    margin: 0;
-    line-height: 1.5;
+.side_tags{
+    background-color: rgba(128, 128, 128, 0.477);
+    height: max-content;
+    width: 20%;
+    border-radius: 18px;
+    padding-left: 8px;
+    padding-right: 8px;
+    position: fixed;
+    right: 3%;
 }

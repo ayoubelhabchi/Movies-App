@@ -9,9 +9,9 @@ function Home() {
   return (
     <div className='Components_Container'>
       <Hero/>
-      {/* <Trending/>
+      <Trending/>
       <TrendingMovies/>
-      <TrendingSeries/> */}
+      <TrendingSeries/>
     </div>
   )
 }

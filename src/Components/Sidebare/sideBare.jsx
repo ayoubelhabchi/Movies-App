@@ -8,6 +8,7 @@ import { IoSearchSharp, IoLogOut } from "react-icons/io5";
 import { MdNewspaper, MdFavorite } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { CiCircleChevLeft, CiLogout, CiTextAlignLeft } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 
 
@@ -56,10 +57,12 @@ function SideBar() {
 
         <div className='Feeds_Icons'>
           { open && <h1>News Feed</h1>}
+          <Link to={'/'}>
           <button className='Feed_Container'>
             <GoHomeFill className="icon" />
             {open && <h1 className='Feeds_Icons_Text'>Home</h1>}
           </button>
+          </Link>
 
           <button className='Feed_Container'>
             <FaArrowTrendUp className="icon" />
