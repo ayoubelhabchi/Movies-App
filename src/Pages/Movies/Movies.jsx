@@ -2,6 +2,9 @@ import React,{ useState, useEffect } from 'react'
 import './Movies.css'
 import { genreMap, genreColors } from "../../tools/geners";
 import { fetchOptionFilter } from '../../Apis/ApiServices';
+import { FaStar } from "react-icons/fa";
+import { AiFillLike } from "react-icons/ai";
+
 
 function Movies() {
 
@@ -17,29 +20,51 @@ function Movies() {
   const handleFilterByLanguage = (event) => setFilterByLanguage(event.target.value);
 
 
+
   useEffect(() => {
     const fetchFilteredData = async () => {
       const results = await fetchOptionFilter(
-        filterByYear,   // year
-        1,              // page (default to 1)
-        filterBySort,   // highScore (sort option)
-        filterByLanguage, // language
-        filterByCertification // certification
+        filterByYear,
+        1,  
+        filterBySort,
+        filterByLanguage,
+        filterByCertification
       );
       setMovies(results);
       console.log("results", results);
     };
-
-    // Trigger fetch only if any filter is selected
-    if (
-      filterByYear ||
-      filterByCertification ||
-      filterBySort ||
-      filterByLanguage
-    ) {
-      fetchFilteredData();
-    }
+  
+    fetchFilteredData();
   }, [filterByYear, filterByCertification, filterBySort, filterByLanguage]);
+  
+
+
+  const getGenreNames = (genreIds) => {
+    return genreIds.map(id => {
+      const genre = genreMap.find(g => g.id === id);
+      if (!genre) return null;
+  
+      const backgroundColor = genreColors[id] || "#ccc";
+      return (
+        <span
+          key={id}
+          style={{
+            backgroundColor: backgroundColor,
+            color: "#fff",
+            padding: "0px 5px 0px",
+            borderRadius: "30px",
+            margin: "1.5px 1px 4px",
+            display: "inline-block",
+            fontWeight: "500",
+            fontSize: "14px",
+          }}
+        >
+          {genre.name}
+        </span>
+      );
+    });
+  };
+
 
   return (
     <div className="main_container">
@@ -87,9 +112,40 @@ function Movies() {
 
       <div className="container_main_tags">
 
-        <div className='main_content'>
-
+        <div className='main_container'>
+          {movies && movies.length > 0 ? (
+            <div className='movies_grid'>
+              {movies.map((movie) => (
+                <div className='movie_card' key={movie.id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={movie.title}
+                    className='movie_poster'
+                  />
+                  <div className='movie_hover_details'>
+                    <h3 className='movie_title'>{movie.title}</h3>
+                    <div className="ratings_movies_container">
+                      <div className="rating_movie">
+                        <FaStar className='FaStar' />
+                        <h2>{movie.vote_average}</h2>
+                      </div>
+                      <div className="vots_movie">
+                        <AiFillLike className="AiFillLike" />
+                        <h2>{movie.vote_count}</h2>
+                      </div>
+                    </div>
+                      <div className="genres_movie_page">
+                        <p className="gener_movie_page">{getGenreNames(movie.genre_ids)}</p>
+                      </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No movies found.</p>
+          )}
         </div>
+
 
         <div className="side_tags">
         

@@ -80,7 +80,7 @@ export async function fetchOptionFilter(year, page = 1, highScore, language, cer
     if (language) query += `&with_origin_country=${language}`;
     if (certification) query += `&${certification}`;
 
-    console.log("API Request URL:", query);
+    // console.log("API Request URL:", query);
 
     const response = await fetch(query);
     const data = await response.json();
