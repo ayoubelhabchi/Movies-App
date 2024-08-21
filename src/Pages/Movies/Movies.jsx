@@ -5,67 +5,65 @@ import { fetchOptionFilter } from '../../Apis/ApiServices';
 
 function Movies() {
 
-  const [filterByYear, setFilterByYear] = useState('')
-  const [filterByCertification, setFilterByCertification] = useState('')
+  const [filterByYear, setFilterByYear] = useState('');
+  const [filterByCertification, setFilterByCertification] = useState('');
+  const [filterBySort, setFilterBySort] = useState('');
+  const [filterByLanguage, setFilterByLanguage] = useState('');
+  const [movies, setMovies] = useState([]);
 
-  const handleFilterByYear = async (event) => {
-    const year = event.target.value;
-    setFilterByYear(year);
+  const handleFilterByYear = (event) => setFilterByYear(event.target.value);
+  const handleFilterByCertification = (event) => setFilterByCertification(event.target.value);
+  const handleFilterBySort = (event) => setFilterBySort(event.target.value);
+  const handleFilterByLanguage = (event) => setFilterByLanguage(event.target.value);
 
-    if (year && year !== 'Year') { 
-      const results = await fetchOptionFilter(year);
-      console.log(results);
+
+  useEffect(() => {
+    const fetchFilteredData = async () => {
+      const results = await fetchOptionFilter(
+        filterByYear,   // year
+        1,              // page (default to 1)
+        filterBySort,   // highScore (sort option)
+        filterByLanguage, // language
+        filterByCertification // certification
+      );
+      setMovies(results);
+      console.log("results", results);
+    };
+
+    // Trigger fetch only if any filter is selected
+    if (
+      filterByYear ||
+      filterByCertification ||
+      filterBySort ||
+      filterByLanguage
+    ) {
+      fetchFilteredData();
     }
-  };
-  const handleFilterByCertification = async (event) => {
-    const certification = event.target.value;
-    setFilterByCertification(certification);
-
-    if (certification && certification !== 'Certification') {
-      await fetchAndFilterData(filterByYear, certification);
-    }
-  };
-
-  const fetchAndFilterData = async (year, certification) => {
-    // Example fetch logic that uses both filters
-    if (year || certification) {
-      const query = new URLSearchParams();
-      if (year && year !== 'Year') query.append('year', year);
-      if (certification && certification !== 'Certification') query.append('certification', certification);
-      
-      const results = await fetchOptionFilter(query.toString());
-      console.log(results);
-      // Dispatch or update the results as needed
-    }
-  };
+  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage]);
 
   return (
     <div className="main_container">
       
       <div className="top_search_bar">
-        <select 
-        onChange={handleFilterByYear}
-        value={filterByYear}
-        className='custom_select textblack'
-         name="" 
-         id="">
-
+        <select onChange={handleFilterByYear} value={filterByYear} className='custom_select textblack' name="" id="">
           <option value="Year">Year</option>
           <option value="2024">2024</option>
           <option value="2023">2023</option>
           <option value="2022">2022</option>
           <option value="2021">2021</option>
         </select>
-        <select className='custom_select textblack' name="" id="">
-          <option value="Sort By">Sort By</option>
+        {/* Sort Filter */}
+        <select onChange={handleFilterBySort} value={filterBySort} className="custom_select textblack">
+          <option value="">Sort By</option>
           <option value="vote_count.desc">Most Popular</option>
           <option value="revenue.desc">Revenue Movies</option>
           <option value="primary_release_date.desc">Upcoming Movies</option>
           <option value="primary_release_date.asc">Oldest Movies</option>
         </select>
-        <select onChange={handleFilterByCertification}
-        value={filterByCertification} className='custom_select textblack' name="" id="">
-          <option value="Certification">Certification</option>
+
+        {/* Certification Filter */}
+        <select onChange={handleFilterByCertification} value={filterByCertification} className="custom_select textblack">
+          <option value="">Certification</option>
           <option value="certification=G&certification_country=US">G</option>
           <option value="certification=PG&certification_country=US">PG</option>
           <option value="certification=PG-13&certification_country=US">PG-13</option>
@@ -73,15 +71,16 @@ function Movies() {
           <option value="certification=NC-17&certification_country=US">NC-17</option>
         </select>
 
-        <select className='custom_select textblack' name="" id="">
-          <option value="Language">Language</option>
+        {/* Language Filter */}
+        <select onChange={handleFilterByLanguage} value={filterByLanguage} className="custom_select textblack">
+          <option value="">Language</option>
           <option value="US">USA</option>
           <option value="CA">Canada</option>
           <option value="GB">United Kingdom</option>
           <option value="DE">Germany</option>
           <option value="FR">French</option>
-          <option value="IT">Germany</option>
-          <option value="CN">CN</option>
+          <option value="IT">Italy</option>
+          <option value="CN">China</option>
           <option value="AR">Arabic</option>
         </select>
       </div>
@@ -99,8 +98,8 @@ function Movies() {
               className='tags'
               key={genre.id}
               style={{
-                backgroundColor: genreColors[genre.id], // Assigning the color based on genre ID
-                color: '#fff', // Optional: Set text color to white for better contrast
+                backgroundColor: genreColors[genre.id],
+                color: '#fff',
                 // padding: '6px',
                 borderRadius: '20px',
                 margin: '5px',

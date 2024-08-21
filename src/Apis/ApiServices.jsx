@@ -71,23 +71,27 @@ export async function fetchSearching(search){
   }
 }
 
-export async function fetchOptionFilter(year, page, highScore, language, certification){
-  console.log(year,highScore, certification);
-  
+export async function fetchOptionFilter(year, page = 1, highScore, language, certification) {
   try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?page=${page}&${certification}&with_origin_country=${language}&primary_release_year=${year}&sort_by=${highScore}&&api_key=41ffedf396cc16675a2bc485b84f084e`
-    )
-    const data = await response.json()
-    // console.log("data",data);
+    let query = `https://api.themoviedb.org/3/discover/movie?api_key=41ffedf396cc16675a2bc485b84f084e`;
     
-    return data.results
+    if (year) query += `&primary_release_year=${year}`;
+    if (highScore) query += `&sort_by=${highScore}`;
+    if (language) query += `&with_origin_country=${language}`;
+    if (certification) query += `&${certification}`;
 
+    console.log("API Request URL:", query);
+
+    const response = await fetch(query);
+    const data = await response.json();
+    
+    return data.results;
 
   } catch (error) {
-    console.error("Error while fetching data",error)
+    console.error("Error while fetching data", error);
   }
 }
+
 
 function ApiServices() {
 
