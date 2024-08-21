@@ -3,6 +3,7 @@ import './Movies.css'
 import { genreMap, genreColors } from "../../tools/geners";
 import { fetchOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
+import { HiOutlineXMark } from "react-icons/hi2";
 import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -15,6 +16,7 @@ function Movies() {
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [movies, setMovies] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -34,14 +36,17 @@ function Movies() {
         currentPage,
         filterBySort,
         filterByLanguage,
-        filterByCertification
+        filterByCertification,
+        selectedGenres
       );
+      console.log("seres",selectedGenres);
+      
       setMovies(movies);
       setTotalPages(totalPages);
     };
   
     fetchFilteredData();
-  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage, currentPage]);
+  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage, currentPage,selectedGenres]);
   
   
 
@@ -72,11 +77,29 @@ function Movies() {
     });
   };
 
+  const handleGenreSelect = (genreId) => {
+    setSelectedGenres((prevSelectedGenres) => {
+      if (prevSelectedGenres.includes(genreId)) {
+        return prevSelectedGenres.filter((id) => id !== genreId);
+      } else {
+        return [...prevSelectedGenres, genreId]; // Add the genre if not selected
+      }
+    });
+  };
+
+
+  const clearTags = () => {
+    setSelectedGenres([]); 
+  };
+
+  
+  
 
   return (
     <div className="main_container">
       
       <div className="top_search_bar">
+        <div>
         <select onChange={handleFilterByYear} value={filterByYear} className='custom_select textblack' name="" id="">
           <option value="Year">Year</option>
           <option value="2024">2024</option>
@@ -115,6 +138,15 @@ function Movies() {
           <option value="CN">China</option>
           <option value="AR">Arabic</option>
         </select>
+        </div>
+
+        <div className='btn_container'>
+          <button onClick={clearTags}>
+          <HiOutlineXMark className='HiOutlineXMark'/>
+            Clear
+          </button>
+        </div>
+
       </div>
 
       <div className="container_main_tags">
@@ -158,8 +190,10 @@ function Movies() {
         
             {genreMap.map((genre) => (
             <div
-              className='tags'
+              // className='tags'
               key={genre.id}
+              className={`tags ${selectedGenres.includes(genre.id) ? 'selected ' : ''}`}
+              onClick={() => handleGenreSelect(genre.id)}
               style={{
                 backgroundColor: genreColors[genre.id],
                 color: '#fff',

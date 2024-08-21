@@ -71,7 +71,7 @@ export async function fetchSearching(search){
   }
 }
 
-export async function fetchOptionFilter(year, page = 1, highScore, language, certification) {
+export async function fetchOptionFilter(year, page = 1, highScore, language, certification,genres) {
   try {
     page = Math.max(1, Math.min(page, 500));
     
@@ -81,6 +81,7 @@ export async function fetchOptionFilter(year, page = 1, highScore, language, cer
     if (highScore) query += `&sort_by=${highScore}`;
     if (language) query += `&with_origin_country=${language}`;
     if (certification) query += `&${certification}`;
+    if (genres) query += `&with_genres=${genres.join(',')}`;
 
     // console.log("API Request URL:", query);
 
