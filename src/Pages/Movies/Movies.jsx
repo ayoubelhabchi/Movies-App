@@ -4,6 +4,8 @@ import { genreMap, genreColors } from "../../tools/geners";
 import { fetchOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 
 function Movies() {
@@ -13,29 +15,34 @@ function Movies() {
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
 
   const handleFilterByYear = (event) => setFilterByYear(event.target.value);
   const handleFilterByCertification = (event) => setFilterByCertification(event.target.value);
   const handleFilterBySort = (event) => setFilterBySort(event.target.value);
   const handleFilterByLanguage = (event) => setFilterByLanguage(event.target.value);
-
-
+  const handlePageChange = (event, value) => {
+    setCurrentPage(Math.max(1, Math.min(value, totalPages)));
+  };
 
   useEffect(() => {
     const fetchFilteredData = async () => {
-      const results = await fetchOptionFilter(
+      const { movies, totalPages } = await fetchOptionFilter(
         filterByYear,
-        1,  
+        currentPage,
         filterBySort,
         filterByLanguage,
         filterByCertification
       );
-      setMovies(results);
-      console.log("results", results);
+      setMovies(movies);
+      setTotalPages(totalPages);
     };
   
     fetchFilteredData();
-  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage]);
+  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage, currentPage]);
+  
   
 
 
@@ -170,7 +177,21 @@ function Movies() {
 
       </div>
 
-    </div>
+
+      <div className="pagination_container">
+      <Stack spacing={2} sx={{ marginTop: '20px', alignItems: 'center' }}>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          showFirstButton
+          showLastButton
+          color="primary"
+        />
+      </Stack>
+      </div>
+        
+  </div>
   )
 }
 
