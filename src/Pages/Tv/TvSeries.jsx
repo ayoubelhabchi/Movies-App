@@ -183,9 +183,9 @@ function TvSeries() {
               label="Year"
               onChange={handleFilterByYear}
             >
-              <MenuItem value="">
+              {/* <MenuItem value="">
                 <em>None</em>
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem value={2024}>2024</MenuItem>
               <MenuItem value={2023}>2023</MenuItem>
               <MenuItem value={2022}>2022</MenuItem>
@@ -194,55 +194,92 @@ function TvSeries() {
         </ThemeProvider>
         
         {/* Sort Filter */}
-        <select onChange={handleFilterBySort} value={filterBySort} className="custom_select textblack">
-          <option value="popularity.desc">Sort By</option>
-          <option value="popularity.desc">Most Popular</option>
-          <option value="vote_count.desc">Top Rated</option>
-          <option value="vote_count.asc">Less Rated</option>
-          {/* <option value="screened_theatrically">Screened Theatrically</option>
-          <option value="primary_release_date.asc">Oldest Movies</option> */}
-        </select>
+        {/* Sort By */}
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, paddingRight: 1, minWidth: 110 }} size="small">
+            <InputLabel sx={{ color: 'white' }}>Sort By</InputLabel>
+            <Select
+              value={filterBySort}
+              label="Sort By"
+              onChange={handleFilterBySort}
+            >
+              <MenuItem value="popularity.desc">Sort By</MenuItem>
+              <MenuItem value="popularity.desc">Most Popular</MenuItem>
+              <MenuItem value="vote_count.desc">Top Rated</MenuItem>
+              <MenuItem value="vote_count.asc">Less Rated</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
 
         {/* Certification Filter */}
-        <select onChange={handleFilterByStatus} value={filterByStatus} className="custom_select textblack">
-          <option value="">Status</option>
-          <option value="0">Returning Series</option>
-          <option value="1">Planned</option>
-          <option value="2">In Production</option>
-          <option value="3">Ended</option>
-          <option value="4">Canceled</option>
-          <option value="5">Pilot</option>
-        </select>
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, paddingRight: 1, minWidth: 100 }} size="small">
+            <InputLabel sx={{ color: 'white' }}>Status</InputLabel>
+            <Select
+              value={filterByStatus}
+              label="Status"
+              onChange={handleFilterByStatus}
+            >
+              <MenuItem value="">Status</MenuItem>
+              <MenuItem value="0">Returning Series</MenuItem>
+              <MenuItem value="1">Planned</MenuItem>
+              <MenuItem value="2">In Production</MenuItem>
+              <MenuItem value="3">Ended</MenuItem>
+              <MenuItem value="4">Canceled</MenuItem>
+              <MenuItem value="5">Pilot</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
 
         {/* Language Filter */}
-        <select onChange={handleFilterByLanguage} value={filterByLanguage} className="custom_select textblack">
-          <option value="">Language</option>
-          <option value="en">English</option>
-          <option value="ca">Canada</option>
-          <option value="en">United Kingdom</option>
-          <option value="de">Germany</option>
-          <option value="fr">French</option>
-          <option value="es">Spanich</option>
-          <option value="it">Italy</option>
-          <option value="zh">China</option>
-          <option value="ko">Korea</option>
-          <option value="ja">Japan</option>
-          <option value="ar">Arabic</option>
-        </select>
-         {/* Country Filter */}
-        <select onChange={handleFilterByCountry} value={filterByCountry} className="custom_select textblack">
-          <option value="">Country</option>
-          <option value="US">USA</option>
-          <option value="CA">Canada</option>
-          <option value="GB">United Kingdom</option>
-          <option value="DE">Germany</option>
-          <option value="FR">French</option>
-          <option value="IT">Italy</option>
-          <option value="CN">China</option>
-          <option value="KR">Korea</option>
-          <option value="JP">Japan</option>
-          <option value="AR">Arabic</option>
-        </select>
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, paddingRight: 1, minWidth: 130 }} size="small">
+            <InputLabel sx={{ color: 'white' }}>Language</InputLabel>
+            <Select
+              value={filterByLanguage}
+              label="Language"
+              onChange={handleFilterByLanguage}
+            >
+              <MenuItem value="">Language</MenuItem>
+              <MenuItem value="en">English</MenuItem>
+              <MenuItem value="ca">Canada</MenuItem>
+              <MenuItem value="en">United Kingdom</MenuItem>
+              <MenuItem value="de">Germany</MenuItem>
+              <MenuItem value="fr">French</MenuItem>
+              <MenuItem value="es">Spanish</MenuItem>
+              <MenuItem value="it">Italy</MenuItem>
+              <MenuItem value="zh">China</MenuItem>
+              <MenuItem value="ko">Korea</MenuItem>
+              <MenuItem value="ja">Japan</MenuItem>
+              <MenuItem value="ar">Arabic</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
+
+        {/* Country Filter */}
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, paddingRight: 1, minWidth: 110 }} size="small">
+            <InputLabel sx={{ color: 'white' }}>Country</InputLabel>
+            <Select
+              value={filterByCountry}
+              label="Country"
+              onChange={handleFilterByCountry}
+            >
+              <MenuItem value="">Country</MenuItem>
+              <MenuItem value="US">USA</MenuItem>
+              <MenuItem value="CA">Canada</MenuItem>
+              <MenuItem value="GB">United Kingdom</MenuItem>
+              <MenuItem value="DE">Germany</MenuItem>
+              <MenuItem value="FR">France</MenuItem>
+              <MenuItem value="IT">Italy</MenuItem>
+              <MenuItem value="CN">China</MenuItem>
+              <MenuItem value="KR">Korea</MenuItem>
+              <MenuItem value="JP">Japan</MenuItem>
+              <MenuItem value="AR">Arabic</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
+
         </div>
 
         <div className='btn_container'>
