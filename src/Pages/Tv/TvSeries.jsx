@@ -1,18 +1,86 @@
 import React,{ useState, useEffect } from 'react'
-import './Movies.css'
+// import './Movies.css'
 import { genreMap, genreColors } from "../../tools/geners";
-import { fetchMoviesOptionFilter } from '../../Apis/ApiServices';
+import { fetchSeriesOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const selectTheme = createTheme({
+  components: {
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+          '&.Mui-selected': {
+            color: 'red', // Selected item text color
+            backgroundColor: '#f5f5f5', // Selected item background color
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: '#ffe6e6', // Hover color when the item is selected
+          },
+          '&:hover': {
+            backgroundColor: '#ffe6e6', // Background color when hovering
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: 'red', // Selected text color
+          fontWeight:'bold',
+          backgroundColor: 'none', // Background color of the Select component
+          '& .MuiSelect-icon': {
+            color: 'red', // Dropdown arrow color
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'gray', // Default border color
+            borderWidth: '2px',
+          },
 
-function Movies() {
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red', // Border color when hovering
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red', // Border color when focused
+          },
+          borderRadius: '20px',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white', // Year label text color
+          // fontWeight: '',
+          '&.Mui-focused': {
+            color: 'red', // Change label text color to red when focused
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#', // Background color of the dropdown list
+        },
+      },
+    },
+  },
+});
+
+function TvSeries() {
 
   const [filterByYear, setFilterByYear] = useState('');
-  const [filterByCertification, setFilterByCertification] = useState('');
+  const [filterByStatus, setFilterByStatus] = useState('');
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [filterByCountry, setFilterByCountry] = useState('');
@@ -23,7 +91,7 @@ function Movies() {
 
 
   const handleFilterByYear = (event) => setFilterByYear(event.target.value);
-  const handleFilterByCertification = (event) => setFilterByCertification(event.target.value);
+  const handleFilterByStatus = (event) => setFilterByStatus(event.target.value);
   const handleFilterBySort = (event) => setFilterBySort(event.target.value);
   const handleFilterByLanguage = (event) => setFilterByLanguage(event.target.value);
   const handleFilterByCountry = (event) => setFilterByCountry(event.target.value);
@@ -33,13 +101,13 @@ function Movies() {
 
   useEffect(() => {
     const fetchFilteredData = async () => {
-      const { movies, totalPages } = await fetchMoviesOptionFilter(
+      const { movies, totalPages } = await fetchSeriesOptionFilter(
         filterByYear,
         currentPage,
         filterBySort,
         filterByLanguage,
         filterByCountry,
-        filterByCertification,
+        filterByStatus,
         selectedGenres
       );
       console.log("seres",selectedGenres);
@@ -49,7 +117,7 @@ function Movies() {
     };
   
     fetchFilteredData();
-  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage, filterByCountry, currentPage,selectedGenres]);
+  }, [filterByYear, filterByStatus, filterBySort, filterByLanguage,filterByCountry, currentPage,selectedGenres]);
   
   
 
@@ -85,7 +153,7 @@ function Movies() {
       if (prevSelectedGenres.includes(genreId)) {
         return prevSelectedGenres.filter((id) => id !== genreId);
       } else {
-        return [...prevSelectedGenres, genreId]; // Add the genre if not selected
+        return [...prevSelectedGenres, genreId]; 
       }
     });
   };
@@ -103,35 +171,52 @@ function Movies() {
       
       <div className="top_search_bar">
         <div>
-        <select onChange={handleFilterByYear} value={filterByYear} className='custom_select textblack' name="" id="">
-          <option value="Year">Year</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-        </select>
+          {/* Sort Year */}
+          
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 90 }} size="small">
+            <InputLabel sx={{ color: 'white' }} id="demo-select-small-label">Year</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={filterByYear}
+              label="Year"
+              onChange={handleFilterByYear}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={2024}>2024</MenuItem>
+              <MenuItem value={2023}>2023</MenuItem>
+              <MenuItem value={2022}>2022</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
+        
         {/* Sort Filter */}
         <select onChange={handleFilterBySort} value={filterBySort} className="custom_select textblack">
-          <option value="">Sort By</option>
-          <option value="vote_count.desc">Most Popular</option>
-          <option value="revenue.desc">Revenue Movies</option>
-          <option value="primary_release_date.desc">Upcoming Movies</option>
-          <option value="primary_release_date.asc">Oldest Movies</option>
+          <option value="popularity.desc">Sort By</option>
+          <option value="popularity.desc">Most Popular</option>
+          <option value="vote_count.desc">Top Rated</option>
+          <option value="vote_count.asc">Less Rated</option>
+          {/* <option value="screened_theatrically">Screened Theatrically</option>
+          <option value="primary_release_date.asc">Oldest Movies</option> */}
         </select>
 
         {/* Certification Filter */}
-        <select onChange={handleFilterByCertification} value={filterByCertification} className="custom_select textblack">
-          <option value="">Certification</option>
-          <option value="certification=G&certification_country=US">G</option>
-          <option value="certification=PG&certification_country=US">PG</option>
-          <option value="certification=PG-13&certification_country=US">PG-13</option>
-          <option value="certification=R&certification_country=US">R</option>
-          <option value="certification=NC-17&certification_country=US">NC-17</option>
+        <select onChange={handleFilterByStatus} value={filterByStatus} className="custom_select textblack">
+          <option value="">Status</option>
+          <option value="0">Returning Series</option>
+          <option value="1">Planned</option>
+          <option value="2">In Production</option>
+          <option value="3">Ended</option>
+          <option value="4">Canceled</option>
+          <option value="5">Pilot</option>
         </select>
 
         {/* Language Filter */}
         <select onChange={handleFilterByLanguage} value={filterByLanguage} className="custom_select textblack">
-        <option value="">Language</option>
+          <option value="">Language</option>
           <option value="en">English</option>
           <option value="ca">Canada</option>
           <option value="en">United Kingdom</option>
@@ -144,6 +229,7 @@ function Movies() {
           <option value="ja">Japan</option>
           <option value="ar">Arabic</option>
         </select>
+         {/* Country Filter */}
         <select onChange={handleFilterByCountry} value={filterByCountry} className="custom_select textblack">
           <option value="">Country</option>
           <option value="US">USA</option>
@@ -181,7 +267,7 @@ function Movies() {
                     className='movie_poster'
                   />
                   <div className='movie_hover_details'>
-                    <h3 className='movie_title'>{movie.title}</h3>
+                    <h3 className='movie_title'>{movie.name}</h3>
                     <div className="ratings_movies_container">
                       <div className="rating_movie">
                         <FaStar className='FaStar' />
@@ -248,4 +334,4 @@ function Movies() {
   )
 }
 
-export default Movies
+export default TvSeries

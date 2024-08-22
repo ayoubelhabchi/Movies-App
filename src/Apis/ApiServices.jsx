@@ -71,7 +71,7 @@ export async function fetchSearching(search){
   }
 }
 
-export async function fetchOptionFilter(year, page = 1, highScore, language, certification,genres) {
+export async function fetchMoviesOptionFilter(year, page = 1, highScore, language,country, certification,genres) {
   try {
     page = Math.max(1, Math.min(page, 500));
     
@@ -80,7 +80,38 @@ export async function fetchOptionFilter(year, page = 1, highScore, language, cer
     if (year) query += `&primary_release_year=${year}`;
     if (highScore) query += `&sort_by=${highScore}`;
     if (language) query += `&with_origin_country=${language}`;
+    if (country) query += `&with_origin_country=${country}`;
     if (certification) query += `&${certification}`;
+    if (genres) query += `&with_genres=${genres.join(',')}`;
+
+    // console.log("API Request URL:", query);
+
+    const response = await fetch(query);
+    const data = await response.json();
+    
+    return {
+      movies: data.results,
+      totalPages: Math.min(data.total_pages, 500)
+    };
+
+  } catch (error) {
+    console.error("Error while fetching data", error);
+    return { movies: [], totalPages: 1 };
+  }
+}
+
+
+export async function fetchSeriesOptionFilter(year, page = 1, highScore, language,country, status,genres) {
+  try {
+    page = Math.max(1, Math.min(page, 500));
+    
+    let query = `https://api.themoviedb.org/3/discover/tv?api_key=41ffedf396cc16675a2bc485b84f084e&page=${page}`;
+    
+    if (year) query += `&first_air_date_year=${year}`;
+    if (highScore) query += `&sort_by=${highScore}`;
+    if (country) query += `&with_origin_country=${country}`;
+    if (language) query += `&with_original_language=${language}`;
+    if (status) query += `&with_status=${status}`;
     if (genres) query += `&with_genres=${genres.join(',')}`;
 
     // console.log("API Request URL:", query);

@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout/layout';
 import Movies from './Pages/Movies/Movies';
-import TvSeries from './Pages/TvSeries';
+import TvSeries from './Pages/Tv/TvSeries';
 import Anime from './Pages/Anime';
 import Home from './Pages/Home/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
