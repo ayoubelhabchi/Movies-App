@@ -1,6 +1,8 @@
 import React, {useEffect,useState} from "react";
 import { json } from "react-router-dom";
-
+const Base_Url = `https://api.themoviedb.org/3/`
+const Api_Key = `41ffedf396cc16675a2bc485b84f084e`
+const Discover_Api = `discover/movie?`
 
 export async function fetchTrending() {
     try {
@@ -71,11 +73,11 @@ export async function fetchSearching(search){
   }
 }
 
-export async function fetchMoviesOptionFilter(year, page = 1, highScore, language,country, certification,genres) {
+export async function fetchMoviesOptionFilter(search, year, page = 1, highScore, language, country, certification,genres) {
   try {
     page = Math.max(1, Math.min(page, 500));
     
-    let query = `https://api.themoviedb.org/3/discover/movie?api_key=41ffedf396cc16675a2bc485b84f084e&page=${page}`;
+    let query = `${Base_Url}${search ? `search/movie?query=${search}&` : Discover_Api}api_key=${Api_Key}&page=${page}`;
     
     if (year) query += `&primary_release_year=${year}`;
     if (highScore) query += `&sort_by=${highScore}`;
@@ -84,14 +86,15 @@ export async function fetchMoviesOptionFilter(year, page = 1, highScore, languag
     if (certification) query += `&${certification}`;
     if (genres) query += `&with_genres=${genres.join(',')}`;
 
-    // console.log("API Request URL:", query);
+    console.log("API Request URL:", query);
 
     const response = await fetch(query);
     const data = await response.json();
+    console.log("data",data.results);
     
     return {
       movies: data.results,
-      totalPages: Math.min(data.total_pages, 500)
+      totalPages: Math.min(data.total_pages, 500),
     };
 
   } catch (error) {

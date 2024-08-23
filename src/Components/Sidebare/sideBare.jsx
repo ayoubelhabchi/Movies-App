@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import './Sidebare.css'
 import { fetchSearching } from '../../Apis/ApiServices';
-
 import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoSearchSharp, IoLogOut } from "react-icons/io5";

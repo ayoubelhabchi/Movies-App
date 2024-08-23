@@ -7,6 +7,7 @@ import { HiOutlineXMark } from "react-icons/hi2";
 import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { IoSearchSharp, IoLogOut } from "react-icons/io5";
 
 
 function Movies() {
@@ -16,6 +17,7 @@ function Movies() {
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [filterByCountry, setFilterByCountry] = useState('');
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const [movies, setMovies] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +36,7 @@ function Movies() {
   useEffect(() => {
     const fetchFilteredData = async () => {
       const { movies, totalPages } = await fetchMoviesOptionFilter(
+        searchQuery,
         filterByYear,
         currentPage,
         filterBySort,
@@ -42,14 +45,22 @@ function Movies() {
         filterByCertification,
         selectedGenres
       );
-      console.log("seres",selectedGenres);
       
       setMovies(movies);
       setTotalPages(totalPages);
     };
-  
+    console.log("Current State:", {
+      searchQuery,
+      filterByYear,
+      filterByCertification,
+      filterBySort,
+      filterByLanguage,
+      filterByCountry,
+      currentPage,
+      selectedGenres
+    });
     fetchFilteredData();
-  }, [filterByYear, filterByCertification, filterBySort, filterByLanguage, filterByCountry, currentPage,selectedGenres]);
+  }, [searchQuery,filterByYear, filterByCertification, filterBySort, filterByLanguage, filterByCountry, currentPage,selectedGenres]);
   
   
 
@@ -95,16 +106,30 @@ function Movies() {
     setSelectedGenres([]); 
   };
 
-  
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    
+  };
   
 
   return (
     <div className="main_container">
-      
+      <div className='Search_Bar_Container_movies'>
+            <form className='Search_Bar ' onSubmit={handleSearch}>
+              <IoSearchSharp className='IoSearchSharp' />
+              <input
+               placeholder='DeadPool...'
+               type="text" 
+               className='Search_Input'
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </form>
+          </div>
       <div className="top_search_bar">
         <div>
         <select onChange={handleFilterByYear} value={filterByYear} className='custom_select textblack' name="" id="">
-          <option value="Year">Year</option>
+          <option value="">Year</option>
           <option value="2024">2024</option>
           <option value="2023">2023</option>
           <option value="2022">2022</option>
