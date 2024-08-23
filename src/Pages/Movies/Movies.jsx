@@ -304,7 +304,7 @@ function Movies() {
                 {isSearchVisible ? (
                   <IoSearchSharp className='IoSearchSharp' onClick={toggleSearchBar} />
                 ) : (
-                  <IoSearchSharp className='toggle text-2xl ' onClick={toggleSearchBar} />
+                  <IoSearchSharp className='toggle text-2xl cursor-pointer' onClick={toggleSearchBar} />
                 )}
                 {isSearchVisible && (
                   <input

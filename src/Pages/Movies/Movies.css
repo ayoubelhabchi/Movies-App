@@ -7,16 +7,7 @@
   
 }
 
-.top_search_bar{
-    /* background-color: aqua;  */
-    width: 100%;
-    /* height: 40px; */
-    display: flex;
-    /* align-items: center; */
-    padding: 10px;
-    gap: 10px;
-    justify-content: space-between;
-}
+
 
 .btn_container button{
 background-color: #61616175;
@@ -27,11 +18,11 @@ align-items: center;
 gap: 4px;
 }
 
-.btn_search_container{
+/* .btn_search_container{
   display: flex;
   align-items: center;
   gap: 10px;
-}
+} */
 
 .btn_container:hover{
   border-radius: 22px;
@@ -236,37 +227,85 @@ gap: 4px;
 }
 
 
-.Search_Bar_Container_Movies {
-  top: 13%;
-  /* position: absolute; */
-  padding: 10px;
-  width: 100%;
-  left: 0;
+.btn_search_container {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  gap: 10px; /* Add a small gap between the search bar and the button */
+  align-items: center;
 }
 
-
+.Search_Bar_Container_movies {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
 .Search_Bar_Movies {
   display: flex;
   align-items: center;
-  width: 100%;
 }
 
 .Search_Bar_Movies .IoSearchSharp {
-  font-size: 30px;
+  font-size: 24px;
   color: white;
   position: absolute;
-  padding-left: 8px;
+  left: 10px;
   z-index: 1;
+  cursor: pointer;
 }
 
 .Search_Bar_Movies .Search_Input_Movies {
   background-color: rgba(255, 255, 255, 0.16);
-    height: 40px;
-  padding-left: 40px; 
+  height: 36px;
+  padding-left: 40px;
   border: 0;
-  width: 100%;
+  width: 200px;
   border-radius: 40px;
   text-align: left;
   color: white;
+  transition: width 0.3s ease;
+}
+
+.Search_Bar_Movies .Search_Input_Movies:focus {
+  width: 250px;
+}
+
+.btn_container {
+  display: flex;
+  align-items: center;
+}
+
+.btn_container button {
+  background-color: #61616175;
+  padding: 6px 8px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.btn_container:hover {
+  border-radius: 22px;
+  box-shadow: 0 0 5px #f7f7f79e;
+  transform: scale(1.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .Search_Bar_Movies .Search_Input_Movies {
+    width: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .btn_search_container {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .Search_Bar_Movies .Search_Input_Movies {
+    width: 140px;
+    padding-left: 36px;
+  }
 }
