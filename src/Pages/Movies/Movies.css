@@ -27,6 +27,12 @@ align-items: center;
 gap: 4px;
 }
 
+.btn_search_container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .btn_container:hover{
   border-radius: 22px;
   box-shadow: 0 0 5px #f7f7f79e;
@@ -227,4 +233,40 @@ gap: 4px;
     padding: 20px;
     text-align: center;
     
+}
+
+
+.Search_Bar_Container_Movies {
+  top: 13%;
+  /* position: absolute; */
+  padding: 10px;
+  width: 100%;
+  left: 0;
+}
+
+
+
+.Search_Bar_Movies {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.Search_Bar_Movies .IoSearchSharp {
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  padding-left: 8px;
+  z-index: 1;
+}
+
+.Search_Bar_Movies .Search_Input_Movies {
+  background-color: rgba(255, 255, 255, 0.16);
+    height: 40px;
+  padding-left: 40px; 
+  border: 0;
+  width: 100%;
+  border-radius: 40px;
+  text-align: left;
+  color: white;
 }

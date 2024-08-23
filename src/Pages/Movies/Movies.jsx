@@ -8,7 +8,74 @@ import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { IoSearchSharp, IoLogOut } from "react-icons/io5";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const selectTheme = createTheme({
+  components: {
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+          '&.Mui-selected': {
+            color: 'red', // Selected item text color
+            backgroundColor: '#f5f5f5', // Selected item background color
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: '#ffe6e6', // Hover color when the item is selected
+          },
+          '&:hover': {
+            backgroundColor: '#ffe6e6', // Background color when hovering
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: 'red', // Selected text color
+          fontWeight:'bold',
+          backgroundColor: 'none', // Background color of the Select component
+          '& .MuiSelect-icon': {
+            color: 'red', // Dropdown arrow color
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'gray', // Default border color
+            borderWidth: '2px',
+          },
 
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red', // Border color when hovering
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'red', // Border color when focused
+          },
+          borderRadius: '20px',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white', // Year label text color
+          // fontWeight: '',
+          '&.Mui-focused': {
+            color: 'red', // Change label text color to red when focused
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#', // Background color of the dropdown list
+        },
+      },
+    },
+  },
+});
 
 function Movies() {
 
@@ -22,6 +89,7 @@ function Movies() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
 
 
   const handleFilterByYear = (event) => setFilterByYear(event.target.value);
@@ -111,86 +179,155 @@ function Movies() {
     
   };
   
+  const toggleSearchBar = () => {
+    setIsSearchVisible(!isSearchVisible);
+  };
 
   return (
     <div className="main_container">
-      <div className='Search_Bar_Container_movies'>
-            <form className='Search_Bar ' onSubmit={handleSearch}>
-              <IoSearchSharp className='IoSearchSharp' />
-              <input
-               placeholder='DeadPool...'
-               type="text" 
-               className='Search_Input'
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </form>
-          </div>
+          
       <div className="top_search_bar">
         <div>
-        <select onChange={handleFilterByYear} value={filterByYear} className='custom_select textblack' name="" id="">
-          <option value="">Year</option>
-          <option value="2024">2024</option>
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-        </select>
-        {/* Sort Filter */}
-        <select onChange={handleFilterBySort} value={filterBySort} className="custom_select textblack">
-          <option value="">Sort By</option>
-          <option value="vote_count.desc">Most Popular</option>
-          <option value="revenue.desc">Revenue Movies</option>
-          <option value="primary_release_date.desc">Upcoming Movies</option>
-          <option value="primary_release_date.asc">Oldest Movies</option>
-        </select>
+        <ThemeProvider theme={selectTheme}>
+  <FormControl sx={{ m: 1, minWidth: 90 }} size="small">
+    <InputLabel id="filter-year-label">Year</InputLabel>
+    <Select
+      labelId="filter-year-label"
+      id="filter-year"
+      value={filterByYear}
+      label="Year"
+      onChange={handleFilterByYear}
+    >
+      <MenuItem value="">Year</MenuItem>
+      <MenuItem value={2024}>2024</MenuItem>
+      <MenuItem value={2023}>2023</MenuItem>
+      <MenuItem value={2022}>2022</MenuItem>
+      <MenuItem value={2021}>2021</MenuItem>
+    </Select>
+  </FormControl>
+</ThemeProvider>
 
-        {/* Certification Filter */}
-        <select onChange={handleFilterByCertification} value={filterByCertification} className="custom_select textblack">
-          <option value="">Certification</option>
-          <option value="certification=G&certification_country=US">G</option>
-          <option value="certification=PG&certification_country=US">PG</option>
-          <option value="certification=PG-13&certification_country=US">PG-13</option>
-          <option value="certification=R&certification_country=US">R</option>
-          <option value="certification=NC-17&certification_country=US">NC-17</option>
-        </select>
+<ThemeProvider theme={selectTheme}>
+  <FormControl sx={{ m: 1, minWidth: 110 }} size="small">
+    <InputLabel id="filter-sort-label">Sort By</InputLabel>
+    <Select
+      labelId="filter-sort-label"
+      id="filter-sort"
+      value={filterBySort}
+      label="Sort By"
+      onChange={handleFilterBySort}
+    >
+      <MenuItem value="">Sort By</MenuItem>
+      <MenuItem value="vote_count.desc">Most Popular</MenuItem>
+      <MenuItem value="revenue.desc">Revenue Movies</MenuItem>
+      <MenuItem value="primary_release_date.desc">Upcoming Movies</MenuItem>
+      <MenuItem value="primary_release_date.asc">Oldest Movies</MenuItem>
+    </Select>
+  </FormControl>
+</ThemeProvider>
 
-        {/* Language Filter */}
-        <select onChange={handleFilterByLanguage} value={filterByLanguage} className="custom_select textblack">
-        <option value="">Language</option>
-          <option value="en">English</option>
-          <option value="ca">Canada</option>
-          <option value="en">United Kingdom</option>
-          <option value="de">Germany</option>
-          <option value="fr">French</option>
-          <option value="es">Spanich</option>
-          <option value="it">Italy</option>
-          <option value="zh">China</option>
-          <option value="ko">Korea</option>
-          <option value="ja">Japan</option>
-          <option value="ar">Arabic</option>
-        </select>
-        <select onChange={handleFilterByCountry} value={filterByCountry} className="custom_select textblack">
-          <option value="">Country</option>
-          <option value="US">USA</option>
-          <option value="CA">Canada</option>
-          <option value="GB">United Kingdom</option>
-          <option value="DE">Germany</option>
-          <option value="FR">French</option>
-          <option value="IT">Italy</option>
-          <option value="CN">China</option>
-          <option value="KR">Korea</option>
-          <option value="JP">Japan</option>
-          <option value="AR">Arabic</option>
-        </select>
+<ThemeProvider theme={selectTheme}>
+  <FormControl sx={{ m: 1, minWidth: 130 }} size="small">
+    <InputLabel id="filter-certification-label">Certification</InputLabel>
+    <Select
+      labelId="filter-certification-label"
+      id="filter-certification"
+      value={filterByCertification}
+      label="Certification"
+      onChange={handleFilterByCertification}
+    >
+      <MenuItem value="">Certification</MenuItem>
+      <MenuItem value="certification=G&certification_country=US">G</MenuItem>
+      <MenuItem value="certification=PG&certification_country=US">PG</MenuItem>
+      <MenuItem value="certification=PG-13&certification_country=US">PG-13</MenuItem>
+      <MenuItem value="certification=R&certification_country=US">R</MenuItem>
+      <MenuItem value="certification=NC-17&certification_country=US">NC-17</MenuItem>
+    </Select>
+  </FormControl>
+</ThemeProvider>
+
+<ThemeProvider theme={selectTheme}>
+  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <InputLabel id="filter-language-label">Language</InputLabel>
+    <Select
+      labelId="filter-language-label"
+      id="filter-language"
+      value={filterByLanguage}
+      label="Language"
+      onChange={handleFilterByLanguage}
+    >
+      <MenuItem value="">Language</MenuItem>
+      <MenuItem value="en">English</MenuItem>
+      <MenuItem value="ca">Canada</MenuItem>
+      <MenuItem value="en">United Kingdom</MenuItem>
+      <MenuItem value="de">Germany</MenuItem>
+      <MenuItem value="fr">French</MenuItem>
+      <MenuItem value="es">Spanish</MenuItem>
+      <MenuItem value="it">Italy</MenuItem>
+      <MenuItem value="zh">China</MenuItem>
+      <MenuItem value="ko">Korea</MenuItem>
+      <MenuItem value="ja">Japan</MenuItem>
+      <MenuItem value="ar">Arabic</MenuItem>
+    </Select>
+  </FormControl>
+</ThemeProvider>
+
+<ThemeProvider theme={selectTheme}>
+  <FormControl sx={{ m: 1, minWidth: 105 }} size="small">
+    <InputLabel id="filter-country-label">Country</InputLabel>
+    <Select
+      labelId="filter-country-label"
+      id="filter-country"
+      value={filterByCountry}
+      label="Country"
+      onChange={handleFilterByCountry}
+    >
+      <MenuItem value="">Country</MenuItem>
+      <MenuItem value="US">USA</MenuItem>
+      <MenuItem value="CA">Canada</MenuItem>
+      <MenuItem value="GB">United Kingdom</MenuItem>
+      <MenuItem value="DE">Germany</MenuItem>
+      <MenuItem value="FR">French</MenuItem>
+      <MenuItem value="IT">Italy</MenuItem>
+      <MenuItem value="CN">China</MenuItem>
+      <MenuItem value="KR">Korea</MenuItem>
+      <MenuItem value="JP">Japan</MenuItem>
+      <MenuItem value="AR">Arabic</MenuItem>
+    </Select>
+  </FormControl>
+</ThemeProvider>
         </div>
-
-        <div className='btn_container'>
+        
+        <div className='btn_search_container'>
+            <div className='Search_Bar_Container_movies'>
+              <form className={`Search_Bar_Movies`} onSubmit={handleSearch}>
+                {isSearchVisible ? (
+                  <IoSearchSharp className='IoSearchSharp' onClick={toggleSearchBar} />
+                ) : (
+                  <IoSearchSharp className='toggle text-2xl ' onClick={toggleSearchBar} />
+                )}
+                {isSearchVisible && (
+                  <input
+                    placeholder='DeadPool...'
+                    type="text"
+                    className='Search_Input_Movies'
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                )}
+              </form>
+            </div>
+          <div className='btn_container'>
           <button onClick={clearTags}>
           <HiOutlineXMark className='HiOutlineXMark'/>
             Clear
           </button>
+          </div>
+          
         </div>
 
+        
+        
       </div>
 
       <div className="container_main_tags">
