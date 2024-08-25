@@ -219,19 +219,12 @@ h1{
     position: absolute;
     bottom: 5%;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.Logout_icon .Feeds_Icons_Text{
-    color: rgb(255, 196, 196);
+/* .Logout_icon .Feeds_Icons_Text{
     font-size: 17px;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
-}
+} */
 

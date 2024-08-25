@@ -6,7 +6,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import getCarouselSettings from '../../tools/carouselSettings';
-import { genreMap, genreColors } from "../../tools/geners";
+import { genreMapMovies, genreColors } from "../../tools/geners";
 
 
   
@@ -26,7 +26,7 @@ function Hero() {
 
     const getGenreNames = (genreIds) => {
         return genreIds.map(id => {
-          const genre = genreMap.find(g => g.id === id);
+          const genre = genreMapMovies.find(g => g.id === id);
           if (!genre) return null;
       
           const backgroundColor = genreColors[id] || "#ccc";

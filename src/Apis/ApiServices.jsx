@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from "react";
 import { json } from "react-router-dom";
+import Anime from "../Pages/Animation/Anime";
 const Base_Url = `https://api.themoviedb.org/3/`
 const Api_Key = `41ffedf396cc16675a2bc485b84f084e`
 const Discover_Api = `discover/movie?`
@@ -131,6 +132,41 @@ export async function fetchSeriesOptionFilter(search, year, page = 1, highScore,
   } catch (error) {
     console.error("Error while fetching data", error);
     return { movies: [], totalPages: 1 };
+  }
+}
+
+export async function fetchAnimeOptionFilter(search, year, page = 1, highScore, language,country, status,genres) {
+  try {
+    page = Math.max(1, Math.min(page, 500));
+    const fixedGenres = [16, 10765];
+    
+    let query = `${Base_Url}${search ? `search/tv?query=${search}&` : Discover_Tv_Api }api_key=${Api_Key}&page=${page}&with_genres=16,10765`;
+    
+    if (year) query += `&first_air_date_year=${year}`;
+    if (highScore) query += `&sort_by=${highScore}`;
+    if (country) query += `&with_origin_country=${country}`;
+    if (language) query += `&with_original_language=${language}`;
+    if (status) query += `&with_status=${status}`;
+    if (genres && genres.length > 0) {
+      const allGenres = [...new Set([...fixedGenres, ...genres])];
+      query += `&with_genres=${allGenres.join(',')}`;
+    } else {
+      query += `&with_genres=${fixedGenres.join(',')}`;
+    }
+
+    // console.log("API Request URL:", query);
+
+    const response = await fetch(query);
+    const data = await response.json();
+    
+    return {
+      animes: data.results,
+      totalPages: Math.min(data.total_pages, 500)
+    };
+
+  } catch (error) {
+    console.error("Error while fetching data", error);
+    return { animes: [], totalPages: 1 };
   }
 }
 

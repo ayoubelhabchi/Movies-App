@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react'
 import './Movies.css'
-import { genreMap, genreColors } from "../../tools/geners";
+import { genreMapMovies, genreColors } from "../../tools/geners";
 import { fetchMoviesOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
 import { HiOutlineXMark } from "react-icons/hi2";
@@ -73,7 +73,7 @@ function Movies() {
 
   const getGenreNames = (genreIds) => {
     return genreIds.map(id => {
-      const genre = genreMap.find(g => g.id === id);
+      const genre = genreMapMovies.find(g => g.id === id);
       if (!genre) return null;
   
       const backgroundColor = genreColors[id] || "#ccc";
@@ -307,7 +307,7 @@ function Movies() {
 
         <div className="side_tags">
         
-            {genreMap.map((genre) => (
+            {genreMapMovies.map((genre) => (
             <div
               // className='tags'
               key={genre.id}

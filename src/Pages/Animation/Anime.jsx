@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react'
-// import './Movies.css'
+import './Anime.css'
 import { genreMapTv, genreColors } from "../../tools/geners";
-import { fetchSeriesOptionFilter } from '../../Apis/ApiServices';
+import { fetchAnimeOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { IoSearchSharp } from "react-icons/io5";
@@ -18,14 +18,14 @@ import { ThemeProvider } from '@mui/material/styles';
 
 
 
-function TvSeries() {
+function Anime() {
 
   const [filterByYear, setFilterByYear] = useState('');
   const [filterByStatus, setFilterByStatus] = useState('');
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [filterByCountry, setFilterByCountry] = useState('');
-  const [movies, setMovies] = useState([]);
+  const [animes, setanimes] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -44,7 +44,7 @@ function TvSeries() {
 
   useEffect(() => {
     const fetchFilteredData = async () => {
-      const { movies, totalPages } = await fetchSeriesOptionFilter(
+      const { animes, totalPages } = await fetchAnimeOptionFilter(
         searchQuery,
         filterByYear,
         currentPage,
@@ -56,7 +56,7 @@ function TvSeries() {
       );
       console.log("seres",selectedGenres);
       
-      setMovies(movies);
+      setanimes(animes);
       setTotalPages(totalPages);
     };
   
@@ -235,8 +235,8 @@ function TvSeries() {
         </div>
 
         <div className='btn_search_container'>
-            <div className='Search_Bar_Container_movies'>
-              <form className={`Search_Bar_Movies`} onSubmit={handleSearch}>
+            <div className='Search_Bar_Container_animes'>
+              <form className={`Search_Bar_animes`} onSubmit={handleSearch}>
                 {isSearchVisible ? (
                   <IoSearchSharp className='IoSearchSharp' onClick={toggleSearchBar} />
                 ) : (
@@ -246,7 +246,7 @@ function TvSeries() {
                   <input
                     placeholder='DeadPool...'
                     type="text"
-                    className='Search_Input_Movies'
+                    className='Search_Input_animes'
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -270,9 +270,9 @@ function TvSeries() {
       <div className="container_main_tags">
 
         <div className='main_container'>
-          {movies && movies.length > 0 ? (
-            <div className='movies_grid'>
-              {movies.map((movie) => (
+          {animes && animes.length > 0 ? (
+            <div className='animes_grid'>
+              {animes.map((movie) => (
                 <div className='movie_card' key={movie.id}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -281,7 +281,7 @@ function TvSeries() {
                   />
                   <div className='movie_hover_details'>
                     <h3 className='movie_title'>{movie.name}</h3>
-                    <div className="ratings_movies_container">
+                    <div className="ratings_animes_container">
                       <div className="rating_movie">
                         <FaStar className='FaStar' />
                         <h2>{movie.vote_average}</h2>
@@ -299,7 +299,7 @@ function TvSeries() {
               ))}
             </div>
           ) : (
-            <p>No movies found.</p>
+            <p>No animes found.</p>
           )}
         </div>
 
@@ -347,4 +347,4 @@ function TvSeries() {
   )
 }
 
-export default TvSeries
+export default Anime
