@@ -12,71 +12,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-const selectTheme = createTheme({
-  components: {
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          color: 'black',
-          '&.Mui-selected': {
-            color: 'red', // Selected item text color
-            backgroundColor: '#f5f5f5', // Selected item background color
-          },
-          '&.Mui-selected:hover': {
-            backgroundColor: '#ffe6e6', // Hover color when the item is selected
-          },
-          '&:hover': {
-            backgroundColor: '#ffe6e6', // Background color when hovering
-          },
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          color: 'red', // Selected text color
-          fontWeight:'bold',
-          backgroundColor: 'none', // Background color of the Select component
-          '& .MuiSelect-icon': {
-            color: 'red', // Dropdown arrow color
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'gray', // Default border color
-            borderWidth: '2px',
-          },
-
-          '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'red', // Border color when hovering
-          },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'red', // Border color when focused
-          },
-          borderRadius: '20px',
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: 'white', // Year label text color
-          // fontWeight: '',
-          '&.Mui-focused': {
-            color: 'red', // Change label text color to red when focused
-          },
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#', // Background color of the dropdown list
-        },
-      },
-    },
-  },
-});
+import {selectTheme} from '../../tools/muiTheme';
+import { ThemeProvider } from '@mui/material/styles';
 
 function Movies() {
 

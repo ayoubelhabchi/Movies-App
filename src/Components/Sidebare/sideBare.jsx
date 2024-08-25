@@ -10,6 +10,12 @@ import { AiFillLike } from "react-icons/ai";
 import { CiCircleChevLeft, CiTextAlignLeft } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 
+import { MaterialUISwitch } from '../../tools/muiTheme';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+
+
 
 
 function SideBar() {
@@ -142,10 +148,12 @@ function SideBar() {
             {open && <h1 className=''>Watchlist</h1>}
           </button>
 
-          <button className='Logout_icon'>
-            <IoLogOut className='CiLogout'/>
-            {open && <h1 className='Feeds_Icons_Text'>LogOut</h1>}
-          </button>
+            <FormControlLabel className='Logout_icon'
+              control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />}
+              label=""
+            />
+
+          
         </div>
       </div>
     </div>
