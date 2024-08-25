@@ -4,6 +4,7 @@ import { genreMap, genreColors } from "../../tools/geners";
 import { fetchSeriesOptionFilter } from '../../Apis/ApiServices';
 import { FaStar } from "react-icons/fa";
 import { HiOutlineXMark } from "react-icons/hi2";
+import { IoSearchSharp } from "react-icons/io5";
 import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -88,6 +89,8 @@ function TvSeries() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
 
 
   const handleFilterByYear = (event) => setFilterByYear(event.target.value);
@@ -102,6 +105,7 @@ function TvSeries() {
   useEffect(() => {
     const fetchFilteredData = async () => {
       const { movies, totalPages } = await fetchSeriesOptionFilter(
+        searchQuery,
         filterByYear,
         currentPage,
         filterBySort,
@@ -117,7 +121,7 @@ function TvSeries() {
     };
   
     fetchFilteredData();
-  }, [filterByYear, filterByStatus, filterBySort, filterByLanguage,filterByCountry, currentPage,selectedGenres]);
+  }, [searchQuery, filterByYear, filterByStatus, filterBySort, filterByLanguage,filterByCountry, currentPage,selectedGenres]);
   
   
 
@@ -164,8 +168,16 @@ function TvSeries() {
   };
 
   
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    
+  };
   
+  const toggleSearchBar = () => {
+    setIsSearchVisible(!isSearchVisible);
+  };
 
+  
   return (
     <div className="main_container">
       
@@ -243,7 +255,7 @@ function TvSeries() {
               <MenuItem value="">Language</MenuItem>
               <MenuItem value="en">English</MenuItem>
               <MenuItem value="ca">Canada</MenuItem>
-              <MenuItem value="en">United Kingdom</MenuItem>
+              {/* <MenuItem value="en">United Kingdom</MenuItem> */}
               <MenuItem value="de">Germany</MenuItem>
               <MenuItem value="fr">French</MenuItem>
               <MenuItem value="es">Spanish</MenuItem>
@@ -282,12 +294,36 @@ function TvSeries() {
 
         </div>
 
-        <div className='btn_container'>
+        <div className='btn_search_container'>
+            <div className='Search_Bar_Container_movies'>
+              <form className={`Search_Bar_Movies`} onSubmit={handleSearch}>
+                {isSearchVisible ? (
+                  <IoSearchSharp className='IoSearchSharp' onClick={toggleSearchBar} />
+                ) : (
+                  <IoSearchSharp className='toggle text-2xl cursor-pointer' onClick={toggleSearchBar} />
+                )}
+                {isSearchVisible && (
+                  <input
+                    placeholder='DeadPool...'
+                    type="text"
+                    className='Search_Input_Movies'
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                )}
+              </form>
+            </div>
+          <div className='btn_container'>
           <button onClick={clearTags}>
           <HiOutlineXMark className='HiOutlineXMark'/>
             Clear
           </button>
+          </div>
+          
         </div>
+
+        
+        
 
       </div>
 

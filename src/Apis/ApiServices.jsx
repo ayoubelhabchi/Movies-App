@@ -3,6 +3,7 @@ import { json } from "react-router-dom";
 const Base_Url = `https://api.themoviedb.org/3/`
 const Api_Key = `41ffedf396cc16675a2bc485b84f084e`
 const Discover_Api = `discover/movie?`
+const Discover_Tv_Api = `discover/tv?`
 
 export async function fetchTrending() {
     try {
@@ -104,11 +105,11 @@ export async function fetchMoviesOptionFilter(search, year, page = 1, highScore,
 }
 
 
-export async function fetchSeriesOptionFilter(year, page = 1, highScore, language,country, status,genres) {
+export async function fetchSeriesOptionFilter(search, year, page = 1, highScore, language,country, status,genres) {
   try {
     page = Math.max(1, Math.min(page, 500));
     
-    let query = `https://api.themoviedb.org/3/discover/tv?api_key=41ffedf396cc16675a2bc485b84f084e&page=${page}`;
+    let query = `${Base_Url}${search ? `search/tv?query=${search}&` : Discover_Tv_Api}api_key=${Api_Key}&page=${page}`;
     
     if (year) query += `&first_air_date_year=${year}`;
     if (highScore) query += `&sort_by=${highScore}`;

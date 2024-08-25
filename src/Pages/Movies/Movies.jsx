@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const selectTheme = createTheme({
   components: {
     MuiMenuItem: {
@@ -84,7 +85,7 @@ function Movies() {
   const [filterBySort, setFilterBySort] = useState('');
   const [filterByLanguage, setFilterByLanguage] = useState('');
   const [filterByCountry, setFilterByCountry] = useState('');
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
