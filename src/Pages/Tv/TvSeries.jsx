@@ -195,9 +195,9 @@ function TvSeries() {
               label="Year"
               onChange={handleFilterByYear}
             >
-              {/* <MenuItem value="">
+              <MenuItem value="">
                 <em>None</em>
-              </MenuItem> */}
+              </MenuItem>
               <MenuItem value={2024}>2024</MenuItem>
               <MenuItem value={2023}>2023</MenuItem>
               <MenuItem value={2022}>2022</MenuItem>

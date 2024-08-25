@@ -319,10 +319,10 @@ function Movies() {
               </form>
             </div>
           <div className='btn_container'>
-          <button onClick={clearTags}>
-          <HiOutlineXMark className='HiOutlineXMark'/>
-            Clear
-          </button>
+            <button onClick={clearTags}>
+            <HiOutlineXMark className='HiOutlineXMark'/>
+              Clear
+            </button>
           </div>
           
         </div>

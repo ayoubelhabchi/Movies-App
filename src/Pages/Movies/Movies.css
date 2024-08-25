@@ -229,8 +229,8 @@ gap: 4px;
 
 .btn_search_container {
   display: flex;
-  justify-content: flex-end; /* Align items to the right */
-  gap: 10px; /* Add a small gap between the search bar and the button */
+  justify-content: flex-end;
+  gap: 10px; 
   align-items: center;
 }
 
@@ -273,16 +273,18 @@ gap: 4px;
 .btn_container {
   display: flex;
   align-items: center;
+  margin-right: 10px;
 }
 
 .btn_container button {
   background-color: #61616175;
-  padding: 6px 8px;
+  padding: 6px px;
   border-radius: 18px;
   display: flex;
   align-items: center;
   gap: 4px;
   cursor: pointer;
+  
 }
 
 .btn_container:hover {
