@@ -4,6 +4,7 @@ import { fetchSearching } from '../../Apis/ApiServices';
 import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoSearchSharp, IoLogOut } from "react-icons/io5";
+import { CiDark } from 'react-icons/ci';
 import { MdNewspaper, MdFavorite } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
@@ -13,12 +14,19 @@ import { Link } from 'react-router-dom';
 import { MaterialUISwitch } from '../../tools/muiTheme';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 
 
 
 function SideBar() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const handleToggle = (event) => {
+    setIsDarkMode(event.target.checked);
+    // Additional logic for toggling theme can be added here
+  };
 
   const [open, setOpen] = useState(true);
   const [iconToggle, setIconToggle] = useState(false);
@@ -148,10 +156,19 @@ function SideBar() {
             {open && <h1 className=''>Watchlist</h1>}
           </button>
 
-            <FormControlLabel className='Logout_icon'
-              control={<MaterialUISwitch sx={{ m: 0 }} defaultChecked />}
-              label=""
-            />
+          <FormControlLabel
+          className='Theme_Toggle'
+      control={
+        <MaterialUISwitch
+          checked={isDarkMode}
+          onChange={handleToggle}
+          icon={<LightModeIcon sx={{ fontSize: 30,backgroundColor: 'white',borderRadius: '15px' ,color: '#960019', padding: '2px' }} />}
+          checkedIcon={<DarkModeIcon sx={{ fontSize: 30,backgroundColor: 'white',borderRadius: '15px' ,color: '#960019', padding: '2px' }} />}
+          sx={{ m: 0 }}
+        />
+      }
+      label=""
+    />
 
           
         </div>

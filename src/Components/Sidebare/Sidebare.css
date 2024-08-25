@@ -215,16 +215,11 @@ h1{
     width: 70%;
 }
 
-.Logout_icon{
+.Theme_Toggle{
     position: absolute;
     bottom: 5%;
     display: flex;
 }
 
-/* .Logout_icon .Feeds_Icons_Text{
-    font-size: 17px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-} */
+
 

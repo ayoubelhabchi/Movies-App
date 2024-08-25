@@ -140,7 +140,7 @@ export async function fetchAnimeOptionFilter(search, year, page = 1, highScore, 
     page = Math.max(1, Math.min(page, 500));
     const fixedGenres = [16, 10765];
     
-    let query = `${Base_Url}${search ? `search/tv?query=${search}&` : Discover_Tv_Api }api_key=${Api_Key}&page=${page}&with_genres=16,10765`;
+    let query = `${Base_Url}${search ? `search/tv?query=${search}&` : Discover_Tv_Api }api_key=${Api_Key}&page=${page}`;
     
     if (year) query += `&first_air_date_year=${year}`;
     if (highScore) query += `&sort_by=${highScore}`;

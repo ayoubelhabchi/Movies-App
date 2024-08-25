@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 
+
 const selectTheme = createTheme({
   components: {
     MuiMenuItem: {
@@ -66,20 +67,19 @@ const selectTheme = createTheme({
   },
 });
 
-export {selectTheme};
 
 
-const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+  const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
     padding: 7,
     '& .MuiSwitch-switchBase': {
       margin: 1,
       padding: 0,
-      transform: 'translateX(6px)',
+      transform: 'translateX(5px)',
       '&.Mui-checked': {
         color: '#fff',
-        transform: 'translateX(22px)',
+        transform: 'translateX(26px)',
         '& .MuiSwitch-thumb:before': {
           backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
             '#fff',
@@ -116,4 +116,4 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
   }));
 
-  export {MaterialUISwitch};
+  export {MaterialUISwitch,selectTheme};

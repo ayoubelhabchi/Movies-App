@@ -55,16 +55,7 @@ function Movies() {
       setMovies(movies);
       setTotalPages(totalPages);
     };
-    console.log("Current State:", {
-      searchQuery,
-      filterByYear,
-      filterByCertification,
-      filterBySort,
-      filterByLanguage,
-      filterByCountry,
-      currentPage,
-      selectedGenres
-    });
+
     fetchFilteredData();
   }, [searchQuery,filterByYear, filterByCertification, filterBySort, filterByLanguage, filterByCountry, currentPage,selectedGenres]);
   
@@ -126,114 +117,114 @@ function Movies() {
           
       <div className="top_search_bar">
         <div>
+          <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, minWidth: 90 }} size="small">
+            <InputLabel id="filter-year-label">Year</InputLabel>
+            <Select
+              labelId="filter-year-label"
+              id="filter-year"
+              value={filterByYear}
+              label="Year"
+              onChange={handleFilterByYear}
+            >
+              <MenuItem value="">Year</MenuItem>
+              <MenuItem value={2024}>2024</MenuItem>
+              <MenuItem value={2023}>2023</MenuItem>
+              <MenuItem value={2022}>2022</MenuItem>
+              <MenuItem value={2021}>2021</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
+
         <ThemeProvider theme={selectTheme}>
-  <FormControl sx={{ m: 1, minWidth: 90 }} size="small">
-    <InputLabel id="filter-year-label">Year</InputLabel>
-    <Select
-      labelId="filter-year-label"
-      id="filter-year"
-      value={filterByYear}
-      label="Year"
-      onChange={handleFilterByYear}
-    >
-      <MenuItem value="">Year</MenuItem>
-      <MenuItem value={2024}>2024</MenuItem>
-      <MenuItem value={2023}>2023</MenuItem>
-      <MenuItem value={2022}>2022</MenuItem>
-      <MenuItem value={2021}>2021</MenuItem>
-    </Select>
-  </FormControl>
-</ThemeProvider>
+          <FormControl sx={{ m: 0, minWidth: 110 }} size="small">
+            <InputLabel id="filter-sort-label">Sort By</InputLabel>
+            <Select
+              labelId="filter-sort-label"
+              id="filter-sort"
+              value={filterBySort}
+              label="Sort By"
+              onChange={handleFilterBySort}
+            >
+              <MenuItem value="">Sort By</MenuItem>
+              <MenuItem value="vote_count.desc">Most Popular</MenuItem>
+              <MenuItem value="revenue.desc">Revenue Movies</MenuItem>
+              <MenuItem value="primary_release_date.desc">Upcoming Movies</MenuItem>
+              <MenuItem value="primary_release_date.asc">Oldest Movies</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
 
-<ThemeProvider theme={selectTheme}>
-  <FormControl sx={{ m: 1, minWidth: 110 }} size="small">
-    <InputLabel id="filter-sort-label">Sort By</InputLabel>
-    <Select
-      labelId="filter-sort-label"
-      id="filter-sort"
-      value={filterBySort}
-      label="Sort By"
-      onChange={handleFilterBySort}
-    >
-      <MenuItem value="">Sort By</MenuItem>
-      <MenuItem value="vote_count.desc">Most Popular</MenuItem>
-      <MenuItem value="revenue.desc">Revenue Movies</MenuItem>
-      <MenuItem value="primary_release_date.desc">Upcoming Movies</MenuItem>
-      <MenuItem value="primary_release_date.asc">Oldest Movies</MenuItem>
-    </Select>
-  </FormControl>
-</ThemeProvider>
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, minWidth: 130 }} size="small">
+            <InputLabel id="filter-certification-label">Certification</InputLabel>
+            <Select
+              labelId="filter-certification-label"
+              id="filter-certification"
+              value={filterByCertification}
+              label="Certification"
+              onChange={handleFilterByCertification}
+            >
+              <MenuItem value="">Certification</MenuItem>
+              <MenuItem value="certification=G&certification_country=US">G</MenuItem>
+              <MenuItem value="certification=PG&certification_country=US">PG</MenuItem>
+              <MenuItem value="certification=PG-13&certification_country=US">PG-13</MenuItem>
+              <MenuItem value="certification=R&certification_country=US">R</MenuItem>
+              <MenuItem value="certification=NC-17&certification_country=US">NC-17</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
 
-<ThemeProvider theme={selectTheme}>
-  <FormControl sx={{ m: 1, minWidth: 130 }} size="small">
-    <InputLabel id="filter-certification-label">Certification</InputLabel>
-    <Select
-      labelId="filter-certification-label"
-      id="filter-certification"
-      value={filterByCertification}
-      label="Certification"
-      onChange={handleFilterByCertification}
-    >
-      <MenuItem value="">Certification</MenuItem>
-      <MenuItem value="certification=G&certification_country=US">G</MenuItem>
-      <MenuItem value="certification=PG&certification_country=US">PG</MenuItem>
-      <MenuItem value="certification=PG-13&certification_country=US">PG-13</MenuItem>
-      <MenuItem value="certification=R&certification_country=US">R</MenuItem>
-      <MenuItem value="certification=NC-17&certification_country=US">NC-17</MenuItem>
-    </Select>
-  </FormControl>
-</ThemeProvider>
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, minWidth: 120 }} size="small">
+            <InputLabel id="filter-language-label">Language</InputLabel>
+            <Select
+              labelId="filter-language-label"
+              id="filter-language"
+              value={filterByLanguage}
+              label="Language"
+              onChange={handleFilterByLanguage}
+            >
+              <MenuItem value="">Language</MenuItem>
+              <MenuItem value="en">English</MenuItem>
+              <MenuItem value="ca">Canada</MenuItem>
+              <MenuItem value="en">United Kingdom</MenuItem>
+              <MenuItem value="de">Germany</MenuItem>
+              <MenuItem value="fr">French</MenuItem>
+              <MenuItem value="es">Spanish</MenuItem>
+              <MenuItem value="it">Italy</MenuItem>
+              <MenuItem value="zh">China</MenuItem>
+              <MenuItem value="ko">Korea</MenuItem>
+              <MenuItem value="ja">Japan</MenuItem>
+              <MenuItem value="ar">Arabic</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
 
-<ThemeProvider theme={selectTheme}>
-  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <InputLabel id="filter-language-label">Language</InputLabel>
-    <Select
-      labelId="filter-language-label"
-      id="filter-language"
-      value={filterByLanguage}
-      label="Language"
-      onChange={handleFilterByLanguage}
-    >
-      <MenuItem value="">Language</MenuItem>
-      <MenuItem value="en">English</MenuItem>
-      <MenuItem value="ca">Canada</MenuItem>
-      <MenuItem value="en">United Kingdom</MenuItem>
-      <MenuItem value="de">Germany</MenuItem>
-      <MenuItem value="fr">French</MenuItem>
-      <MenuItem value="es">Spanish</MenuItem>
-      <MenuItem value="it">Italy</MenuItem>
-      <MenuItem value="zh">China</MenuItem>
-      <MenuItem value="ko">Korea</MenuItem>
-      <MenuItem value="ja">Japan</MenuItem>
-      <MenuItem value="ar">Arabic</MenuItem>
-    </Select>
-  </FormControl>
-</ThemeProvider>
-
-<ThemeProvider theme={selectTheme}>
-  <FormControl sx={{ m: 1, minWidth: 105 }} size="small">
-    <InputLabel id="filter-country-label">Country</InputLabel>
-    <Select
-      labelId="filter-country-label"
-      id="filter-country"
-      value={filterByCountry}
-      label="Country"
-      onChange={handleFilterByCountry}
-    >
-      <MenuItem value="">Country</MenuItem>
-      <MenuItem value="US">USA</MenuItem>
-      <MenuItem value="CA">Canada</MenuItem>
-      <MenuItem value="GB">United Kingdom</MenuItem>
-      <MenuItem value="DE">Germany</MenuItem>
-      <MenuItem value="FR">French</MenuItem>
-      <MenuItem value="IT">Italy</MenuItem>
-      <MenuItem value="CN">China</MenuItem>
-      <MenuItem value="KR">Korea</MenuItem>
-      <MenuItem value="JP">Japan</MenuItem>
-      <MenuItem value="AR">Arabic</MenuItem>
-    </Select>
-  </FormControl>
-</ThemeProvider>
+        <ThemeProvider theme={selectTheme}>
+          <FormControl sx={{ m: 0, minWidth: 105 }} size="small">
+            <InputLabel id="filter-country-label">Country</InputLabel>
+            <Select
+              labelId="filter-country-label"
+              id="filter-country"
+              value={filterByCountry}
+              label="Country"
+              onChange={handleFilterByCountry}
+            >
+              <MenuItem value="">Country</MenuItem>
+              <MenuItem value="US">USA</MenuItem>
+              <MenuItem value="CA">Canada</MenuItem>
+              <MenuItem value="GB">United Kingdom</MenuItem>
+              <MenuItem value="DE">Germany</MenuItem>
+              <MenuItem value="FR">French</MenuItem>
+              <MenuItem value="IT">Italy</MenuItem>
+              <MenuItem value="CN">China</MenuItem>
+              <MenuItem value="KR">Korea</MenuItem>
+              <MenuItem value="JP">Japan</MenuItem>
+              <MenuItem value="AR">Arabic</MenuItem>
+            </Select>
+          </FormControl>
+        </ThemeProvider>
         </div>
         
         <div className='btn_search_container'>

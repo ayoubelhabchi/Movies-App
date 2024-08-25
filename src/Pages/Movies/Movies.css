@@ -44,11 +44,6 @@ gap: 4px;
     flex: 1;
 }
 
-/* .main_content {
-    height: 100%;
-    flex-basis: 80%; 
-    flex-grow: 1; 
-  } */
 
     .side_tags {
     background-color: rgba(128, 128, 128, 0.477);
