@@ -21,13 +21,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 
 function SideBar() {
+
+  
   const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const handleToggle = (event) => {
-    setIsDarkMode(event.target.checked);
-    // Additional logic for toggling theme can be added here
-  };
-
   const [open, setOpen] = useState(true);
   const [iconToggle, setIconToggle] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,6 +56,10 @@ function SideBar() {
   const handleIconToggle = () => {
     setOpen(!open);
     setIconToggle(!iconToggle);
+  };
+
+  const handleToggle = (event) => {
+    setIsDarkMode(event.target.checked);
   };
 
   useEffect(() => {

@@ -118,7 +118,7 @@ function Movies() {
       <div className="top_search_bar">
         <div>
           <ThemeProvider theme={selectTheme}>
-          <FormControl sx={{ m: 0, minWidth: 90 }} size="small">
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 90 }} size="small">
             <InputLabel id="filter-year-label">Year</InputLabel>
             <Select
               labelId="filter-year-label"
@@ -137,7 +137,7 @@ function Movies() {
         </ThemeProvider>
 
         <ThemeProvider theme={selectTheme}>
-          <FormControl sx={{ m: 0, minWidth: 110 }} size="small">
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 110 }} size="small">
             <InputLabel id="filter-sort-label">Sort By</InputLabel>
             <Select
               labelId="filter-sort-label"
@@ -156,7 +156,7 @@ function Movies() {
         </ThemeProvider>
 
         <ThemeProvider theme={selectTheme}>
-          <FormControl sx={{ m: 0, minWidth: 130 }} size="small">
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 137 }} size="small">
             <InputLabel id="filter-certification-label">Certification</InputLabel>
             <Select
               labelId="filter-certification-label"
@@ -176,7 +176,7 @@ function Movies() {
         </ThemeProvider>
 
         <ThemeProvider theme={selectTheme}>
-          <FormControl sx={{ m: 0, minWidth: 120 }} size="small">
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 125 }} size="small">
             <InputLabel id="filter-language-label">Language</InputLabel>
             <Select
               labelId="filter-language-label"
@@ -202,7 +202,7 @@ function Movies() {
         </ThemeProvider>
 
         <ThemeProvider theme={selectTheme}>
-          <FormControl sx={{ m: 0, minWidth: 105 }} size="small">
+          <FormControl sx={{ m: 0,paddingRight: 1, minWidth: 110 }} size="small">
             <InputLabel id="filter-country-label">Country</InputLabel>
             <Select
               labelId="filter-country-label"
