@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react";
-import { json } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import Anime from "../Pages/Animation/Anime";
 const Base_Url = `https://api.themoviedb.org/3/`
 const Api_Key = `41ffedf396cc16675a2bc485b84f084e`
@@ -167,6 +167,29 @@ export async function fetchAnimeOptionFilter(search, year, page = 1, highScore, 
   } catch (error) {
     console.error("Error while fetching data", error);
     return { animes: [], totalPages: 1 };
+  }
+}
+export async function fetchById(id) {
+    console.log("id",id);
+  
+  try {
+
+    
+    let query = `${Base_Url}movie/${id}?api_key=${Api_Key}&append_to_response=credits%2Ccrew`;
+    
+
+    console.log("API Request URL:", query);
+
+    const response = await fetch(query);
+    const data = await response.json();
+    
+    return {
+      details: data,
+    };
+
+  } catch (error) {
+    console.error("Error while fetching data", error);
+    return { details: [], totalPages: 1 };
   }
 }
 

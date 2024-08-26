@@ -1,4 +1,5 @@
 import React,{ useState, useEffect } from 'react'
+import {useNavigate } from 'react-router-dom';
 import './Movies.css'
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { fetchMoviesOptionFilter } from '../../Apis/ApiServices';
@@ -7,7 +8,7 @@ import { HiOutlineXMark } from "react-icons/hi2";
 import { AiFillLike } from "react-icons/ai";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { IoSearchSharp, IoLogOut } from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -17,6 +18,8 @@ import { ThemeProvider } from '@mui/material/styles';
 
 function Movies() {
 
+  const navigate = useNavigate();
+  
   const [filterByYear, setFilterByYear] = useState('');
   const [filterByCertification, setFilterByCertification] = useState('');
   const [filterBySort, setFilterBySort] = useState('');
@@ -60,7 +63,10 @@ function Movies() {
   }, [searchQuery,filterByYear, filterByCertification, filterBySort, filterByLanguage, filterByCountry, currentPage,selectedGenres]);
   
   
-
+  const handleGetById = (id) => {
+    console.log("id", id);
+    navigate(`/details/${id}`);
+  };
 
   const getGenreNames = (genreIds) => {
     return genreIds.map(id => {
@@ -265,7 +271,7 @@ function Movies() {
           {movies && movies.length > 0 ? (
             <div className='movies_grid'>
               {movies.map((movie) => (
-                <div className='movie_card' key={movie.id}>
+                <div className='movie_card' onClick={() => handleGetById(movie.id)} key={movie.id}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     alt={movie.title}

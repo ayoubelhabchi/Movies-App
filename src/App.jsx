@@ -7,6 +7,7 @@ import TvSeries from './Pages/Tv/TvSeries';
 import Anime from './Pages/Animation/Anime';
 import Home from './Pages/Home/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import DetailsPage from './Pages/Details Page/DetailsPage';
 
 const theme = createTheme({
   palette: {
@@ -35,14 +36,15 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/tv-shows" element={<TvSeries />} />
-            <Route path="/anime" element={<Anime />} />
-          </Routes>
-        </Layout>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="tv-shows" element={<TvSeries />} />
+          <Route path="anime" element={<Anime />} />
+        </Route>
+        <Route path="/details/:id" element={<DetailsPage />} />
+      </Routes>
       </ThemeProvider>
     </div>
   );
