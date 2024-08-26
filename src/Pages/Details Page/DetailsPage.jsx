@@ -4,7 +4,7 @@ import { fetchById } from '../../Apis/ApiServices';
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import { MdFavorite } from "react-icons/md";
+import { MdFavorite,MdPlayCircle } from "react-icons/md";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/"
 
@@ -73,7 +73,7 @@ function DetailsPage() {
               <div className='poster_ratings'>
                   <div>
                     <FaStar className='FaStar'/>
-                    <h2 className='vote_average'>{movieDetails.details.vote_average}</h2>
+                    <h2 className='vote_average'>{movieDetails.details.vote_average} /10</h2>
                   </div>
                   <div>
                     <AiFillLike className='AiFillLike'/>
@@ -93,7 +93,7 @@ function DetailsPage() {
                   </div>
 
                   <div>
-                    <h3 className=' bg-slate-400 rounded-full p-0.5 px-1'>{movieDetails.details.runtime} min</h3>
+                    <h3 className=' bg-gray-400 rounded-full p-0.5 px-1'>{movieDetails.details.runtime} min</h3>
                   </div>
                   <div>
                     <h3>{movieDetails.details.status}</h3>
@@ -106,13 +106,17 @@ function DetailsPage() {
               </div>
 
               <div className='poster_providers'>
+
                   <div className='watch_trailer'>
-                    <button className=''>Watch Trailer</button>
+                    <button>
+                    <MdPlayCircle className='MdPlayCircle'/>
+                      Watch Trailer
+                      </button>
                   </div>
 
                   <div className='whichlist'>
                     <MdFavorite className='MdFavorite'/>
-                    <button className=''>Which List</button>
+                    <button className=''></button>
                   </div>
               </div>
 

@@ -58,8 +58,12 @@
     color: white;
 }
 
+.poster_ratings h3{
+    font-weight: 600;
+}
+
 .poster_ratings .vote_average, .FaStar{
-    color: rgb(228, 228, 13);
+    color: rgb(255, 255, 0);
 }
 
 .poster_ratings .vote_count, .AiFillLike{
@@ -78,7 +82,7 @@
     font-size: medium;
     font-weight: 400;
     text-wrap: wrap;
-    padding-bottom: 10px;
+    padding-bottom: 14px;
 }
 
 .poster_ratings div:not(:last-child)::after {
@@ -91,9 +95,33 @@
     display: flex;
     align-items: center;
     color: white;
+    gap: 4px;
 }
 
+.whichlist .MdFavorite{
+    font-size: 2rem;
+    color: white;
+}
 
 .watch_trailer button{
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 4px;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
 
+.watch_trailer .MdPlayCircle{
+ color: red;
+ font-size: 20px;
+}
+
+.poster_providers{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
