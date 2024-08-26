@@ -40,7 +40,8 @@
 
 .poster_container img{
     height: 90vh;
-    width: 70vw;
+    width: 100vw;
+    max-width: 30vw;
     border-radius: 30px;
     box-shadow: 0 10px 8px rgba(0, 0, 0, 0.331);
 }
@@ -117,11 +118,55 @@
 
 .watch_trailer .MdPlayCircle{
  color: red;
- font-size: 20px;
+ font-size: 1.2rem;
 }
 
 .poster_providers{
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.officila_site a{
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 4px;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.GoHomeFill{
+    font-size: 1.2rem;
+}
+
+.nav_container{
+    z-index: 10;
+    color: white;
+    position: fixed;
+    /* left: 10%; */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav_links{
+    display: flex; 
+    align-items: center;
+    gap: 20px;
+}
+
+.icon_container{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.icon_container h1{
+    font-size: 1.7rem;
+    font-weight: 600;
 }

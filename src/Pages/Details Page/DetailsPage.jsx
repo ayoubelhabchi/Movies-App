@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';import './DetailsPage.css'
+import { Link, NavLink, useParams} from 'react-router-dom'
+import './DetailsPage.css'
 import { fetchById } from '../../Apis/ApiServices';
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { MdFavorite,MdPlayCircle } from "react-icons/md";
+import { GoHomeFill } from "react-icons/go";
+
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/"
 
@@ -13,7 +16,7 @@ const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/"
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
-
+  const [playTrailer, setPlayTrailer] = useState(false)
   useEffect(() => {
     async function getMoviesDetails() {
       const details = await fetchById(id)
@@ -61,7 +64,44 @@ function DetailsPage() {
 
   return (
     <div className='details_main_container' style={{backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`}}>
-        
+        <nav className='nav_container'>
+          <div className='icon_container'>
+            <img className='h-12 w-12' src="/popcorn-svgrepo-com.svg" />
+            <h1>Fushaar</h1>
+          </div>
+          <ul className='nav_links'>
+            <li className=''>
+            <NavLink
+              to="/movies"
+              className={({ isActive }) =>
+                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${isActive ? 'opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl' : 'opacity-60 text-lg'}`
+              }
+            >
+              Movies
+            </NavLink>
+            </li>
+            <li>
+            <NavLink
+              to="/tv-shows"
+              className={({ isActive }) =>
+                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${isActive ? 'opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl' : 'opacity-60 text-lg'}`
+              }
+            >
+              Tv Shows
+            </NavLink>
+            </li>
+            <li>
+            <NavLink
+              to="/anime"
+              className={({ isActive }) =>
+                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${isActive ? 'opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl' : 'opacity-60 text-lg'}`
+              }
+            >
+              Anime
+            </NavLink>
+            </li>
+          </ul>
+        </nav>
       <div className='deatils_shadows'></div>
 
         <div className='deatils_section'>
@@ -111,12 +151,19 @@ function DetailsPage() {
                     <button>
                     <MdPlayCircle className='MdPlayCircle'/>
                       Watch Trailer
-                      </button>
+                    </button>
                   </div>
 
                   <div className='whichlist'>
                     <MdFavorite className='MdFavorite'/>
-                    <button className=''></button>
+                    <button></button>
+                  </div>
+
+                  <div className='officila_site'>
+                    <a href={movieDetails.details.homepage} target="_blank" rel="noopener noreferrer">
+                    <GoHomeFill className='GoHomeFill'/>
+                    Official WebSite
+                    </a>
                   </div>
               </div>
 
