@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import YouTube from 'react-youtube';
 import { Link, NavLink, useParams} from 'react-router-dom'
 import './DetailsPage.css'
 import { fetchById } from '../../Apis/ApiServices';
@@ -17,6 +18,11 @@ function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false)
+
+  const handleTrailerPlay = () =>{
+    setPlayTrailer(true)
+  }
+
   useEffect(() => {
     async function getMoviesDetails() {
       const details = await fetchById(id)
@@ -61,6 +67,8 @@ function DetailsPage() {
       );
     });
   };
+
+  // console.log("movieDetails.details.videos[0]?.results.key",movieDetails.details.videos.results[0]?.key);
 
   return (
     <div className='details_main_container' style={{backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`}}>
@@ -148,7 +156,7 @@ function DetailsPage() {
               <div className='poster_providers'>
 
                   <div className='watch_trailer'>
-                    <button>
+                    <button onClick={handleTrailerPlay}>
                     <MdPlayCircle className='MdPlayCircle'/>
                       Watch Trailer
                     </button>
@@ -174,6 +182,13 @@ function DetailsPage() {
           </div>
 
         </div>
+
+              {playTrailer &&
+
+             <YouTube
+             videoId={movieDetails.details.videos.results[38]?.key}
+             />
+              }
 
     </div>
   )

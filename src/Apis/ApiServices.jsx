@@ -175,7 +175,7 @@ export async function fetchById(id) {
   try {
 
     
-    let query = `${Base_Url}movie/${id}?api_key=${Api_Key}&append_to_response=credits%2Ccrew`;
+    let query = `${Base_Url}movie/${id}?api_key=${Api_Key}&append_to_response=credits%2Ccrew%2Cvideos`;
     
 
     // console.log("API Request URL:", query);
