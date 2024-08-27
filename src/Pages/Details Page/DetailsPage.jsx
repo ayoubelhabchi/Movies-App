@@ -7,7 +7,7 @@ import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import { MdFavorite, MdPlayCircle } from "react-icons/md";
+import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
 import Avatar from "@mui/material/Avatar";
@@ -15,6 +15,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
+const logoImageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
 function DetailsPage() {
   const { id } = useParams();
@@ -231,11 +232,6 @@ function DetailsPage() {
               </button>
             </div>
 
-            <div className="whichlist">
-              <MdFavorite className="MdFavorite" />
-              <button></button>
-            </div>
-
             <div className="officila_site">
               <a
                 href={movieDetails.details.homepage}
@@ -246,13 +242,28 @@ function DetailsPage() {
                 Official WebSite
               </a>
             </div>
+
+            <div className="whichlist">
+              <button className="tooltip">
+                <MdFavorite className="MdFavorite" />
+                <span className="tooltiptext">Add Favorite</span>
+              </button>
+            </div>
+
+            <div className="whichlist">
+              <button className="tooltip">
+                <MdBookmarkAdd className="MdFavorite" />
+                <span className="tooltiptext">Add To Watchlist</span>
+              </button>
+            </div>
+
           </div>
           <div className="actors_container">
-            <h1>Cast :</h1>
+            <h1>Top Cast</h1>
             <AvatarGroup
               max={6}
               renderSurplus={(surplus) => (
-                <span className=" text-xs flex m-4 p8">+{surplus} more</span>
+                <span className=" cursor-pointer text-xs flex m-4 p8">+{surplus} more</span>
               )}
             >
               {actors.map((actor, index) => (
@@ -269,7 +280,7 @@ function DetailsPage() {
             {compaines.map((company, index) => (
               <div key={index} className="company_avatar">
                 <Avatar src={`${profileImageBaseUrl}${company.logo_path}`} sx={{padding: '0px', backgroundColor: 'white', width: '100px',  height: '100%'  }} variant="rounded"></Avatar>
-                <img src={`${profileImageBaseUrl}${company.logo_path}`} alt="" />
+                <img className=" h-8 bg-white" src={`${logoImageBaseUrl}${company.logo_path}`} alt="" />
                 <h1>{company.name}</h1>
               </div>
             ))}
