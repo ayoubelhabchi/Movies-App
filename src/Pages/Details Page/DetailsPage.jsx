@@ -6,17 +6,21 @@ import { fetchById } from "../../Apis/ApiServices";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
+import { LiaImdb } from "react-icons/lia";
 import { MdFavorite, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
+import Avatar from "@mui/material/Avatar";
+import AvatarGroup from "@mui/material/AvatarGroup";
+
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
+const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
-
 
   const handleTrailerPlay = () => {
     setPlayTrailer(true);
@@ -26,17 +30,18 @@ function DetailsPage() {
   };
 
   const findtrailer = () => {
-
     const trailer = movieDetails.details.videos.results.find(
       (vid) => vid.name === "Official Trailer"
     );
+    const key = trailer
+      ? trailer.key
+      : movieDetails.details.videos.results[0]?.key;
 
     // setPlayTrailer(playTrailer ? trailer : movieDetails.details.videos.results[0]?.key)
 
     return (
-
       <YouTube
-        videoId={trailer.key}
+        videoId={key}
         containerClassName={"youtube_container"}
         className="youtube_container"
         opts={{
@@ -71,6 +76,12 @@ function DetailsPage() {
     return <div className=" text-white text-3xl">Loading...</div>;
 
   const genreIds = movieDetails.details.genres.map((genre) => genre.id);
+  const casts = movieDetails.details?.credits?.cast || [];
+  const productionComanies = movieDetails.details?.production_companies || [];
+  const compaines = productionComanies.map((company) => company);
+  const actors = casts.map((actor) => actor);
+
+  console.log("compaines", compaines);
 
   // Function to get genre names and apply color styles
   const getGenreNames = (genreIds) => {
@@ -88,7 +99,7 @@ function DetailsPage() {
           style={{
             backgroundColor: backgroundColor,
             color: "#fff",
-            padding: "4px 5px 4px",
+            padding: "1px 2px 1px",
             borderRadius: "30px",
             margin: "0px 3px 4px",
             display: "inline-flex",
@@ -101,8 +112,6 @@ function DetailsPage() {
       );
     });
   };
-
-  // console.log("movieDetails.details.videos[0]?.results.key",movieDetails.details.videos.results[0]?.key);
 
   return (
     <div
@@ -170,6 +179,7 @@ function DetailsPage() {
           </div>
           <div className="poster_ratings">
             <div>
+              <LiaImdb className="LiaImdb" />
               <FaStar className="FaStar" />
               <h2 className="vote_average">
                 {movieDetails.details.vote_average} /10
@@ -183,7 +193,9 @@ function DetailsPage() {
             <div>
               <h3>{getGenreNames(genreIds)}</h3>
             </div>
+          </div>
 
+          <div className="poster_ratings">
             <div>
               <h3>{movieDetails.details.origin_country}</h3>
             </div>
@@ -193,12 +205,17 @@ function DetailsPage() {
             </div>
 
             <div>
-              <h3 className=" bg-gray-400 rounded-full p-0.5 px-1">
+              <h3 className=" bg-gray-400 rounded-full p0.5 px-0.5">
                 {movieDetails.details.runtime} min
               </h3>
             </div>
+
             <div>
-              <h3>{movieDetails.details.status}</h3>
+              <h3> {movieDetails.details.status}</h3>
+            </div>
+
+            <div>
+              <h3> {movieDetails.details.release_date}</h3>
             </div>
           </div>
 
@@ -230,6 +247,33 @@ function DetailsPage() {
               </a>
             </div>
           </div>
+          <div className="actors_container">
+            <h1>Cast :</h1>
+            <AvatarGroup
+              max={6}
+              renderSurplus={(surplus) => (
+                <span className=" text-xs flex m-4 p8">+{surplus} more</span>
+              )}
+            >
+              {actors.map((actor, index) => (
+                <Avatar
+                  key={index}
+                  alt={actor.name}
+                  src={`${profileImageBaseUrl}${actor.profile_path}`}
+                />
+              ))}
+            </AvatarGroup>
+          </div>
+
+          {/* <div className="production_companies_container">
+            {compaines.map((company, index) => (
+              <div key={index} className="company_avatar">
+                <Avatar src={`${profileImageBaseUrl}${company.logo_path}`} sx={{padding: '0px', backgroundColor: 'white', width: '100px',  height: '100%'  }} variant="rounded"></Avatar>
+                <img src={`${profileImageBaseUrl}${company.logo_path}`} alt="" />
+                <h1>{company.name}</h1>
+              </div>
+            ))}
+          </div> */}
         </div>
 
         <div className="poster_container">
@@ -241,7 +285,11 @@ function DetailsPage() {
         </div>
       </div>
       {movieDetails.details.videos && playTrailer ? findtrailer() : null}
-      {playTrailer && isTrailerReady ? <button onClick={handleTrailerClose} className="trailer_close">Close</button> : null}
+      {playTrailer && isTrailerReady ? (
+        <button onClick={handleTrailerClose} className="trailer_close">
+          Close
+        </button>
+      ) : null}
     </div>
   );
 }

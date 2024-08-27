@@ -35,7 +35,10 @@
   /* padding: 20px; */
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
   /* margin: 10px; */
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
 }
 
 .poster_container img{
@@ -63,8 +66,12 @@
     font-weight: 600;
 }
 
-.poster_ratings .vote_average, .FaStar{
+.poster_ratings .vote_average, .FaStar , .LiaImdb{
     color: rgb(255, 255, 0);
+}
+
+.LiaImdb{
+    font-size: 1.6rem;
 }
 
 .poster_ratings .vote_count, .AiFillLike{
@@ -191,4 +198,27 @@
     background-color: #960019ba;
     padding: 6px 10px;
     margin: 10px;
+    border: 0.5px solid white;
 }
+
+.actors_container {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: start;
+    row-gap: 8px; 
+}
+
+.actors_container h1{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.production_companies_container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+
