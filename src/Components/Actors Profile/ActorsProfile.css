@@ -1,0 +1,88 @@
+.profiles_main_container{
+    height: 100%;
+    background-color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 15px;
+    border-radius: 20px;
+
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+  
+  .item {
+    position: relative;
+    /* overflow: hidden; */
+    cursor: pointer;
+    height: 100%;
+
+  }
+  
+  .front {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .back {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    transition: bottom 0.5s ease-in-out;
+    z-index: 2;
+    padding: 16px;
+    /* overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none; */
+  }
+  
+  .item.flipped .back {
+    bottom: 0;
+  }
+  
+  .actor-details p{
+    color: black;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .actor-details {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 8px;
+    color: black;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .social-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; 
+    justify-content: center;
+  }
+  
+  .social-media-section h1 {
+    margin-bottom: 14px;
+    font-size: 1rem; 
+    color: #000;
+  }
+  .social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; 
+    height: 40px;
+  }
+  
+  .social-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  
+  

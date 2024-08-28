@@ -10,18 +10,41 @@ import { LiaImdb } from "react-icons/lia";
 import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 const logoImageBaseUrl = "https://image.tmdb.org/t/p/original/";
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80%',
+  height: '100%',
+  outline: 'none',
+  p: 2
+};
+
 
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleTrailerPlay = () => {
     setPlayTrailer(true);
@@ -82,7 +105,7 @@ function DetailsPage() {
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
 
-  console.log("compaines", compaines);
+  // console.log("compaines", compaines);
 
   // Function to get genre names and apply color styles
   const getGenreNames = (genreIds) => {
@@ -263,7 +286,7 @@ function DetailsPage() {
             <AvatarGroup
               max={6}
               renderSurplus={(surplus) => (
-                <span className=" cursor-pointer text-xs flex m-4 p8">+{surplus} more</span>
+                <span onClick={handleOpen} className=" cursor-pointer text-xs flex m-4 p8">+{surplus} more</span>
               )}
             >
               {actors.map((actor, index) => (
@@ -296,11 +319,39 @@ function DetailsPage() {
         </div>
       </div>
       {movieDetails.details.videos && playTrailer ? findtrailer() : null}
+
       {playTrailer && isTrailerReady ? (
         <button onClick={handleTrailerClose} className="trailer_close">
           Close
         </button>
       ) : null}
+
+      {/* {actorsProfileToggle && <ActorsProfile handleActorsProfileClose={handleActorsProfileClose}/>} */}
+      <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            sx: {
+              backdropFilter: 'blur(10px)',
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            },
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <ActorsProfile actors={actors}/>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
     </div>
   );
 }
