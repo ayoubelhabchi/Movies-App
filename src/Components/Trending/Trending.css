@@ -95,6 +95,45 @@ font-weight: 500;
     gap: 4px;
   }
 
-  /* .rating {
-    color: yellow;
-  } */
+  
+
+  @media (max-width: 576px) {
+    .movie-card {
+      height: 100%;
+      position: relative;
+      margin: 0 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .movie-image {
+      height: 300px;
+      width: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .card-info h1{
+    margin: 2px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    }
+
+    .slider-container {
+        padding-bottom: 10px;  
+    }
+    
+  }
+  
+  /* Small devices (tablets) */
+  @media (min-width: 577px) and (max-width: 768px) {
+    
+  }
+  
+  /* Medium devices (tablets in landscape) */
+  @media (min-width: 769px) and (max-width: 992px) {
+    
+  }
+  

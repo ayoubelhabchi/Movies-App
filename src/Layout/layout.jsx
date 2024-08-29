@@ -3,7 +3,8 @@ import { Outlet } from 'react-router-dom';
 import SideBar from '../Components/Sidebare/sideBare'
 import TopBar from '../Components/TopBar/topBar'
 import './Layout.css'
-function Layout({ children }) {
+import DropDownBar from '../Components/DropDownBar/DropDownBar';
+function Layout() {
   return (
     <div className="layout-container w-full">
       <SideBar />
@@ -13,6 +14,11 @@ function Layout({ children }) {
         <Outlet />
         </div>
       </div>
+
+      <div className='dropdown-bar'>
+        <DropDownBar/>
+      </div>
+      
     </div>
   )
 }

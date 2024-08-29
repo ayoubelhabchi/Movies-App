@@ -2,7 +2,7 @@ const getCarouselSettings = () => ({
     additionalTransfrom: 0,
     arrows: true,
     autoPlay: true,
-    autoPlaySpeed: 3500,
+    autoPlaySpeed: 2500,
     centerMode: false,
     className: " ",
     containerClass: "container-with-dots",

@@ -77,9 +77,8 @@
 
 .ratings-votes-container-Hero {
   display: flex;
-  justify-content: left;
+  justify-content: left;  
   gap: 8px;
-  /* padding-bottom: 4px; */
 }
 
 .rating-Hero,
@@ -132,3 +131,174 @@
   font-weight: 500;
 }
 
+
+
+.genre-badge {
+  color: #fff;
+  padding: 0.5px 5px;
+  border-radius: 30px;
+  margin: 0; 
+  display: inlineblock;
+  font-size: 1rem;
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 576px) {
+  .Cards_Conainer-Hero {
+    padding-bottom: 10px;
+  }
+
+  .Main_card-Hero {
+    height: 100%;
+    width: 100%;
+    /* max-width: 1000px; */
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .img {
+    height: 50vh;
+    width: 100vw;
+    object-fit: cover;
+    background-position: center;
+    border-radius: 40px;
+  }
+  
+  .card-info-container-Hero {
+    position: absolute;
+    top: 52%;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+    color: #fff;
+    text-align: left;
+  }
+  .text-overview{
+    font-size:xx-small;
+    font-weight: 400;
+  }
+  .card-info-Hero .Movie_Title-Hero {
+    font-size: 2rem;
+    font-weight: 600;
+    padding-bottom: 0px;
+  }
+  
+  .genres-Hero{
+    margin-top: -10px; 
+  }
+
+  .genre-badge {
+    color: #fff;
+    padding: 0.2px 3px;
+    border-radius: 30px;
+    margin: 0px 1px; 
+    display: inline-flexbox;
+    font-size: 0.6rem;
+    
+  }
+  .ratings-votes-container-Hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+  }
+  .rating-Hero h2,
+  .vots-Hero h2 {
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+  .data-Hero h2{
+    font-weight: 400;
+    font-size: x-small;
+  }
+}
+
+/* Small devices (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .Cards_Conainer-Hero {
+    padding-bottom: 10px;
+  }
+  
+  .Main_card-Hero {
+    height: 100%;
+    width: 100%;
+    /* max-width: 1000px; */
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .img {
+    height: 50vh;
+    width: 100vw;
+    object-fit: cover;
+    background-position: center;
+    border-radius: 40px;
+  }
+  
+  .card-info-container-Hero {
+    position: absolute;
+    top: 55%;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+    color: #fff;
+    text-align: left;
+  }
+  .text-overview{
+    font-size:x-small;
+    font-weight: 400;
+  }
+  .card-info-Hero .Movie_Title-Hero {
+    font-size: 2.8rem;
+    font-weight: 600;
+    padding-bottom: 2px;
+  }
+  
+  .genres-Hero{
+    margin-top: -5px; 
+    padding-bottom: 5px;
+  }
+
+  .genre-badge {
+    color: #fff;
+    padding: 0.2px 3px;
+    border-radius: 30px;
+    margin: 0px 1px; 
+    display: inline-flexbox;
+    font-size: 0.6rem;
+    
+  }
+  .ratings-votes-container-Hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+  }
+  .rating-Hero h2,
+  .vots-Hero h2 {
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+  .data-Hero h2{
+    font-weight: 400;
+    font-size: x-small;
+  }
+}
+
+/* Medium devices (tablets in landscape) */
+@media (min-width: 769px) and (max-width: 992px) {
+  
+}
+
+/* Large devices (desktops) */
+@media (min-width: 993px) {
+  
+}

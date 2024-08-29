@@ -89,7 +89,7 @@ function Trending() {
                 <div className="card-info-container">
                   <div className="card-info">
                     <h1>{movie.title || movie.name}</h1>
-
+                    <div className=" flex gap-2">
                     <div className="rating">
                     <FaStar/>
                     <h2>{movie.vote_average}</h2>
@@ -98,6 +98,7 @@ function Trending() {
                     <div className="vots">
                     <AiFillLike className="AiFillLike"/>
                     <h2>{movie.vote_count}</h2>
+                    </div>
                     </div>
 
                   </div>

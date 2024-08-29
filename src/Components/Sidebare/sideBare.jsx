@@ -5,7 +5,7 @@ import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoSearchSharp, IoLogOut } from "react-icons/io5";
 import { CiDark } from 'react-icons/ci';
-import { MdNewspaper, MdFavorite } from "react-icons/md";
+import { MdNewspaper, MdFavorite, MdBookmarkAdd } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { CiCircleChevLeft, CiTextAlignLeft } from "react-icons/ci";
@@ -153,6 +153,11 @@ function SideBar() {
 
           <button className='Feed_Container'>
             <MdFavorite className="icon" />
+            {open && <h1 className=''>Favorites</h1>}
+          </button>
+
+          <button className='Feed_Container'>
+            <MdBookmarkAdd className="icon" />
             {open && <h1 className=''>Watchlist</h1>}
           </button>
 

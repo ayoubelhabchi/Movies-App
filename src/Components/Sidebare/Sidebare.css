@@ -221,5 +221,20 @@ h1{
     display: flex;
 }
 
+/* responsive */
 
+@media (max-width: 701px) {
+    .Container {
+      display: none;
+    }
+    
+  }
+  
+  /* Show the SideBar on screens 768px and wider */
+  @media (min-width: 601px) {
+    /* .Container {
+    } */
+  
+    
+  }
 

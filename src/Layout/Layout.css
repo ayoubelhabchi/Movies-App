@@ -27,3 +27,25 @@
     border-top: 1.5px solid rgba(255, 255, 255, 0.39);
   }
   
+
+  @media (min-width: 400px) {
+    .dropdown-bar {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .dropdown-bar {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    
+  
+    /* .page-content {
+      margin-top: 0px;
+    } */
+  }
+  
