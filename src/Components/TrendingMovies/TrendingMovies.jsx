@@ -72,12 +72,12 @@ function TrendingMovies() {
                     <h1 className="title-trend-movie">{movie.title}</h1>
                     <div className="ratings-votes-container">
                       <div className="rating-trend-movie">
-                        <FaStar />
                         <h2>{movie.vote_average}</h2>
+                        <FaStar />
                       </div>
                       <div className="vots-trend-movie">
-                        <AiFillLike className="AiFillLike" />
                         <h2>{movie.vote_count}</h2>
+                        <AiFillLike className="AiFillLike" />
                       </div>
                     </div>
                   </div>

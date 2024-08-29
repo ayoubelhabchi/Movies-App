@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-// import './Trending.css';
+import './../TrendingMovies/TrendingMovies.css';
 import { fetchTrendingSeries } from '../../Apis/ApiServices';
 
 function TrendingSeries() {
@@ -87,19 +87,18 @@ function TrendingSeries() {
             <div className="blur-background">
               <div className="blur-overlay">
                 <div className="card-info-container">
-                  <div className="card-info">
+                  <div className="card-info title-trend-movie">
                     <h1>{movie.name}</h1>
-                    {/* <h2>English: {movie.name}</h2> */}
-                    <div className="rating">
-                    <FaStar/>
-                    <h2>{movie.vote_average}</h2>
+                    <div className="ratings-votes-container">
+                      <div className="rating-trend-movie">
+                        <FaStar />
+                        <h2>{movie.vote_average}</h2>
+                      </div>
+                      <div className="vots-trend-movie">
+                        <AiFillLike className="AiFillLike" />
+                        <h2>{movie.vote_count}</h2>
+                      </div>
                     </div>
-
-                    <div className="vots">
-                    <AiFillLike className="AiFillLike"/>
-                    <h2>{movie.vote_count}</h2>
-                    </div>
-
                   </div>
                 </div>
               </div>

@@ -1,3 +1,18 @@
 .icon{
     font-size: 30px;
+    
 }
+
+
+.MuiBottomNavigationAction-label{
+    color: #960019;
+    font-weight: 800;
+}
+
+.MuiBottomNavigationAction-root {
+    color: white !important;
+  }
+
+  .Mui-selected {
+    color: #960019 !important;
+  }

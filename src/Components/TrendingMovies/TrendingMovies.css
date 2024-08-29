@@ -123,14 +123,15 @@ font-weight: 500;
 
   .card-info-trend-movie .title-trend-movie{
   margin: 2px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
   }
 
   .slider-container-trend-movie {
       padding-bottom: 10px;  
   }
 
+  .title-trend-movie{
+    line-height: 1;
+  }
   
 }
 

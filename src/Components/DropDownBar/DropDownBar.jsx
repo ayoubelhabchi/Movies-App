@@ -18,20 +18,20 @@ function DropDownBar() {
     // Use navigate to change the path
     if (newValue === 'home') {
       navigate('/');
-    } else if (newValue === 'favorites') {
-      navigate('/');
-    } else if (newValue === 'trending') {
-      navigate('/');
-    } else if (newValue === 'news') {
-      navigate('/');
-    } else if (newValue === 'watchlist') {
-      navigate('/');
+    // } else if (newValue === 'favorites') {
+    //   navigate('/');
+    // } else if (newValue === 'trending') {
+    //   navigate('/');
+    // } else if (newValue === 'news') {
+    //   navigate('/');
+    // } else if (newValue === 'watchlist') {
+    //   navigate('/');
     }
   };
 
   return (
     <div>
-      <BottomNavigation value={value} onChange={handleChange}>
+      <BottomNavigation value={value} onChange={handleChange} style={{ backgroundColor: '#121212' }}>
         <BottomNavigationAction
           label="Home"
           value="home"
