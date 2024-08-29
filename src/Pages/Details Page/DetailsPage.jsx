@@ -21,7 +21,6 @@ import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
-const logoImageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
 
 const style = {
@@ -299,15 +298,6 @@ function DetailsPage() {
             </AvatarGroup>
           </div>
 
-          {/* <div className="production_companies_container">
-            {compaines.map((company, index) => (
-              <div key={index} className="company_avatar">
-                <Avatar src={`${profileImageBaseUrl}${company.logo_path}`} sx={{padding: '0px', backgroundColor: 'white', width: '100px',  height: '100%'  }} variant="rounded"></Avatar>
-                <img className=" h-8 bg-white" src={`${logoImageBaseUrl}${company.logo_path}`} alt="" />
-                <h1>{company.name}</h1>
-              </div>
-            ))}
-          </div> */}
         </div>
 
         <div className="poster_container">

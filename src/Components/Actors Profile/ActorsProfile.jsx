@@ -51,7 +51,7 @@ function ActorsProfile({ actors }) {
         ...prevDetails,
         [actor.id]: {
           ...data,
-          external_ids: data.external_ids // Ensure external_ids are included
+          external_ids: data.external_ids
         }
       }));
     }
@@ -84,54 +84,36 @@ function ActorsProfile({ actors }) {
                       <div className="social-media-section">
                         <h1>Social Media</h1>
                         <div className="social-buttons-container">
-                          {[
-                            {
-                              src: "/instagram-1-svgrepo-com.svg",
-                              alt: "Instagram",
-                              url: actorDetails[actor.id].external_ids.instagram_id
-                                ? `https://www.instagram.com/${actorDetails[actor.id].external_ids.instagram_id}`
-                                : '#'
-                            },
-                            {
-                              src: "/facebook-network-communication-internet-interaction-svgrepo-com.svg",
-                              alt: "Facebook",
-                              url: actorDetails[actor.id].external_ids.facebook_id
-                                ? `https://www.facebook.com/${actorDetails[actor.id].external_ids.facebook_id}`
-                                : '#'
-                            },
-                            {
-                              src: "/imdb-svgrepo-com.svg",
-                              alt: "IMDb",
-                              url: actorDetails[actor.id].external_ids.imdb_id
-                                ? `https://www.imdb.com/name/${actorDetails[actor.id].external_ids.imdb_id}`
-                                : '#'
-                            },
-                            {
-                              src: "/tiktok-logo-logo-svgrepo-com.svg",
-                              alt: "TikTok",
-                              url: actorDetails[actor.id].external_ids.tiktok_id
-                                ? `https://www.tiktok.com/@${actorDetails[actor.id].external_ids.tiktok_id}`
-                                : '#'
-                            },
-                            {
-                              src: "/twitter-svgrepo-com.svg",
-                              alt: "Twitter",
-                              url: actorDetails[actor.id].external_ids.twitter_id
-                                ? `https://twitter.com/${actorDetails[actor.id].external_ids.twitter_id}`
-                                : '#'
-                            },
-                            {
-                              src: "/youtube-svgrepo-com.svg",
-                              alt: "YouTube",
-                              url: actorDetails[actor.id].external_ids.youtube_id
-                                ? `https://www.youtube.com/user/${actorDetails[actor.id].external_ids.youtube_id}`
-                                : '#'
-                            }
-                          ].map((link, index) => (
-                            <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="social-button">
-                              <img className='social-icon' src={link.src} alt={link.alt} />
+                          {actorDetails[actor.id].external_ids.instagram_id && (
+                            <a href={`https://www.instagram.com/${actorDetails[actor.id].external_ids.instagram_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/instagram-1-svgrepo-com.svg" alt="Instagram" />
                             </a>
-                          ))}
+                          )}
+                          {actorDetails[actor.id].external_ids.facebook_id && (
+                            <a href={`https://www.facebook.com/${actorDetails[actor.id].external_ids.facebook_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/facebook-network-communication-internet-interaction-svgrepo-com.svg" alt="Facebook" />
+                            </a>
+                          )}
+                          {actorDetails[actor.id].external_ids.imdb_id && (
+                            <a href={`https://www.imdb.com/name/${actorDetails[actor.id].external_ids.imdb_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/imdb-svgrepo-com.svg" alt="IMDb" />
+                            </a>
+                          )}
+                          {actorDetails[actor.id].external_ids.tiktok_id && (
+                            <a href={`https://www.tiktok.com/@${actorDetails[actor.id].external_ids.tiktok_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/tiktok-logo-logo-svgrepo-com.svg" alt="TikTok" />
+                            </a>
+                          )}
+                          {actorDetails[actor.id].external_ids.twitter_id && (
+                            <a href={`https://twitter.com/${actorDetails[actor.id].external_ids.twitter_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/twitter-svgrepo-com.svg" alt="Twitter" />
+                            </a>
+                          )}
+                          {actorDetails[actor.id].external_ids.youtube_id && (
+                            <a href={`https://www.youtube.com/user/${actorDetails[actor.id].external_ids.youtube_id}`} target="_blank" rel="noopener noreferrer" className="social-button">
+                              <img className='social-icon' src="/youtube-svgrepo-com.svg" alt="YouTube" />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>
