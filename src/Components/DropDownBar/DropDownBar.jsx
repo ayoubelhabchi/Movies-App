@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./DropDownBar.css";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -6,26 +6,29 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { MdNewspaper, MdFavorite, MdBookmarkAdd } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function DropDownBar() {
   const [value, setValue] = useState("home");
   const navigate = useNavigate();
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setValue('home');
+    } else if (location.pathname === '/trending') {
+      setValue('trending');
+    } else {
+      setValue(null);
+    }
+  }, [location.pathname]);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
-    // Use navigate to change the path
     if (newValue === 'home') {
       navigate('/');
-    // } else if (newValue === 'favorites') {
-    //   navigate('/');
-    // } else if (newValue === 'trending') {
-    //   navigate('/');
-    // } else if (newValue === 'news') {
-    //   navigate('/');
-    // } else if (newValue === 'watchlist') {
-    //   navigate('/');
     }
   };
 

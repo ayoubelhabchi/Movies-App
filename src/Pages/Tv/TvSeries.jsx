@@ -1,4 +1,5 @@
 import React,{ useState, useEffect } from 'react'
+import {useNavigate } from 'react-router-dom';
 // import './Movies.css'
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { fetchSeriesOptionFilter } from '../../Apis/ApiServices';
@@ -19,6 +20,9 @@ import { ThemeProvider } from '@mui/material/styles';
 
 
 function TvSeries() {
+
+  const navigate = useNavigate();
+
 
   const [filterByYear, setFilterByYear] = useState('');
   const [filterByStatus, setFilterByStatus] = useState('');
@@ -116,6 +120,12 @@ function TvSeries() {
   const toggleSearchBar = () => {
     setIsSearchVisible(!isSearchVisible);
   };
+
+  const handleGetById = (id) => {
+    console.log("id", id);
+    navigate(`/tv/${id}`);
+  };
+
 
   
   return (
@@ -273,7 +283,7 @@ function TvSeries() {
           {movies && movies.length > 0 ? (
             <div className='movies_grid'>
               {movies.map((movie) => (
-                <div className='movie_card' key={movie.id}>
+                <div className='movie_card' onClick={() => handleGetById(movie.id)} key={movie.id}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     alt={movie.title}

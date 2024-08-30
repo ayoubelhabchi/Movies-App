@@ -1,0 +1,265 @@
+.details_main_container{
+    height: 100vh;
+    width: 100%;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.deatils_shadows{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.564);
+    z-index: 1;
+}
+
+.deatils_section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 40px;
+    z-index: 2; 
+    position: relative;
+    height: 100%;
+    align-items: center;
+    gap: 30px;
+}
+
+.poster_details_container{
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  /* border-radius: 8px; */
+  /* padding: 20px; */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+  /* margin: 10px; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+
+.poster_container img{
+    height: 90vh;
+    width: 100vw;
+    max-width: 30vw;
+    border-radius: 30px;
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.331);
+}
+
+.poster_title h1{
+    font-size: 2.8rem;
+    font-weight: 600;
+    padding-bottom: 8px;
+}
+
+.poster_ratings {
+    display: flex;
+    align-items: center;
+    gap: 10px ;
+    color: white;
+}
+
+.poster_ratings h3{
+    font-weight: 600;
+}
+
+.poster_ratings .vote_average, .FaStar , .LiaImdb{
+    color: rgb(255, 255, 0);
+}
+
+.LiaImdb{
+    font-size: 1.6rem;
+}
+
+.poster_ratings .vote_count, .AiFillLike{
+    color: rgb(47, 222, 85);
+}
+
+.poster_ratings div{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-bottom: 6px;
+}
+
+.poster_overview p{
+    color: white;
+    font-size: medium;
+    font-weight: 400;
+    text-wrap: wrap;
+    padding-bottom: 14px;
+}
+
+.poster_ratings div:not(:last-child)::after {
+    content: '•';
+    margin: 0 4px;
+    color: #fff;
+  }
+
+.whichlist{
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 4px;
+}
+
+.whichlist .MdFavorite{
+    font-size: 2rem;
+    color: white;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 14px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+.watch_trailer button{
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 4px;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.watch_trailer .MdPlayCircle{
+ color: red;
+ font-size: 1.2rem;
+}
+
+.poster_providers{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.officila_site a{
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 4px;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.GoHomeFill{
+    font-size: 1.2rem;
+}
+
+.more_details button{
+    display: flex;
+    align-items: center;
+    color: black;
+    gap: 4px;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.nav_container{
+    z-index: 10;
+    color: white;
+    position: absolute;
+    /* left: 10%; */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav_links{
+    display: flex; 
+    align-items: center;
+    gap: 20px;
+}
+
+.icon_container{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.icon_container h1{
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.youtube_container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    padding: 30px;
+}
+
+.trailer_close{
+    position: absolute;
+    border-radius: 20px;
+    bottom: 30px;
+    left: 30px;
+    z-index: 10;
+    color: white;
+    background-color: #960019ba;
+    padding: 6px 10px;
+    margin: 10px;
+    border: 0.5px solid white;
+}
+
+.actors_container {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: start;
+    row-gap: 6px; 
+}
+
+.actors_container h1{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.production_companies_container{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 20px;
+}
+
