@@ -1,13 +1,13 @@
-.tv_details_main_container{
+.tv_details_main_container {
     height: 100vh;
     width: 100%;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
 }
 
-.tv_deatils_shadows{
+.tv_deatils_shadows {
     position: absolute;
     top: 0;
     left: 0;
@@ -17,31 +17,25 @@
     z-index: 1;
 }
 
-.tv_deatils_section{
+.tv_deatils_section {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 40px;
-    z-index: 2; 
+    z-index: 2;
     position: relative;
     height: 100%;
     align-items: center;
     gap: 30px;
 }
 
-.tv_poster_details_container{
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  /* border-radius: 8px; */
-  /* padding: 20px; */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-  /* margin: 10px; */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
+.tv_poster_details_container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.tv_poster_container img{
+.tv_poster_container img {
     height: 90vh;
     width: 100vw;
     max-width: 30vw;
@@ -49,7 +43,7 @@
     box-shadow: 0 10px 8px rgba(0, 0, 0, 0.331);
 }
 
-.tv_poster_title h1{
+.tv_poster_title h1 {
     font-size: 2.8rem;
     font-weight: 600;
     padding-bottom: 8px;
@@ -58,34 +52,37 @@
 .tv_poster_ratings {
     display: flex;
     align-items: center;
-    gap: 10px ;
+    gap: 10px;
     color: white;
 }
 
-.tv_poster_ratings h3{
+.tv_poster_ratings h3 {
     font-weight: 600;
 }
 
-.tv_poster_ratings .tv_vote_average, .FaStar , .LiaImdb{
+.tv_poster_ratings .tv_vote_average,
+.FaStar,
+.LiaImdb {
     color: rgb(255, 255, 0);
 }
 
-.LiaImdb{
+.LiaImdb {
     font-size: 1.6rem;
 }
 
-.tv_poster_ratings .tv_vote_count, .AiFillLike{
+.tv_poster_ratings .tv_vote_count,
+.AiFillLike {
     color: rgb(47, 222, 85);
 }
 
-.tv_poster_ratings div{
+.tv_poster_ratings div {
     display: flex;
     align-items: center;
     gap: 4px;
     padding-bottom: 6px;
 }
 
-.tv_poster_overview p{
+.tv_poster_overview p {
     color: white;
     font-size: medium;
     font-weight: 400;
@@ -97,16 +94,16 @@
     content: '•';
     margin: 0 4px;
     color: #fff;
-  }
+}
 
-.whichlist{
+.whichlist {
     display: flex;
     align-items: center;
     color: white;
     gap: 4px;
 }
 
-.whichlist .MdFavorite{
+.whichlist .MdFavorite {
     font-size: 2rem;
     color: white;
 }
@@ -114,9 +111,9 @@
 .tooltip {
     position: relative;
     display: inline-block;
-  }
-  
-  .tooltip .tooltiptext {
+}
+
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: #fff;
@@ -133,14 +130,14 @@
     margin-left: -60px;
     opacity: 0;
     transition: opacity 0.3s;
-  }
-  
-  .tooltip:hover .tooltiptext {
+}
+
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
+}
 
-.watch_trailer button{
+.watch_trailer button {
     display: flex;
     align-items: center;
     color: black;
@@ -152,18 +149,18 @@
     font-size: 0.8rem;
 }
 
-.watch_trailer .MdPlayCircle{
- color: red;
- font-size: 1.2rem;
+.watch_trailer .MdPlayCircle {
+    color: red;
+    font-size: 1.2rem;
 }
 
-.tv_poster_providers{
+.tv_poster_providers {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.officila_site a{
+.officila_site a {
     display: flex;
     align-items: center;
     color: black;
@@ -175,11 +172,11 @@
     font-size: 0.8rem;
 }
 
-.GoHomeFill{
+.GoHomeFill {
     font-size: 1.2rem;
 }
 
-.more_details button{
+.more_details button {
     display: flex;
     align-items: center;
     color: black;
@@ -191,35 +188,34 @@
     font-size: 0.8rem;
 }
 
-.nav_container{
+.nav_container {
     z-index: 10;
     color: white;
     position: absolute;
-    /* left: 10%; */
     padding: 15px;
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.nav_links{
-    display: flex; 
+.nav_links {
+    display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.icon_container{
+.icon_container {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-.icon_container h1{
+.icon_container h1 {
     font-size: 1.7rem;
     font-weight: 600;
 }
 
-.youtube_container{
+.youtube_container {
     position: absolute;
     left: 0;
     top: 0;
@@ -229,7 +225,7 @@
     padding: 30px;
 }
 
-.trailer_close{
+.trailer_close {
     position: absolute;
     border-radius: 20px;
     bottom: 30px;
@@ -246,35 +242,76 @@
     margin-top: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     align-items: start;
-    row-gap: 6px; 
+    row-gap: 6px;
 }
 
-.tv_actors_container h1{
+.tv_actors_container h1 {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
-.tv_production_companies_container{
+.tv_production_companies_container {
     display: flex;
     align-items: center;
     gap: 20px;
     padding-top: 20px;
 }
 
-.seasons_container{
-    position: absolute; 
-    bottom: 3%;
-    right: 20%;
-    width: 500px;
+.seasons_container {
+    position: absolute;
+    bottom: 1%;
+    right: 16%;
+    width: 570px;
     z-index: 2;
 }
 
-.seasons_container img{
+.seasons_container img {
     display: flex;
-    padding: 0px 5px;
+    padding: 0 5px;
     border-radius: 20px;
-    height: 170px;
+    height: 180px;
+    width: 100%;
+    cursor: pointer;
 }
 
+.season-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.blur-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.season-card:hover .blur-effect {
+    opacity: 1;
+}
+
+.season-card-detail {
+    position: absolute;
+    top: 37%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.season-card:hover .season-card-detail {
+    transform: translateY(0);
+}

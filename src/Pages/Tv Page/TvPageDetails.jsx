@@ -5,12 +5,14 @@ import "./TvPageDetails.css";
 import { fetchSeriesById } from "../../Apis/ApiServices";
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { slidesSettings } from "../../tools/carouselSettings";
+
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
 import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
+import { CiPlay1 } from "react-icons/ci";
 
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -117,6 +119,7 @@ function TvPageDetails() {
   const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
+
   const settings = slidesSettings(seasons.length);
 
   const getGenreNames = (genreIds) => {
@@ -145,8 +148,6 @@ function TvPageDetails() {
       );
     });
   };
-
-
 
   return (
     <div
@@ -348,12 +349,29 @@ function TvPageDetails() {
         <Slider {...settings}>
           {seasons.length > 0 ? (
             seasons.map((season, index) => (
-              <div className="season_card" key={index}>
-                <img
-                  src={`${imageBaseUrlSeasons}${season.poster_path}`}
-                  alt=""
-                />
+              <div className="season-card" key={index}>
+              <img
+                src={`${imageBaseUrlSeasons}${season.poster_path}`}
+                alt=""
+              />
+              <div className="blur-effect"></div>
+              <div className="season-card-detail">
+                <div className="card-shadow">
+                  <CiPlay1 className="play-icon" />
+                </div>
+                <div className="card-details">
+                  <h4>{season.air_date}</h4>
+                  <h4>Season {season.season_number}</h4>
+                  <h4>Episodes {season.episode_count}</h4>
+                  <div className="card-vote-average flex items-center gap-1">
+                    <FaStar className="icon-star text-xs" />
+                    <h2 className="text-xs text-yellow-200">
+                      {season.vote_average}
+                    </h2>
+                  </div>
+                </div>
               </div>
+            </div>
             ))
           ) : (
             <div className="season_card">
