@@ -4,7 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import "./TvPageDetails.css";
 import { fetchSeriesById } from "../../Apis/ApiServices";
 import { genreMapTv, genreColors } from "../../tools/geners";
-import {slidesSettings} from '../../tools/carouselSettings'
+import { slidesSettings } from "../../tools/carouselSettings";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
@@ -43,7 +43,6 @@ const style = {
 
 function TvPageDetails() {
   const { id } = useParams();
-  const settings = slidesSettings();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
@@ -118,14 +117,12 @@ function TvPageDetails() {
   const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
-
+  const settings = slidesSettings(seasons.length);
 
   const getGenreNames = (genreIds) => {
     return genreIds.map((id) => {
-
       const genre = genreMapTv.find((g) => g.id === id);
       if (!genre) return null;
-
 
       const backgroundColor = genreColors[id] || "#ccc";
 
@@ -149,7 +146,7 @@ function TvPageDetails() {
     });
   };
 
-  
+
 
   return (
     <div
@@ -313,10 +310,11 @@ function TvPageDetails() {
               </button>
             </div>
           </div>
-          <div className="tv_actors_container">
+          <div className="tv_actors_container cursor-pointer">
             <h1>Top Cast</h1>
             <AvatarGroup
               max={6}
+              onClick={handleOpen}
               renderSurplus={(surplus) => (
                 <span
                   onClick={handleOpen}
@@ -348,11 +346,20 @@ function TvPageDetails() {
 
       <div className="seasons_container">
         <Slider {...settings}>
-          {seasons.map((season, index) => (
-            <div className="season_card" key={index}>
-              <img src={`${imageBaseUrlSeasons}${season.poster_path}`} alt="" />
+          {seasons.length > 0 ? (
+            seasons.map((season, index) => (
+              <div className="season_card" key={index}>
+                <img
+                  src={`${imageBaseUrlSeasons}${season.poster_path}`}
+                  alt=""
+                />
+              </div>
+            ))
+          ) : (
+            <div className="season_card">
+              <p>No seasons available</p>
             </div>
-          ))}
+          )}
         </Slider>
       </div>
 

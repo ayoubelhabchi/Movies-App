@@ -61,28 +61,75 @@ const getCarouselSettings = () => ({
     return <div className={className} style={arrowStyle} onClick={onClick} />;
   };
 
-  const slidesSettings = () => ({
+  // const slidesSettings = (seasonsLength) => ({
+  //   dots: false,
+  //   infinite: seasonsLength > 1,
+  //   slidesToShow: Math.min(seasonsLength, 4),
+  //   slidesToScroll: 1,
+  //   initialSlide: 0,
+  //   centerMode: seasonsLength === 1,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 5,
+  //         slidesToScroll: 1,
+  //         infinite: true,
+  //         dots: true,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 2,
+  //         initialSlide: 2,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 480,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1,
+  //       },
+  //     },
+  //   ],
+  //   autoplay: seasonsLength > 1,
+  //   speed: 1000,
+  //   autoplaySpeed: 3000,
+  //   cssEase: "linear",
+  //   nextArrow: <SliderArrow position="next" />,
+  //   prevArrow: <SliderArrow position="prev" />,
+  // });
+
+  const slidesSettings = (seasonsCount) => ({
     dots: false,
-    infinite: true,
-    slidesToShow: 4,
+    infinite: seasonsCount > 1,
+    slidesToShow: Math.min(seasonsCount, 4),
     slidesToScroll: 1,
     initialSlide: 0,
+    centerMode: seasonsCount === 1, // Center the slide if only one season
+    centerPadding: seasonsCount === 1 ? "40px" : "0px", // Adjust padding for centering
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: Math.min(seasonsCount, 4),
           slidesToScroll: 1,
-          infinite: true,
+          infinite: seasonsCount > 1,
           dots: true,
+          centerMode: seasonsCount === 1,
+          centerPadding: seasonsCount === 1 ? "40px" : "0px",
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: seasonsCount > 1 ? 2 : 1,
+          slidesToScroll: 1,
           initialSlide: 2,
+          centerMode: seasonsCount === 1,
+          centerPadding: seasonsCount === 1 ? "20px" : "0px",
         },
       },
       {
@@ -90,16 +137,18 @@ const getCarouselSettings = () => ({
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerMode: seasonsCount === 1,
+          centerPadding: seasonsCount === 1 ? "10px" : "0px",
         },
       },
     ],
-    autoplay: true,
-    speed: 2000,
+    autoplay: seasonsCount > 1,
+    speed: 1000,
     autoplaySpeed: 3000,
     cssEase: "linear",
     nextArrow: <SliderArrow position="next" />,
     prevArrow: <SliderArrow position="prev" />,
   });
-
+  
   export {getCarouselSettings, slidesSettings};
   
