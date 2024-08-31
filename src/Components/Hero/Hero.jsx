@@ -5,7 +5,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
-import getCarouselSettings from "../../tools/carouselSettings";
+import {getCarouselSettings} from "../../tools/carouselSettings";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 
 function Hero() {

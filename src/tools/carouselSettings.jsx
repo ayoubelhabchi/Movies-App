@@ -52,5 +52,54 @@ const getCarouselSettings = () => ({
     swipeable: true,
   });
   
-  export default getCarouselSettings;
+  const SliderArrow = ({ className, style, onClick, position }) => {
+    const arrowStyle =
+      position === "next"
+        ? { ...style, right: "10px", zIndex: "1" }
+        : { ...style, left: "10px", zIndex: "1" };
+
+    return <div className={className} style={arrowStyle} onClick={onClick} />;
+  };
+
+  const slidesSettings = () => ({
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 3000,
+    cssEase: "linear",
+    nextArrow: <SliderArrow position="next" />,
+    prevArrow: <SliderArrow position="prev" />,
+  });
+
+  export {getCarouselSettings, slidesSettings};
   

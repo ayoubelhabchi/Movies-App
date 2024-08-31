@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import "./TvPageDetails.css";
 import { fetchSeriesById } from "../../Apis/ApiServices";
 import { genreMapTv, genreColors } from "../../tools/geners";
+import {slidesSettings} from '../../tools/carouselSettings'
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
@@ -11,40 +12,50 @@ import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
 
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
 
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
+import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
+const imageBaseUrlSeasons = "https://image.tmdb.org/t/p/w500/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 
-
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  height: '100%',
-  outline: 'none',
-  p: 2
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "100%",
+  outline: "none",
+  p: 2,
 };
-
 
 function TvPageDetails() {
   const { id } = useParams();
+  const settings = slidesSettings();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleOpenDetails = () => setOpenDetails(true);
+  const handleCloseDetails = () => setOpenDetails(false);
 
   const handleTrailerPlay = () => {
     setPlayTrailer(true);
@@ -60,8 +71,6 @@ function TvPageDetails() {
     const key = trailer
       ? trailer.key
       : movieDetails.details.videos.results[0]?.key;
-
-    // setPlayTrailer(playTrailer ? trailer : movieDetails.details.videos.results[0]?.key)
 
     return (
       <YouTube
@@ -103,21 +112,21 @@ function TvPageDetails() {
   const casts = movieDetails.details?.credits?.cast || [];
   const productionComanies = movieDetails.details?.production_companies || [];
   const episodesRunTime = movieDetails.details?.episode_run_time || [];
+  const seasonsArray = movieDetails.details.seasons || [];
 
-  const episodeTime = episodesRunTime.map((episode) => episode)
+  const seasons = seasonsArray.map((season) => season);
+  const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
 
-  // console.log("compaines", compaines);
 
-  // Function to get genre names and apply color styles
   const getGenreNames = (genreIds) => {
     return genreIds.map((id) => {
-      // Find the genre details using the genreMapMovies or similar mapping
+
       const genre = genreMapTv.find((g) => g.id === id);
       if (!genre) return null;
 
-      // Get the background color for the genre
+
       const backgroundColor = genreColors[id] || "#ccc";
 
       return (
@@ -140,9 +149,11 @@ function TvPageDetails() {
     });
   };
 
+  
+
   return (
     <div
-      className="details_main_container"
+      className="tv_details_main_container"
       style={{
         backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`,
       }}
@@ -197,24 +208,26 @@ function TvPageDetails() {
           </li>
         </ul>
       </nav>
-      <div className="deatils_shadows"></div>
+      <div className="tv_deatils_shadows"></div>
 
-      <div className="deatils_section">
-        <div className="poster_details_container">
-          <div className="poster_title">
+      <div className="tv_deatils_section">
+        <div className="tv_poster_details_container">
+          <div className="tv_poster_title">
             <h1>{movieDetails.details.name}</h1>
           </div>
-          <div className="poster_ratings">
+          <div className="tv_poster_ratings">
             <div>
               <LiaImdb className="LiaImdb" />
               <FaStar className="FaStar" />
-              <h2 className="vote_average">
+              <h2 className="tv_vote_average">
                 {movieDetails.details.vote_average} /10
               </h2>
             </div>
             <div>
               <AiFillLike className="AiFillLike" />
-              <h2 className="vote_count">{movieDetails.details.vote_count}</h2>
+              <h2 className="tv_vote_count">
+                {movieDetails.details.vote_count}
+              </h2>
             </div>
 
             <div>
@@ -222,7 +235,7 @@ function TvPageDetails() {
             </div>
           </div>
 
-          <div className="poster_ratings">
+          <div className="tv_poster_ratings">
             <div>
               <h3>{movieDetails.details.origin_country}</h3>
             </div>
@@ -233,7 +246,9 @@ function TvPageDetails() {
 
             <div>
               <h3 className=" bg-gray-400 rounded-full p0.5 px-1">
-              {episodeTime.length > 0 ? `${episodeTime.join(', ')} min` : 'N/L'}
+                {episodeTime.length > 0
+                  ? `${episodeTime.join(", ")} min`
+                  : "N/L"}
               </h3>
             </div>
 
@@ -244,7 +259,7 @@ function TvPageDetails() {
             <div>
               <h3> {movieDetails.details.first_air_date}</h3>
             </div>
-            
+
             <div>
               <h3>Total Episodes {movieDetails.details.number_of_episodes}</h3>
             </div>
@@ -252,14 +267,13 @@ function TvPageDetails() {
             <div>
               <h3>Total Seasons {movieDetails.details.number_of_seasons}</h3>
             </div>
-
           </div>
 
-          <div className="poster_overview">
+          <div className="tv_poster_overview">
             <p>{movieDetails.details.overview}</p>
           </div>
 
-          <div className="poster_providers">
+          <div className="tv_poster_providers">
             <div className="watch_trailer">
               <button onClick={handleTrailerPlay}>
                 <MdPlayCircle className="MdPlayCircle" />
@@ -277,9 +291,9 @@ function TvPageDetails() {
                 Official WebSite
               </a>
             </div>
-            
+
             <div className="more_details">
-              <button>
+              <button onClick={handleOpenDetails}>
                 <CgDetailsMore className="GoHomeFill" />
                 More Details
               </button>
@@ -298,14 +312,18 @@ function TvPageDetails() {
                 <span className="tooltiptext">Add To Watchlist</span>
               </button>
             </div>
-
           </div>
-          <div className="actors_container">
+          <div className="tv_actors_container">
             <h1>Top Cast</h1>
             <AvatarGroup
               max={6}
               renderSurplus={(surplus) => (
-                <span onClick={handleOpen} className=" cursor-pointer text-xs flex m-4 p8">+{surplus} more</span>
+                <span
+                  onClick={handleOpen}
+                  className=" cursor-pointer text-xs flex m-4 p8"
+                >
+                  +{surplus} more
+                </span>
               )}
             >
               {actors.map((actor, index) => (
@@ -317,10 +335,9 @@ function TvPageDetails() {
               ))}
             </AvatarGroup>
           </div>
-
         </div>
 
-        <div className="poster_container">
+        <div className="tv_poster_container">
           <img
             className="img_poster"
             src={`${imageBaseUrl}${movieDetails.details.poster_path}`}
@@ -328,6 +345,17 @@ function TvPageDetails() {
           />
         </div>
       </div>
+
+      <div className="seasons_container">
+        <Slider {...settings}>
+          {seasons.map((season, index) => (
+            <div className="season_card" key={index}>
+              <img src={`${imageBaseUrlSeasons}${season.poster_path}`} alt="" />
+            </div>
+          ))}
+        </Slider>
+      </div>
+
       {movieDetails.details.videos && playTrailer ? findtrailer() : null}
 
       {playTrailer && isTrailerReady ? (
@@ -336,32 +364,58 @@ function TvPageDetails() {
         </button>
       ) : null}
 
-      {/* {actorsProfileToggle && <ActorsProfile handleActorsProfileClose={handleActorsProfileClose}/>} */}
       <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-            sx: {
-              backdropFilter: 'blur(10px)',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+              sx: {
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+              },
             },
-          },
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <ActorsProfile actors={actors}/>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <ActorsProfile actors={actors} />
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
+
+      {/* More Details Section */}
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={openDetails}
+          onClose={handleCloseDetails}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+              sx: {
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+              },
+            },
+          }}
+        >
+          <Fade in={openDetails}>
+            <Box sx={style}>
+              <TvShowDetails movieDetails={movieDetails} />
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
     </div>
   );
 }
