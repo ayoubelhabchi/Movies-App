@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
-import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
-import "./TvPageDetails.css";
-import { fetchSeriesById } from "../../Apis/ApiServices";
-import { genreMapTv, genreColors } from "../../tools/geners";
-import { slidesSettings } from "../../tools/carouselSettings";
+import { Navigate, NavLink, useParams, useNavigate } from "react-router-dom";
+import { fetchSeasonsAndEpisodes } from "../../../Apis/ApiServices";
+import { slidesSettings } from "../../../tools/carouselSettings";
 
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
@@ -21,8 +19,8 @@ import Fade from "@mui/material/Fade";
 
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
-import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
+import ActorsProfile from "../../../Components/Actors Profile/ActorsProfile";
+import TvShowDetails from "../../../Components/TvShowDetails/TvShowDetails";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -43,9 +41,8 @@ const style = {
   p: 2,
 };
 
-function TvPageDetails() {
-  const { id } = useParams();
-  const navigate = useNavigate()
+function SeasonDetails() {
+  const { id, seasonId_Number } = useParams();
 
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
@@ -67,10 +64,6 @@ function TvPageDetails() {
     setPlayTrailer(false);
   };
 
-  const handleSeasonId_Number = (seasonId_Number) => {
-    navigate(`/tv/${id}/season/${seasonId_Number}`)
-    console.log(seasonId_Number);
-  }
 
   const findtrailer = () => {
     const trailer = movieDetails.details.videos.results.find(
@@ -106,55 +99,28 @@ function TvPageDetails() {
 
   useEffect(() => {
     async function getMoviesDetails() {
-      const details = await fetchSeriesById(id);
+      const details = await fetchSeasonsAndEpisodes(id, seasonId_Number);
       setMovieDetails(details);
       console.log(details);
     }
     getMoviesDetails();
-  }, [id]);
+  }, [id,seasonId_Number]);
 
   if (!movieDetails)
     return <div className=" text-white text-3xl">Loading...</div>;
 
-  const genreIds = movieDetails.details.genres.map((genre) => genre.id);
   const casts = movieDetails.details?.credits?.cast || [];
   const productionComanies = movieDetails.details?.production_companies || [];
   const episodesRunTime = movieDetails.details?.episode_run_time || [];
-  const seasonsArray = movieDetails.details.seasons || [];
+  const episodesArray = movieDetails.details.episodes || [];
 
-  const seasons = seasonsArray.map((season) => season);
+  const episodes = episodesArray.map((season) => season);
   const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
 
-  const settings = slidesSettings(seasons.length);
+  const settings = slidesSettings(episodes.length);
 
-  const getGenreNames = (genreIds) => {
-    return genreIds.map((id) => {
-      const genre = genreMapTv.find((g) => g.id === id);
-      if (!genre) return null;
-
-      const backgroundColor = genreColors[id] || "#ccc";
-
-      return (
-        <span
-          key={id}
-          style={{
-            backgroundColor: backgroundColor,
-            color: "#fff",
-            padding: "1px 2px 1px",
-            borderRadius: "30px",
-            margin: "0px 3px 4px",
-            display: "inline-flex",
-            fontWeight: "500",
-            fontSize: "14px",
-          }}
-        >
-          {genre.name}
-        </span>
-      );
-    });
-  };
 
   return (
     <div
@@ -235,9 +201,7 @@ function TvPageDetails() {
               </h2>
             </div>
 
-            <div>
-              <h3>{getGenreNames(genreIds)}</h3>
-            </div>
+            
           </div>
 
           <div className="tv_poster_ratings">
@@ -352,13 +316,13 @@ function TvPageDetails() {
         </div>
       </div>
 
-      <div className="seasons_container" >
-        <Slider {...settings} >
-          {seasons.length > 0 ? (
-            seasons.map((season, index) => (
-              <div className="season-card" onClick={() => handleSeasonId_Number(season.season_number)} key={index} >
+      <div className="seasons_container">
+        <Slider {...settings}>
+          {episodes.length > 0 ? (
+            episodes.map((episode, index) => (
+              <div className="season-card" key={index}>
                 <img
-                  src={`${imageBaseUrlSeasons}${season.poster_path}`}
+                  src={`${imageBaseUrlSeasons}${episode.still_path}`}
                   alt=""
                 />
                 <div className="blur-effect"></div>
@@ -367,13 +331,13 @@ function TvPageDetails() {
                     <CiPlay1 className="play-icon" />
                   </div>
                   <div className="card-details">
-                    <h4>{season.air_date}</h4>
-                    <h4>Season {season.season_number}</h4>
-                    <h4>Total Episodes {season.episode_count}</h4>
+                    <h4>{episode.air_date}</h4>
+                    <h4>episode {episode.season_number}</h4>
+                    <h4>Total Episodes {episode.episode_count}</h4>
                     <div className="card-vote-average flex items-center gap-1">
                       <FaStar className="icon-star FaStar text-xs" />
                       <h2 className="text-xs text-yellow-200">
-                        {season.vote_average}
+                        {episode.vote_average}
                       </h2>
                     </div>
                   </div>
@@ -382,7 +346,7 @@ function TvPageDetails() {
             ))
           ) : (
             <div className="season_card">
-              <p>No seasons available</p>
+              <p>No Episodes Available</p>
             </div>
           )}
         </Slider>
@@ -452,4 +416,4 @@ function TvPageDetails() {
   );
 }
 
-export default TvPageDetails;
+export default SeasonDetails;

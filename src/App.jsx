@@ -9,6 +9,7 @@ import Home from './Pages/Home/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DetailsPage from './Pages/Details Page/DetailsPage';
 import TvPageDetails from './Pages/Tv Page/TvPageDetails';
+import SeasonDetails from './Pages/Tv Page/Season Deatils/SeasonDetails';
 
 const theme = createTheme({
   palette: {
@@ -45,7 +46,8 @@ function App() {
           <Route path="anime" element={<Anime />} />
         </Route>
         <Route path="/details/:id" element={<DetailsPage />} />
-        <Route path="/tv/:id/*" element={<TvPageDetails />} />
+        <Route path="/tv/:id" element={<TvPageDetails />} />
+        <Route path="/tv/:id/season/:seasonId_Number" element={<SeasonDetails />} />
       </Routes>
       </ThemeProvider>
     </div>

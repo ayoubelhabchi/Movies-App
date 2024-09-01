@@ -217,6 +217,30 @@ export async function fetchSeriesById(id) {
   }
 }
 
+export async function fetchSeasonsAndEpisodes(id,season_number) {
+    console.log("id",id);
+  
+  try {
+
+    
+    let query = `${Base_Url}tv/${id}/season/${season_number}?api_key=${Api_Key}&append_to_response=images%2Cvideos%2Ccredits`;
+    
+
+    console.log("API Request URL:", query);
+
+    const response = await fetch(query);
+    const data = await response.json();
+    
+    return {
+      details: data,
+    };
+
+  } catch (error) {
+    console.error("Error while fetching data", error);
+    return { details: [], totalPages: 1 };
+  }
+}
+
 
 function ApiServices() {
 
