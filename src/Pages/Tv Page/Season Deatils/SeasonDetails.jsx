@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
+import "./SeasonDetails.css";
 import { Navigate, NavLink, useParams, useNavigate } from "react-router-dom";
 import { fetchSeasonsAndEpisodes } from "../../../Apis/ApiServices";
 import { slidesSettings } from "../../../tools/carouselSettings";
@@ -64,7 +65,6 @@ function SeasonDetails() {
     setPlayTrailer(false);
   };
 
-
   const findtrailer = () => {
     const trailer = movieDetails.details.videos.results.find(
       (vid) => vid.name === "Official Trailer"
@@ -104,7 +104,7 @@ function SeasonDetails() {
       console.log(details);
     }
     getMoviesDetails();
-  }, [id,seasonId_Number]);
+  }, [id, seasonId_Number]);
 
   if (!movieDetails)
     return <div className=" text-white text-3xl">Loading...</div>;
@@ -121,12 +121,11 @@ function SeasonDetails() {
 
   const settings = slidesSettings(episodes.length);
 
-
   return (
     <div
-      className="tv_details_main_container"
+      className="season_details_main_container"
       style={{
-        backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`,
+        backgroundImage: `url(${imageBaseUrl}${movieDetails.details.poster_path})`,
       }}
     >
       <nav className="nav_container">
@@ -179,70 +178,40 @@ function SeasonDetails() {
           </li>
         </ul>
       </nav>
-      <div className="tv_deatils_shadows"></div>
+      <div className="season_deatils_shadows"></div>
 
-      <div className="tv_deatils_section">
-        <div className="tv_poster_details_container">
-          <div className="tv_poster_title">
+      <div className="season_deatils_section">
+        <div className="season_poster_details_container">
+          <div className="season_poster_title">
             <h1>{movieDetails.details.name}</h1>
           </div>
-          <div className="tv_poster_ratings">
+          <div className="season_poster_ratings">
             <div>
               <LiaImdb className="LiaImdb" />
               <FaStar className="FaStar" />
-              <h2 className="tv_vote_average">
+              <h2 className="season_vote_average">
                 {movieDetails.details.vote_average} /10
               </h2>
             </div>
-            <div>
-              <AiFillLike className="AiFillLike" />
-              <h2 className="tv_vote_count">
-                {movieDetails.details.vote_count}
-              </h2>
-            </div>
+
+          </div>
+
+          <div className="season_poster_ratings">
+            
+           
 
             
-          </div>
-
-          <div className="tv_poster_ratings">
-            <div>
-              <h3>{movieDetails.details.origin_country}</h3>
-            </div>
 
             <div>
-              <h3>{movieDetails.details.original_language}</h3>
-            </div>
-
-            <div>
-              <h3 className=" bg-gray-400 rounded-full p0.5 px-1">
-                {episodeTime.length > 0
-                  ? `${episodeTime.join(", ")} min`
-                  : "N/L"}
-              </h3>
-            </div>
-
-            <div>
-              <h3> {movieDetails.details.status}</h3>
-            </div>
-
-            <div>
-              <h3> {movieDetails.details.first_air_date}</h3>
-            </div>
-
-            <div>
-              <h3>Total Episodes {movieDetails.details.number_of_episodes}</h3>
-            </div>
-
-            <div>
-              <h3>Total Seasons {movieDetails.details.number_of_seasons}</h3>
+              <h3>Published on:  {movieDetails.details.air_date}</h3>
             </div>
           </div>
 
-          <div className="tv_poster_overview">
+          <div className="season_poster_overview">
             <p>{movieDetails.details.overview}</p>
           </div>
 
-          <div className="tv_poster_providers">
+          <div className="season_poster_providers">
             <div className="watch_trailer">
               <button onClick={handleTrailerPlay}>
                 <MdPlayCircle className="MdPlayCircle" />
@@ -282,10 +251,10 @@ function SeasonDetails() {
               </button>
             </div>
           </div>
-          <div className="tv_actors_container cursor-pointer">
+          <div className="season_actors_container cursor-pointer">
             <h1>Top Cast</h1>
             <AvatarGroup
-              max={6}
+              max={4}
               onClick={handleOpen}
               renderSurplus={(surplus) => (
                 <span
@@ -307,7 +276,7 @@ function SeasonDetails() {
           </div>
         </div>
 
-        <div className="tv_poster_container">
+        <div className="season_poster_container">
           <img
             className="img_poster"
             src={`${imageBaseUrl}${movieDetails.details.poster_path}`}
@@ -316,11 +285,11 @@ function SeasonDetails() {
         </div>
       </div>
 
-      <div className="seasons_container">
+      <div className="episodes_container">
         <Slider {...settings}>
           {episodes.length > 0 ? (
             episodes.map((episode, index) => (
-              <div className="season-card" key={index}>
+              <div className="episode-card" key={index}>
                 <img
                   src={`${imageBaseUrlSeasons}${episode.still_path}`}
                   alt=""
@@ -333,7 +302,7 @@ function SeasonDetails() {
                   <div className="card-details">
                     <h4>{episode.air_date}</h4>
                     <h4>episode {episode.season_number}</h4>
-                    <h4>Total Episodes {episode.episode_count}</h4>
+                    <h4>{episode.name}</h4>
                     <div className="card-vote-average flex items-center gap-1">
                       <FaStar className="icon-star FaStar text-xs" />
                       <h2 className="text-xs text-yellow-200">

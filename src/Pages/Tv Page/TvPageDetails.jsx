@@ -321,7 +321,7 @@ function TvPageDetails() {
           <div className="tv_actors_container cursor-pointer">
             <h1>Top Cast</h1>
             <AvatarGroup
-              max={6}
+              max={4}
               onClick={handleOpen}
               renderSurplus={(surplus) => (
                 <span
