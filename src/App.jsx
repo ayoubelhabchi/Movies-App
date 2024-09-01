@@ -45,7 +45,7 @@ function App() {
           <Route path="anime" element={<Anime />} />
         </Route>
         <Route path="/details/:id" element={<DetailsPage />} />
-        <Route path="/tv/:id" element={<TvPageDetails />} />
+        <Route path="/tv/:id/*" element={<TvPageDetails />} />
       </Routes>
       </ThemeProvider>
     </div>

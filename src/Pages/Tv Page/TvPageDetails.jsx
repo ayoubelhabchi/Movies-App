@@ -65,6 +65,10 @@ function TvPageDetails() {
     setPlayTrailer(false);
   };
 
+  const handleSeasonId_Number = (seasonId_Number) => {
+    console.log(seasonId_Number);
+  }
+
   const findtrailer = () => {
     const trailer = movieDetails.details.videos.results.find(
       (vid) => vid.name === "Official Trailer"
@@ -349,29 +353,29 @@ function TvPageDetails() {
         <Slider {...settings}>
           {seasons.length > 0 ? (
             seasons.map((season, index) => (
-              <div className="season-card" key={index}>
-              <img
-                src={`${imageBaseUrlSeasons}${season.poster_path}`}
-                alt=""
-              />
-              <div className="blur-effect"></div>
-              <div className="season-card-detail">
-                <div className="card-shadow">
-                  <CiPlay1 className="play-icon" />
-                </div>
-                <div className="card-details">
-                  <h4>{season.air_date}</h4>
-                  <h4>Season {season.season_number}</h4>
-                  <h4>Episodes {season.episode_count}</h4>
-                  <div className="card-vote-average flex items-center gap-1">
-                    <FaStar className="icon-star text-xs" />
-                    <h2 className="text-xs text-yellow-200">
-                      {season.vote_average}
-                    </h2>
+              <div className="season-card" key={index} onClick={() => handleSeasonId_Number(season.season_number)}>
+                <img
+                  src={`${imageBaseUrlSeasons}${season.poster_path}`}
+                  alt=""
+                />
+                <div className="blur-effect"></div>
+                <div className="season-card-detail">
+                  <div className="card-overlay">
+                    <CiPlay1 className="play-icon" />
+                  </div>
+                  <div className="card-details">
+                    <h4>{season.air_date}</h4>
+                    <h4>Season {season.season_number}</h4>
+                    <h4>Total Episodes {season.episode_count}</h4>
+                    <div className="card-vote-average flex items-center gap-1">
+                      <FaStar className="icon-star FaStar text-xs" />
+                      <h2 className="text-xs text-yellow-200">
+                        {season.vote_average}
+                      </h2>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             ))
           ) : (
             <div className="season_card">
