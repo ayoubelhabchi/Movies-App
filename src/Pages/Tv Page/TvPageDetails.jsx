@@ -121,7 +121,9 @@ function TvPageDetails() {
   const productionComanies = movieDetails.details?.production_companies || [];
   const episodesRunTime = movieDetails.details?.episode_run_time || [];
   const seasonsArray = movieDetails.details.seasons || [];
+  const seasonCreactors = movieDetails.details.created_by || [];
 
+  const seasonCreatedBy = seasonCreactors.map((creator) => creator.original_name)
   const seasons = seasonsArray.filter((season) => season.season_number !== 0 && season.air_date !== null).map((season) => season);
   const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
@@ -273,6 +275,7 @@ function TvPageDetails() {
             </div>
           </div>
 
+
           <div className="tv_poster_overview">
             <p>{movieDetails.details.overview}</p>
           </div>
@@ -296,12 +299,12 @@ function TvPageDetails() {
               </a>
             </div>
 
-            <div className="more_details">
+            {/* <div className="more_details">
               <button onClick={handleOpenDetails}>
                 <CgDetailsMore className="GoHomeFill" />
                 More Details
               </button>
-            </div>
+            </div> */}
 
             <div className="whichlist">
               <button className="tooltip">
@@ -317,7 +320,12 @@ function TvPageDetails() {
               </button>
             </div>
           </div>
-          <div className="tv_actors_container cursor-pointer">
+
+
+          <div className="tv_actors_container">
+          <div className="creators_container">
+              <h2>Created By: <strong>{seasonCreatedBy.join(',')}</strong></h2>
+          </div>
             <h1>Top Cast</h1>
             <AvatarGroup
               max={4}
@@ -336,6 +344,7 @@ function TvPageDetails() {
                   key={index}
                   alt={actor.name}
                   src={`${profileImageBaseUrl}${actor.profile_path}`}
+                  className="cursor-pointer"
                 />
               ))}
             </AvatarGroup>
@@ -395,6 +404,7 @@ function TvPageDetails() {
         </button>
       ) : null}
 
+      {/* Actors Details Section */}
       <div>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -422,7 +432,7 @@ function TvPageDetails() {
       </div>
 
       {/* More Details Section */}
-      <div>
+      {/* <div>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -446,7 +456,7 @@ function TvPageDetails() {
             </Box>
           </Fade>
         </Modal>
-      </div>
+      </div> */}
     </div>
   );
 }

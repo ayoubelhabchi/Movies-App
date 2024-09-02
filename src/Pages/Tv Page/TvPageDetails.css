@@ -252,6 +252,16 @@
     font-weight: 600;
 }
 
+.creators_container h2{
+    font-size: 1rem;
+    font-weight: 400;
+    color: white;
+}
+.creators_container strong{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
 .tv_production_companies_container {
     display: flex;
     align-items: center;

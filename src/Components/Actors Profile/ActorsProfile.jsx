@@ -61,6 +61,9 @@ function ActorsProfile({ actors }) {
 
   return (
     <div className='profiles_main_container'>
+      <div className='crew_Actors_Sections'>
+        
+      </div>
       <Grid container spacing={3}>
         {actors.map((actor, index) => (
           <Grid key={index} xs={12} sm={6} md={3} onClick={() => handleFlip(actor)}>
