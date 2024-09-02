@@ -226,7 +226,7 @@ export async function fetchSeasonsAndEpisodes(id,season_number) {
     let query = `${Base_Url}tv/${id}/season/${season_number}?api_key=${Api_Key}&append_to_response=images%2Cvideos%2Ccredits`;
     
 
-    console.log("API Request URL:", query);
+    // console.log("API Request URL:", query);
 
     const response = await fetch(query);
     const data = await response.json();

@@ -122,7 +122,7 @@ function TvPageDetails() {
   const episodesRunTime = movieDetails.details?.episode_run_time || [];
   const seasonsArray = movieDetails.details.seasons || [];
 
-  const seasons = seasonsArray.map((season) => season);
+  const seasons = seasonsArray.filter((season) => season.season_number !== 0 && season.air_date !== null).map((season) => season);
   const episodeTime = episodesRunTime.map((episode) => episode);
   const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
@@ -223,7 +223,6 @@ function TvPageDetails() {
           <div className="tv_poster_ratings">
             <div>
               <LiaImdb className="LiaImdb" />
-              <FaStar className="FaStar" />
               <h2 className="tv_vote_average">
                 {movieDetails.details.vote_average} /10
               </h2>
