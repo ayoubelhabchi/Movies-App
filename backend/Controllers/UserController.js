@@ -24,3 +24,28 @@ exports.userProfile = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.addFavoriteMovies = async (req, res) => {
+  const {
+    movie_id,
+    title,
+    original_title,
+    overview,
+    release_date,
+    poster_path,
+    backdrop_path,
+    genre_ids,
+    original_language,
+    popularity,
+    vote_average,
+    vote_count,
+    adult,
+    video,
+  } = req.body;
+
+  try {
+    
+  } catch (error) {
+    
+  }
+};
