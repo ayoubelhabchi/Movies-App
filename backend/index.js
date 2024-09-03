@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const connectMongoDb = require('./Config/DataBase_Connection')
-const authRoute = require('./Routes/User')
+const authRoute = require('./Routes/AuthRoutes')
 
 require("dotenv").config();
 app.use(express.json());
