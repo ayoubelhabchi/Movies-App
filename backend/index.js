@@ -1,10 +1,15 @@
-const express = require('express');
-const app = express()
+const express = require("express");
+const app = express();
+const connectMongoDb = require('./Config/DataBase_Connection')
+const authRoute = require('./Routes/User')
 
-require('dotenv').config()
+require("dotenv").config();
+app.use(express.json());
+Port = process.env.Port;
 
-Port = process.env.Port
+connectMongoDb()
 
-app.listen(Port,()=>
-    console.log(`Server is running on ${Port}`))
-    module.exports = app;
+app.use('/auth',authRoute)
+
+app.listen(Port, () => console.log(`Server is running on ${Port}`));
+module.exports = app;
