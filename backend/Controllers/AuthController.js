@@ -39,7 +39,9 @@ exports.SignIn = async (req, res) => {
     if (!passwordCheck) {
       return res.status(401).json({ message: "Authentication failed" });
     }
-    const token = JWT.sign({ userId: user._id }, "Fushaar", { expiresIn: "1d" });
+    const token = JWT.sign({ userId: user._id }, "Fushaar", {
+      expiresIn: "1d",
+    });
     res.status(200).json({ message: "Logged in", token });
   } catch (error) {
     res.status(500).json({ error: error.message });
