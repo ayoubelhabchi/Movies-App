@@ -1,61 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SignUp.css";
 import { signUp } from "../../Apis/ApiServer";
+import { fetchTrending } from "../../Apis/ApiServices";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-    title: "Bed",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1525097487452-6278ff080c31",
-    title: "Books",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6",
-    title: "Sink",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1563298723-dcfebaa392e3",
-    title: "Kitchen",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Blinds",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
-    title: "Chairs",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
-    title: "Laptop",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1481277542470-605612bd2d61",
-    title: "Doors",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee",
-    title: "Storage",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62",
-    title: "Candle",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4",
-    title: "Coffee table",
-  },
-];
+const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -70,6 +23,24 @@ function SignUp() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const getPosters = async () => {
+      const movies = await fetchTrending();
+      setMovies(movies);
+    };
+    getPosters();
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (movies.length - 6));
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  console.log("movies", movies);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,7 +67,11 @@ function SignUp() {
     <div className="main_container">
       <div className="signup_container">
         <div className="signup_text">
-        <h2>Create An Account</h2>
+          <h2>Create An Account</h2>
+          <div className="singin_link">
+            <h3>Already have an account ?</h3>
+            <a className="text-[#ae021f] font-medium" href="/signup">Log in</a>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -176,22 +151,36 @@ function SignUp() {
         </form>
       </div>
 
-      <div className="image_container overflow-hidden">
-        <Box sx={{ width: 650, height: 560 ,overflowY: "hidden" }}>
-          <ImageList variant="masonry" cols={3} gap={16}>
-            {itemData.slice(0, 12).map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  alt={item.title}
-                  loading="lazy"
-                  style={{ width: '100%', height: 'auto' }} // Ensures images fit within their containers
-
-                />
-              </ImageListItem>
+      <div className="image_container rounded3xl overflow-hidden">
+        <Box sx={{ width: 640, overflowY: "hidden" }}>
+          <TransitionGroup
+            component={ImageList}
+            variant="masonry"
+            cols={3}
+            gap={16}
+          >
+            {movies.slice(currentIndex, currentIndex + 7).map((item, index) => (
+              <CSSTransition
+                key={item.poster_path}
+                timeout={1000}
+                classNames="fade"
+              >
+                <ImageListItem>
+                  <img
+                    src={`${imageBaseUrl}${item.poster_path}`}
+                    alt={item.title}
+                    loading="lazy"
+                    style={{
+                      // borderRadius: '15px',
+                      width: "100%",
+                      height: `${170 + index * 40}px`,
+                      objectFit: "cover",
+                    }}
+                  />
+                </ImageListItem>
+              </CSSTransition>
             ))}
-          </ImageList>
+          </TransitionGroup>
         </Box>
       </div>
     </div>
