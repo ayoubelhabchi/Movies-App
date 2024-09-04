@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DetailsPage from './Pages/Details Page/DetailsPage';
 import TvPageDetails from './Pages/Tv Page/TvPageDetails';
 import SeasonDetails from './Pages/Tv Page/Season Deatils/SeasonDetails';
+import SignUp from './Pages/SignUp/SignUp';
 
 const theme = createTheme({
   palette: {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="/tv/:id" element={<TvPageDetails />} />
         <Route path="/tv/:id/season/:seasonId_Number" element={<SeasonDetails />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
       </ThemeProvider>
     </div>

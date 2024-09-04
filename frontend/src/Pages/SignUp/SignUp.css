@@ -1,0 +1,94 @@
+/* Main container styling */
+.main_container {
+    height: 100svh;
+    width: 100%;
+    background-color: #121212;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Sign-up container styling */
+.signup_container {
+    /* height: 100svh; */
+    width: 40%;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+form label {
+    color: white;
+}
+
+form input {
+    background-color: #474747;
+    color: #080808;
+    width: 100%;
+    height: 55px;
+    border-radius: 15px;
+    padding-left: 20px;
+    font-size: larger;
+    font-weight: 600;
+}
+
+/* Form group styling */
+.form-group {
+    display: flex;
+    gap: 20px;
+}
+
+/* Name field styling */
+.name {
+    flex: 1;
+}
+
+.name label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* General div styling within form */
+form div {
+    display: flex;
+    align-items: center;
+}
+
+form input::placeholder{
+ color: #8d8d8d;
+ /* font-size: larger; */
+ font-weight: 400;
+}
+
+.button_container button{
+    color: white;
+    padding: 10px 0px;
+    border-radius: 20px;
+    width: 150px;
+    background-color: #960019;
+}
+
+.button_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.signup_text{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.signup_text h2{
+color: white;
+font-size: x-large;
+font-weight: 600;
+}
