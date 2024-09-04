@@ -51,7 +51,10 @@ const MoviesSchema = new Schema({
     },
     video: { 
       type: Boolean 
-    }
+    },
+    videos: [{ 
+      type: String 
+    }]
     
   });
   
