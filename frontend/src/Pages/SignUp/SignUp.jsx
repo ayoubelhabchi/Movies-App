@@ -8,6 +8,10 @@ import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
 function SignUp() {
@@ -25,6 +29,22 @@ function SignUp() {
   const [success, setSuccess] = useState(null);
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+  };
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
+  };
 
   useEffect(() => {
     const getPosters = async () => {
@@ -34,13 +54,11 @@ function SignUp() {
     getPosters();
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % (movies.length - 6));
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (movies.length - 11));
     }, 3500);
 
     return () => clearInterval(interval);
   }, []);
-
-  console.log("movies", movies);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,9 +73,18 @@ function SignUp() {
 
     try {
       const response = await signUp(formData);
-      setSuccess("Registration successful!");
+      const successMessage = response.message || "Registration successful!";
+      setSuccess(successMessage);
+      setOpenSuccess(true);
     } catch (error) {
-      setError("Registration failed. Please try again.");
+      if (error.response) {
+        const errorMessage = error.response.data.message || "An error occurred";
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -70,13 +97,14 @@ function SignUp() {
           <h2>Create An Account</h2>
           <div className="singin_link">
             <h3>Already have an account ?</h3>
-            <a className="text-[#ae021f] font-medium" href="/signup">Log in</a>
+            <a className="text-[#ae021f] font-medium" href="/signup">
+              Log in
+            </a>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div className="name">
-              {/* <label htmlFor="firstName">First Name</label> */}
               <input
                 placeholder="First name"
                 type="text"
@@ -88,7 +116,6 @@ function SignUp() {
               />
             </div>
             <div className="name">
-              {/* <label htmlFor="lastName">Last Name</label> */}
               <input
                 placeholder="Last name"
                 type="text"
@@ -101,7 +128,6 @@ function SignUp() {
             </div>
           </div>
           <div>
-            {/* <label>Email</label> */}
             <input
               placeholder="Email"
               type="email"
@@ -112,7 +138,6 @@ function SignUp() {
             />
           </div>
           <div>
-            {/* <label>Password</label> */}
             <input
               placeholder="Password"
               type="password"
@@ -123,7 +148,6 @@ function SignUp() {
             />
           </div>
           <div>
-            {/* <label>Country</label> */}
             <input
               placeholder="Country"
               type="text"
@@ -134,7 +158,6 @@ function SignUp() {
             />
           </div>
           <div>
-            {/* <label>City</label> */}
             <input
               placeholder="City"
               type="text"
@@ -149,6 +172,8 @@ function SignUp() {
             <button type="submit">Sign Up</button>
           </div>
         </form>
+
+        <div className="networks_container"></div>
       </div>
 
       <div className="image_container rounded3xl overflow-hidden">
@@ -156,32 +181,69 @@ function SignUp() {
           <TransitionGroup
             component={ImageList}
             variant="masonry"
-            cols={3}
+            cols={4}
             gap={16}
           >
-            {movies.slice(currentIndex, currentIndex + 7).map((item, index) => (
-              <CSSTransition
-                key={item.poster_path}
-                timeout={1000}
-                classNames="fade"
-              >
-                <ImageListItem>
-                  <img
-                    src={`${imageBaseUrl}${item.poster_path}`}
-                    alt={item.title}
-                    loading="lazy"
-                    style={{
-                      // borderRadius: '15px',
-                      width: "100%",
-                      height: `${170 + index * 40}px`,
-                      objectFit: "cover",
-                    }}
-                  />
-                </ImageListItem>
-              </CSSTransition>
-            ))}
+            {movies
+              .slice(currentIndex, currentIndex + 10)
+              .map((item, index) => (
+                <CSSTransition
+                  key={item.poster_path}
+                  timeout={1000}
+                  classNames="fade"
+                >
+                  <ImageListItem>
+                    <img
+                      src={`${imageBaseUrl}${item.poster_path}`}
+                      alt={item.title}
+                      loading="lazy"
+                      style={{
+                        // borderRadius: '15px',
+                        width: "100%",
+                        height: `${160 + index * 20}px`,
+                        objectFit: "cover",
+                      }}
+                    />
+                  </ImageListItem>
+                </CSSTransition>
+              ))}
           </TransitionGroup>
         </Box>
+      </div>
+      <div>
+        {success && (
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={6000}
+            onClose={handleCloseSuccess}
+          >
+            <Alert
+              onClose={handleCloseSuccess}
+              severity="success"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {success}
+            </Alert>
+          </Snackbar>
+        )}
+
+        {error && (
+          <Snackbar
+            open={openError}
+            autoHideDuration={6000}
+            onClose={handleCloseError}
+          >
+            <Alert
+              onClose={handleCloseError}
+              severity="error"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
+        )}
       </div>
     </div>
   );
