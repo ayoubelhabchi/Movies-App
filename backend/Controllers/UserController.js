@@ -1,5 +1,6 @@
 const User = require("../Models/User");
 const MoviesSchema = require("../Models/Movies");
+const favoriteSchema = require("../Models/MoviesFavorites");
 
 exports.userProfile = async (req, res) => {
   try {
@@ -43,14 +44,13 @@ exports.addFavoriteMovies = async (req, res) => {
     vote_count,
     adult,
     video,
-    videos
+    videos,
   } = req.body;
 
   const userId = req.user._id;
 
   if (!userId) return res.status(400).json({ message: "User ID is required." });
-  if (!id)
-    return res.status(400).json({ message: "Movie ID is required." });
+  if (!id) return res.status(400).json({ message: "Movie ID is required." });
   if (!title) return res.status(400).json({ message: "Title is required." });
   if (!original_title)
     return res.status(400).json({ message: "Original title is required." });
@@ -98,11 +98,37 @@ exports.addFavoriteMovies = async (req, res) => {
       vote_count: vote_count,
       adult: adult,
       video: video,
-      videos:videos
+      videos: videos,
     });
+    const favoritesCheck = new favoriteSchema({ user_id: userId, id: id });
     await newFavorite.save();
-    res.status(200).json({ message: "Movie was favorited successfuly" });
+    await favoritesCheck.save();
+
+    res.status(200).json({ message: "Added to favorites" });
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+exports.checkMovie = async (req, res, next) => {
+  const { movieId } = req.params;
+  const userId = req.user._id;
+
+  // console.log(movieId,userId);
+
+  try {
+    const existingFavorite = await favoriteSchema.findOne({
+      user_id: userId,
+      id: movieId,
+    });
+
+    if (existingFavorite) {
+      // await MoviesSchema.deleteOne({ user_id: userId, id: movieId });
+      return res
+        .status(200)
+        .json({ isFavorited: true, message: "Removed from favorites" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
   }
 };

@@ -3,7 +3,7 @@ import YouTube from "react-youtube";
 import { Link, NavLink, useParams } from "react-router-dom";
 import "./MoviesDetailsPage.css";
 import { fetchById } from "../../Apis/ApiServices";
-import { favoriteMovies } from "../../Apis/ApiServer";
+import { favoriteMovies, checkFavoriteMovies } from "../../Apis/ApiServer";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
@@ -22,6 +22,11 @@ import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" className=" bg-white" />;
+}
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
@@ -42,11 +47,13 @@ function DetailsPage() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [Transition, setTransition] = useState(() => SlideTransition);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -126,12 +133,32 @@ function DetailsPage() {
 
       const response = await favoriteMovies(dataMoviesWithArrays);
 
+      const { isFavorited } = response;
+
       const successMessage = response.message;
+      setIsFavorited(!isFavorited);
       setSuccess(successMessage);
       setOpenSuccess(true);
     } catch (error) {
       if (error.response) {
-        const errorMessage = error.response.data.message;
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
+  const checkFavoriteStatus = async (id) => {
+    try {
+      const response = await checkFavoriteMovies(id);
+      const { isFavorited } = response;
+      setIsFavorited(isFavorited);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
         setError(errorMessage);
         setOpenError(true);
       } else {
@@ -147,6 +174,7 @@ function DetailsPage() {
       setMovieDetails(details);
     }
     getMoviesDetails();
+    checkFavoriteStatus(id)
   }, [id]);
 
   if (!movieDetails)
@@ -324,8 +352,13 @@ function DetailsPage() {
                 className="tooltip"
                 onClick={() => handleFavorite(movieDetails.details)}
               >
-                <MdFavorite className="MdFavorite" />
-                <span className="tooltiptext">Add Favorite</span>
+                <MdFavorite
+                  className="MdFavorite"
+                  style={{ color: isFavorited ? "red" : "white" }}
+                />
+                <span className="tooltiptext">
+                  {isFavorited ? "Remove Favorite" : "Add Favorite"}
+                </span>
               </button>
             </div>
 
@@ -376,7 +409,6 @@ function DetailsPage() {
         </button>
       ) : null}
 
-      {/* {actorsProfileToggle && <ActorsProfile handleActorsProfileClose={handleActorsProfileClose}/>} */}
       <div>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -406,18 +438,20 @@ function DetailsPage() {
         {success && (
           <Snackbar
             open={openSuccess}
-            autoHideDuration={6000}
+            autoHideDuration={3000}
             onClose={handleCloseSuccess}
-          >
-            <Alert
-              onClose={handleCloseSuccess}
-              severity="success"
-              variant="filled"
-              sx={{ width: "100%" }}
-            >
-              {success}
-            </Alert>
-          </Snackbar>
+            TransitionComponent={Transition}
+            message={success}
+            key={Transition.name}
+            sx={{
+              "& .MuiSnackbarContent-root": {
+                backgroundColor: "white",
+                color: "black",
+                borderRadius: "8px",
+                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+          />
         )}
 
         {error && (
