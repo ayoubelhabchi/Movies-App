@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./SignUp.css";
-import { signUp } from "../../Apis/Auth Apis/AuthApis";
+// import "./SignUp.css";
+import { sigIn } from "../../Apis/Auth Apis/AuthApis";
 import { fetchTrending } from "../../Apis/ApiServices";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
@@ -8,20 +8,16 @@ import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
-function SignUp() {
+function LognIn() {
+
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    country: "",
-    city: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,13 +68,13 @@ function SignUp() {
     setSuccess(null);
 
     try {
-      const response = await signUp(formData);
-      const successMessage = response.message || "Registration successful!";
+      const response = await sigIn(formData);
+      const successMessage = response.message;
       setSuccess(successMessage);
       setOpenSuccess(true);
     } catch (error) {
       if (error.response) {
-        const errorMessage = error.response.data.message || "An error occurred";
+        const errorMessage = error.response.data.error;
         setError(errorMessage);
         setOpenError(true);
       } else {
@@ -94,39 +90,16 @@ function SignUp() {
     <div className="signup_main_container">
       <div className="signup_container">
         <div className="signup_text">
-          <h2>Create An Account</h2>
+          <h2>Welcome to Fushaar</h2>
           <div className="singin_link">
-            <h3>Already have an account ?</h3>
-            <a className="text-[#ae021f] font-medium" href="/login">
-              Log in
+            <h3>New to Fushaar ?</h3>
+            <a className="text-[#ae021f] font-medium" href="/signup">
+              Create an account
             </a>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <div className="name">
-              <input
-                placeholder="First name"
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="name">
-              <input
-                placeholder="Last name"
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
+          
           <div>
             <input
               placeholder="Email"
@@ -147,29 +120,10 @@ function SignUp() {
               required
             />
           </div>
-          <div>
-            <input
-              placeholder="Country"
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <input
-              placeholder="City"
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          
 
           <div className="button_container">
-            <button type="submit">Sign Up</button>
+            <button type="submit">Log In</button>
           </div>
         </form>
 
@@ -249,4 +203,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default LognIn;

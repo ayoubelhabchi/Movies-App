@@ -11,6 +11,7 @@ import MoviesDetailsPage from './Pages/Details Page/MoviesDetailsPage';
 import TvPageDetails from './Pages/Tv Page/TvPageDetails';
 import SeasonDetails from './Pages/Tv Page/Season Deatils/SeasonDetails';
 import SignUp from './Pages/SignUp/SignUp';
+import LognIn from './Pages/LognIn/Login';
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/tv/:id" element={<TvPageDetails />} />
         <Route path="/tv/:id/season/:seasonId_Number" element={<SeasonDetails />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LognIn />} />
       </Routes>
       </ThemeProvider>
     </div>
