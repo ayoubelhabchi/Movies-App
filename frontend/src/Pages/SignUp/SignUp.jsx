@@ -91,7 +91,7 @@ function SignUp() {
   };
 
   return (
-    <div className="main_container">
+    <div className="signup_main_container">
       <div className="signup_container">
         <div className="signup_text">
           <h2>Create An Account</h2>
@@ -176,7 +176,7 @@ function SignUp() {
         <div className="networks_container"></div>
       </div>
 
-      <div className="image_container rounded3xl overflow-hidden">
+      <div className="image_container rounded3xl overflowhidden">
         <Box sx={{ width: 640, overflowY: "hidden" }}>
           <TransitionGroup
             component={ImageList}

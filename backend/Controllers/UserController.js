@@ -29,7 +29,7 @@ exports.userProfile = async (req, res) => {
 exports.addFavoriteMovies = async (req, res) => {
   const {
     user_id,
-    movie_id,
+    id,
     title,
     original_title,
     overview,
@@ -43,12 +43,13 @@ exports.addFavoriteMovies = async (req, res) => {
     vote_count,
     adult,
     video,
+    videos
   } = req.body;
 
   const userId = req.user._id;
 
   if (!userId) return res.status(400).json({ message: "User ID is required." });
-  if (!movie_id)
+  if (!id)
     return res.status(400).json({ message: "Movie ID is required." });
   if (!title) return res.status(400).json({ message: "Title is required." });
   if (!original_title)
@@ -77,11 +78,13 @@ exports.addFavoriteMovies = async (req, res) => {
     return res.status(400).json({ message: "Adult flag is required." });
   if (video === undefined)
     return res.status(400).json({ message: "Video flag is required." });
+  if (videos === undefined)
+    return res.status(400).json({ message: "Videos flag is required." });
 
   try {
     const newFavorite = new MoviesSchema({
       user_id: userId,
-      movie_id: movie_id,
+      id: id,
       title: title,
       original_title: original_title,
       overview: overview,
@@ -95,6 +98,7 @@ exports.addFavoriteMovies = async (req, res) => {
       vote_count: vote_count,
       adult: adult,
       video: video,
+      videos:videos
     });
     await newFavorite.save();
     res.status(200).json({ message: "Movie was favorited successfuly" });

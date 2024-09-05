@@ -7,7 +7,7 @@ const MoviesSchema = new Schema({
       ref: 'User', 
       required: true 
     },
-    movie_id: { 
+    id: { 
       type: Number, 
       required: true 
     },
@@ -52,9 +52,9 @@ const MoviesSchema = new Schema({
     video: { 
       type: Boolean 
     },
-    videos: [{ 
+    videos: { 
       type: String 
-    }]
+    }
     
   });
   

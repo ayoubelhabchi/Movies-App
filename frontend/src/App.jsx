@@ -7,7 +7,7 @@ import TvSeries from './Pages/Tv/TvSeries';
 import Anime from './Pages/Animation/Anime';
 import Home from './Pages/Home/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import DetailsPage from './Pages/Details Page/DetailsPage';
+import MoviesDetailsPage from './Pages/Details Page/MoviesDetailsPage';
 import TvPageDetails from './Pages/Tv Page/TvPageDetails';
 import SeasonDetails from './Pages/Tv Page/Season Deatils/SeasonDetails';
 import SignUp from './Pages/SignUp/SignUp';
@@ -46,7 +46,7 @@ function App() {
           <Route path="tv-shows" element={<TvSeries />} />
           <Route path="anime" element={<Anime />} />
         </Route>
-        <Route path="/details/:id" element={<DetailsPage />} />
+        <Route path="/details/:id" element={<MoviesDetailsPage />} />
         <Route path="/tv/:id" element={<TvPageDetails />} />
         <Route path="/tv/:id/season/:seasonId_Number" element={<SeasonDetails />} />
         <Route path="/signup" element={<SignUp />} />

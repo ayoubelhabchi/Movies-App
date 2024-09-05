@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { Link, NavLink, useParams } from "react-router-dom";
-import "./DetailsPage.css";
+import "./MoviesDetailsPage.css";
 import { fetchById } from "../../Apis/ApiServices";
+import { favoriteMovies } from "../../Apis/ApiServer";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
@@ -10,36 +11,42 @@ import { LiaImdb } from "react-icons/lia";
 import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
 
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
 const imageBaseUrl = "https://image.tmdb.org/t/p/w1280/";
 const profileImageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 
-
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  height: '100%',
-  outline: 'none',
-  p: 2
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "100%",
+  outline: "none",
+  p: 2,
 };
-
 
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
+
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -50,6 +57,20 @@ function DetailsPage() {
   };
   const handleTrailerClose = () => {
     setPlayTrailer(false);
+  };
+
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+  };
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
   };
 
   const findtrailer = () => {
@@ -86,11 +107,44 @@ function DetailsPage() {
     );
   };
 
+  const handleFavorite = async (dataMovies) => {
+    try {
+      const genreIds = movieDetails.details.genres.map((genre) => genre.id);
+
+      const trailer = movieDetails.details.videos.results.find(
+        (vid) => vid.name === "Official Trailer"
+      );
+      const trailerKey = trailer
+        ? trailer.key
+        : movieDetails.details.videos.results[0]?.key;
+
+      const dataMoviesWithArrays = {
+        ...dataMovies,
+        genre_ids: genreIds,
+        videos: trailerKey,
+      };
+
+      const response = await favoriteMovies(dataMoviesWithArrays);
+
+      const successMessage = response.message;
+      setSuccess(successMessage);
+      setOpenSuccess(true);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
   useEffect(() => {
     async function getMoviesDetails() {
       const details = await fetchById(id);
       setMovieDetails(details);
-      console.log(details);
     }
     getMoviesDetails();
   }, [id]);
@@ -266,7 +320,10 @@ function DetailsPage() {
             </div>
 
             <div className="whichlist">
-              <button className="tooltip">
+              <button
+                className="tooltip"
+                onClick={() => handleFavorite(movieDetails.details)}
+              >
                 <MdFavorite className="MdFavorite" />
                 <span className="tooltiptext">Add Favorite</span>
               </button>
@@ -278,14 +335,18 @@ function DetailsPage() {
                 <span className="tooltiptext">Add To Watchlist</span>
               </button>
             </div>
-
           </div>
           <div className="actors_container">
             <h1>Top Cast</h1>
             <AvatarGroup
               max={6}
               renderSurplus={(surplus) => (
-                <span onClick={handleOpen} className=" cursor-pointer text-xs flex m-4 p8">+{surplus} more</span>
+                <span
+                  onClick={handleOpen}
+                  className=" cursor-pointer text-xs flex m-4 p8"
+                >
+                  +{surplus} more
+                </span>
               )}
             >
               {actors.map((actor, index) => (
@@ -297,7 +358,6 @@ function DetailsPage() {
               ))}
             </AvatarGroup>
           </div>
-
         </div>
 
         <div className="poster_container">
@@ -318,30 +378,65 @@ function DetailsPage() {
 
       {/* {actorsProfileToggle && <ActorsProfile handleActorsProfileClose={handleActorsProfileClose}/>} */}
       <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 500,
-            sx: {
-              backdropFilter: 'blur(10px)',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+              sx: {
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+              },
             },
-          },
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style}>
-            <ActorsProfile actors={actors}/>
-          </Box>
-        </Fade>
-      </Modal>
-    </div>
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <ActorsProfile actors={actors} />
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
+      <div>
+        {success && (
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={6000}
+            onClose={handleCloseSuccess}
+          >
+            <Alert
+              onClose={handleCloseSuccess}
+              severity="success"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {success}
+            </Alert>
+          </Snackbar>
+        )}
+
+        {error && (
+          <Snackbar
+            open={openError}
+            autoHideDuration={6000}
+            onClose={handleCloseError}
+          >
+            <Alert
+              onClose={handleCloseError}
+              severity="error"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
+        )}
+      </div>
     </div>
   );
 }

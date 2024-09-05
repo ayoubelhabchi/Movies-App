@@ -1,18 +1,20 @@
 /* Main container styling */
-.main_container {
+.signup_main_container {
   height: 100svh;
   width: 100%;
   background-color: #121212;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  /* padding: 15px 0px; */
+  justify-content: space-evenly; 
+  overflow: hidden;
 }
 
 .signup_container {
-  /* height: 100svh; */
-  /* width: 40%; */
+width: 35%;
+}
+.image_container {
+width: 35%;
+/* width: 45%; */
 }
 
 form {
