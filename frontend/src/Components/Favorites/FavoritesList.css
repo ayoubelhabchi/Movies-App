@@ -1,0 +1,82 @@
+.list_main_container {
+  height: 100%;
+  width: 100%;
+  background-color: #121212;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 20px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.item-card-container {
+  position: relative; 
+  overflow: hidden; 
+}
+
+.item-card-container img {
+  height: 300px;
+  width: 100%; 
+  object-fit: cover; 
+}
+
+.item-cards-info-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); 
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 4px;
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+}
+
+.item-card-container:hover .item-cards-info-container {
+  opacity: 1; 
+}
+.item-card-container:hover .delete-container {
+  opacity: 1; 
+}
+
+.item-cards-info-container h1 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.item-cards-info-container div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.item-cards-info-container div h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.item-cards-info-container div .FaStar-FaStar {
+  color: rgb(245, 245, 0);
+  font-size: 1rem;
+}
+
+.delete-container{
+    position: absolute;
+    right: 0;
+    padding: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+}
+.MdOutlineDeleteForever{
+    font-size: 1.5rem;
+    color: rgb(253, 58, 58);
+    cursor: pointer;
+}

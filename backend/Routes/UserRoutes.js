@@ -9,5 +9,7 @@ const {checkMoviesFavorite} = require('../Middlewares/MovieCheck')
 router.get('/profile', userAuthentication,userController.userProfile)
 router.post('/movies/favorites/:movieId',userAuthentication,checkMoviesFavorite,userController.addFavoriteMovies)
 router.post('/favorites/check/movie/:movieId',userAuthentication,userController.checkMovie)
+router.post('/favorites/remove/movie/:movieId',userAuthentication,userController.deleteMovieFavorite)
+router.get('/movies/favorites/list',userAuthentication, userController.getMoviesFavoritesList)
 
 module.exports = router;

@@ -131,7 +131,7 @@ h1{
 
 .Search_Bar {
     display: flex;
-    align-items: center;
+    justify-content: center;
     width: 100%;
 }
 

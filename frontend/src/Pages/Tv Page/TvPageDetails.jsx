@@ -432,31 +432,7 @@ function TvPageDetails() {
       </div>
 
       {/* More Details Section */}
-      {/* <div>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={openDetails}
-          onClose={handleCloseDetails}
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-              sx: {
-                backdropFilter: "blur(10px)",
-                backgroundColor: "rgba(255, 255, 255, 0.2)",
-              },
-            },
-          }}
-        >
-          <Fade in={openDetails}>
-            <Box sx={style}>
-              <TvShowDetails movieDetails={movieDetails} />
-            </Box>
-          </Fade>
-        </Modal>
-      </div> */}
+      
     </div>
   );
 }
