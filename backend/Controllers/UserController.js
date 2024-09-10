@@ -35,15 +35,12 @@ exports.addFavoriteMovies = async (req, res) => {
     overview,
     release_date,
     poster_path,
-    backdrop_path,
     genre_ids,
     original_language,
     popularity,
     vote_average,
     vote_count,
-    adult,
-    video,
-    videos,
+    adult
   } = req.body;
 
   const userId = req.user._id;
@@ -59,8 +56,6 @@ exports.addFavoriteMovies = async (req, res) => {
     return res.status(400).json({ message: "Release date is required." });
   if (!poster_path)
     return res.status(400).json({ message: "Poster path is required." });
-  if (!backdrop_path)
-    return res.status(400).json({ message: "Backdrop path is required." });
   if (!genre_ids || !Array.isArray(genre_ids))
     return res
       .status(400)
@@ -75,10 +70,6 @@ exports.addFavoriteMovies = async (req, res) => {
     return res.status(400).json({ message: "Vote count is required." });
   if (adult === undefined)
     return res.status(400).json({ message: "Adult flag is required." });
-  if (video === undefined)
-    return res.status(400).json({ message: "Video flag is required." });
-  if (videos === undefined)
-    return res.status(400).json({ message: "Videos flag is required." });
 
   try {
     const newFavorite = new MoviesSchema({
@@ -89,15 +80,12 @@ exports.addFavoriteMovies = async (req, res) => {
       overview: overview,
       release_date: release_date,
       poster_path: poster_path,
-      backdrop_path: backdrop_path,
       genre_ids: genre_ids,
       original_language: original_language,
       popularity: popularity,
       vote_average: vote_average,
       vote_count: vote_count,
       adult: adult,
-      video: video,
-      videos: videos,
     });
     const favoritesCheck = new favoriteSchema({ user_id: userId, id: id });
     await newFavorite.save();

@@ -236,7 +236,7 @@ gap: 4px;
 }
 
 .Search_Bar_Movies {
-  display: flex;
+  display: grid;
   align-items: center;
 }
 

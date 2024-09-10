@@ -28,9 +28,7 @@ const MoviesSchema = new Schema({
     poster_path: { 
       type: String 
     },
-    backdrop_path: { 
-      type: String 
-    },
+    
     genre_ids: [{ 
       type: Number 
     }],
@@ -48,12 +46,6 @@ const MoviesSchema = new Schema({
     },
     adult: { 
       type: Boolean 
-    },
-    video: { 
-      type: Boolean 
-    },
-    videos: { 
-      type: String 
     }
     
   });

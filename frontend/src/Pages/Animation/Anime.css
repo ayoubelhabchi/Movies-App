@@ -241,7 +241,7 @@
   }
   
   .Search_Bar_animes {
-    display: flex;
+    display: grid;
     align-items: center;
   }
   

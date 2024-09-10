@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Server_Base_url } from "../tools/serverBaseUrl";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmQ5YTUyNjQ2MTc3Y2U0YzRjODY2YmUiLCJpYXQiOjE3MjU1NjA1OTUsImV4cCI6MTcyNTY0Njk5NX0.f8Y7pnoznSrNwbEDlxVr7n-qaOfRRK2AMxTZAVM9Y6o";
+const token = localStorage.getItem('token')
 
 export const favoriteMovies = async (dataMovies) => {
   const config = {
