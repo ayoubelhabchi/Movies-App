@@ -9,7 +9,7 @@ export const favoriteMovies = async (dataMovies) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log(dataMovies.id);
+  console.log(dataMovies);
   const movieId = dataMovies.id;
   try {
     const response = await axios.post(
@@ -21,6 +21,48 @@ export const favoriteMovies = async (dataMovies) => {
     return response.data;
   } catch (error) {
     console.error("Error while favoriting", error);
+    throw error;
+  }
+};
+
+export const watchlistMovies = async (dataMovies) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log(dataMovies);
+  const movieId = dataMovies.id;
+  try {
+    const response = await axios.post(
+      `${Server_Base_url}user/movies/add-watchlist/${movieId}`,
+      dataMovies,
+      config
+    );
+    // console.log("Movie Favorited", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error while favoriting", error);
+    throw error;
+  }
+};
+
+export const checkWatchlistMovies = async (id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.post(
+      `${Server_Base_url}user/watchlists/check/movie/${id}`,
+      id,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while checking", error);
     throw error;
   }
 };
@@ -40,7 +82,7 @@ export const checkFavoriteMovies = async (id) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error while registering", error);
+    console.error("Error while checking", error);
     throw error;
   }
 };

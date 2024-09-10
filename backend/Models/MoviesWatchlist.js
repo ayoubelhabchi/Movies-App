@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MoviesSchema = new Schema({
+const MoviesWatchlist = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -33,4 +33,4 @@ const MoviesSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("MoviesFavorites", MoviesSchema);
+module.exports = mongoose.model("MoviesWatchlist", MoviesWatchlist);

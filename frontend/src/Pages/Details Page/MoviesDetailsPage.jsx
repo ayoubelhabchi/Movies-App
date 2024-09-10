@@ -3,12 +3,22 @@ import YouTube from "react-youtube";
 import { Link, NavLink, useParams } from "react-router-dom";
 import "./MoviesDetailsPage.css";
 import { fetchById } from "../../Apis/ApiServices";
-import { favoriteMovies, checkFavoriteMovies } from "../../Apis/ApiServer";
+import {
+  favoriteMovies,
+  checkFavoriteMovies,
+  watchlistMovies,
+  checkWatchlistMovies,
+} from "../../Apis/ApiServer";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
+import {
+  MdFavorite,
+  MdBookmarkAdd,
+  MdBookmarkAdded,
+  MdPlayCircle,
+} from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
 import Backdrop from "@mui/material/Backdrop";
@@ -48,6 +58,7 @@ function DetailsPage() {
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isAddWatchlist, setIsAddWatchlist] = useState(false);
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -116,27 +127,54 @@ function DetailsPage() {
 
   const handleFavorite = async (dataMovies) => {
     try {
-      const genreIds = movieDetails.details.genres.map((genre) => genre.id);
-
-      const trailer = movieDetails.details.videos.results.find(
-        (vid) => vid.name === "Official Trailer"
-      );
-      const trailerKey = trailer
-        ? trailer.key
-        : movieDetails.details.videos.results[0]?.key;
-
-      const dataMoviesWithArrays = {
-        ...dataMovies,
-        genre_ids: genreIds,
-        videos: trailerKey,
+      const movieData = {
+        id: dataMovies.id,
+        title: dataMovies.title,
+        release_date: dataMovies.release_date,
+        poster_path: dataMovies.poster_path,
+        popularity: dataMovies.popularity,
+        vote_average: dataMovies.vote_average,
+        vote_count: dataMovies.vote_count,
       };
 
-      const response = await favoriteMovies(dataMoviesWithArrays);
+      const response = await favoriteMovies(movieData);
 
       const { isFavorited } = response;
 
       const successMessage = response.message;
       setIsFavorited(!isFavorited);
+      setSuccess(successMessage);
+      setOpenSuccess(true);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
+  const handleWatchlist = async (dataMovies) => {
+    const movieData = {
+      id: dataMovies.id,
+      title: dataMovies.title,
+      release_date: dataMovies.release_date,
+      poster_path: dataMovies.poster_path,
+      popularity: dataMovies.popularity,
+      vote_average: dataMovies.vote_average,
+      vote_count: dataMovies.vote_count,
+    };
+    
+    setIsAddWatchlist(!isAddWatchlist);
+
+    try {
+      const response = await watchlistMovies(movieData);
+
+
+      const successMessage = response.message;
       setSuccess(successMessage);
       setOpenSuccess(true);
     } catch (error) {
@@ -168,13 +206,31 @@ function DetailsPage() {
     }
   };
 
+  const checkWatchlistStatus = async (id) => {
+    try {
+      const response = await checkWatchlistMovies(id);
+      const { isAddWatchlist } = response;
+      setIsAddWatchlist(isAddWatchlist);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
   useEffect(() => {
     async function getMoviesDetails() {
       const details = await fetchById(id);
       setMovieDetails(details);
     }
     getMoviesDetails();
-    checkFavoriteStatus(id)
+    checkFavoriteStatus(id);
+    checkWatchlistStatus(id);
   }, [id]);
 
   if (!movieDetails)
@@ -363,9 +419,24 @@ function DetailsPage() {
             </div>
 
             <div className="whichlist">
-              <button className="tooltip">
-                <MdBookmarkAdd className="MdFavorite" />
-                <span className="tooltiptext">Add To Watchlist</span>
+              <button
+                className="tooltip"
+                onClick={() => handleWatchlist(movieDetails.details)}
+              >
+                {isAddWatchlist ? (
+                  <MdBookmarkAdded
+                    className="MdFavorite"
+                    style={{ color: "#4CAF50" }}
+                  />
+                ) : (
+                  <MdBookmarkAdd
+                    className="MdFavorite"
+                    style={{ color: "white" }}
+                  />
+                )}
+                <span className="tooltiptext">
+                  {isAddWatchlist ? "Remove Watchlist" : "Add To Watchlist"}
+                </span>
               </button>
             </div>
           </div>
