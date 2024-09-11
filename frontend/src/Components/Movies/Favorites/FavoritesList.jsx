@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./FavoritesList.css";
-import { getFavoriteMoviesList, deleteMovieList } from "../../Apis/ApiServer";
+import { getFavoriteMoviesList, deleteMovieList } from "../../../Apis/ApiServer";
 import { FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { styled } from "@mui/material/styles";
@@ -50,6 +50,9 @@ function FavoritesList() {
 
   return (
     <div className="list_main_container">
+      <div className="headline">
+        <h1>Favorites</h1>
+      </div>
       <div>
         <Box sx={{ width: "100%" }}>
           <Grid

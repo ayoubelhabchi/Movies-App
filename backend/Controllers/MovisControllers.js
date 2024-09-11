@@ -209,3 +209,56 @@ exports.addFavoriteMovies = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
   };
+
+  exports.getMoviesWatchlistList = async (req,res) => {
+    const userId = req.user._id;
+    try {
+      if (!userId) return res.status(400).json({ message: "User ID is required." });
+  
+      const watchlistMoviesList = await MoviesWatchlist.find({user_id: userId})
+  
+      if (watchlistMoviesList.length === 0) {
+        return res.status(404).json({ message: "No favorite movies found for this user." });
+      }
+  
+      const watchlistMovies = watchlistMoviesList.map(movie => ({
+        user_id: movie.user_id,
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        popularity: movie.popularity,
+        vote_average: movie.vote_average,
+        vote_count: movie.vote_count,
+      }));
+  
+      return res.status(200).json({data: watchlistMovies });
+      
+    } catch (error) {
+      res.status(500).json({ error: "Error while getting the list" });
+    }
+  }
+
+  exports.deleteMovieWatchlist = async (req, res) => {
+    const { movieId } = req.params;
+    const userId = req.user._id;
+  
+    try {
+      const existingFavorite = await MoviesSchema.findOne({
+        user_id: userId,
+        id: movieId,
+      });
+  
+      if (existingFavorite) {
+        await MoviesWatchlist.deleteOne({ user_id: userId, id: movieId });
+        await watchlistCheckSchema.deleteOne({ user_id: userId, id: movieId });
+        return res
+          .status(200)
+          .json({ message: "Removed from watchlist" });
+  
+      } else {
+        return res.status(404).json({message: "Could not find movie with that ID"})
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };

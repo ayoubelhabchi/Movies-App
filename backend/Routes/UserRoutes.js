@@ -17,6 +17,8 @@ router.get('/movies/favorites/list',userAuthentication, moviesController.getMovi
 //movies watchlist routes
 router.post('/movies/add-watchlist/:movieId',userAuthentication,checkMoviesList, moviesController.addWatchlistMovies)
 router.post('/watchlists/check/movie/:movieId',userAuthentication,moviesController.checkMovieWatchlist)
+router.get('/movies/watchlist/list',userAuthentication, moviesController.getMoviesWatchlistList)
+router.post('/watchlist/remove/movie/:movieId',userAuthentication,moviesController.deleteMovieWatchlist)
 
 
 module.exports = router;

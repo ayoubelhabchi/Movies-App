@@ -1,15 +1,22 @@
 .list_main_container {
   height: 100%;
   width: 100%;
-  background-color: #121212;
+  background-color: #dedede;
   padding: 20px;
-  display: flex;
+  display: grid;
+  gap: 10px;
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 20px;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.headline h1{
+  font-size: 2rem;
+  font-weight: 700;
+  color: #960019;
 }
 
 .item-card-container {

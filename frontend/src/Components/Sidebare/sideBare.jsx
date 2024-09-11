@@ -5,7 +5,7 @@ import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoSearchSharp, IoLogOut } from "react-icons/io5";
 import { CiDark } from "react-icons/ci";
-import { MdNewspaper, MdFavorite, MdBookmarkAdd } from "react-icons/md";
+import { MdNewspaper, MdFavorite, MdBookmark} from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { CiCircleChevLeft, CiTextAlignLeft } from "react-icons/ci";
@@ -21,7 +21,8 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import FavoritesList from "../Favorites/FavoritesList";
+import FavoritesList from "../Movies/Favorites/FavoritesList";
+import Watchlist from "../Movies/Watchlist/Watchlist";
 
 const style = {
   position: "absolute",
@@ -42,12 +43,18 @@ function SideBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [result, setResult] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [openFavoriteList, setOpenFavoriteList] = useState(false);
+  const [activeModalContent, setActiveModalContent] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
   const searchRef = useRef();
 
-  const handleOpenList = () => setOpenFavoriteList(true);
-  const handleCloseList = () => setOpenFavoriteList(false);
 
+  const handleOpenModal = (content) => {
+    setActiveModalContent(content);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => setOpenModal(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -184,13 +191,13 @@ function SideBar() {
             {open && <h1 className="Feeds_Icons_Text">News</h1>}
           </button>
 
-          <button className="Feed_Container" onClick={handleOpenList}>
+          <button className="Feed_Container" onClick={() => handleOpenModal("favorites")}>
             <MdFavorite className="icon" />
             {open && <h1 className="">Favorites</h1>}
           </button>
 
-          <button className="Feed_Container">
-            <MdBookmarkAdd className="icon" />
+          <button className="Feed_Container" onClick={() => handleOpenModal("watchlist")}>
+            <MdBookmark className="icon" />
             {open && <h1 className="">Watchlist</h1>}
           </button>
 
@@ -233,8 +240,8 @@ function SideBar() {
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
-          open={openFavoriteList}
-          onClose={handleCloseList}
+          open={openModal}
+          onClose={handleCloseModal}
           closeAfterTransition
           slots={{ backdrop: Backdrop }}
           slotProps={{
@@ -247,9 +254,13 @@ function SideBar() {
             },
           }}
         >
-          <Fade in={openFavoriteList}>
-            <Box sx={style}>
-              <FavoritesList/>
+          <Fade in={openModal}>
+          <Box sx={style}>
+              {activeModalContent === "favorites" ? (
+                <FavoritesList />
+              ) : (
+                <Watchlist />
+              )}
             </Box>
           </Fade>
         </Modal>

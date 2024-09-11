@@ -125,3 +125,42 @@ export const getFavoriteMoviesList = async () => {
     throw error;
   }
 };
+
+export const getWatchlistMoviesList = async () => {
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.get(
+      `${Server_Base_url}user/movies/watchlist/list`,config
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error("Error while getting the lsit", error);
+    throw error;
+  }
+};
+
+export const deleteMovieWatchlist = async (id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  // const movieId = dataMovies.id
+  try {
+    const response = await axios.post(
+      `${Server_Base_url}user/watchlist/remove/movie/${id}`,
+      id,
+      config
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error while registering", error);
+    throw error;
+  }
+};
