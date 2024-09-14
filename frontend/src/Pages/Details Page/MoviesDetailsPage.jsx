@@ -21,18 +21,10 @@ import {
 } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
+import { Modal, Snackbar, Alert, Slide, AvatarGroup, Avatar, Backdrop, Box, Fade } from "@mui/material";
 
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
-import Slide from "@mui/material/Slide";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" className=" bg-white" />;
