@@ -11,7 +11,7 @@ import MoviesDetailsPage from './Pages/Details Page/MoviesDetailsPage';
 import TvPageDetails from './Pages/Tv Page/TvPageDetails';
 import SeasonDetails from './Pages/Tv Page/Season Deatils/SeasonDetails';
 import SignUp from './Pages/SignUp/SignUp';
-import LognIn from './Pages/LognIn/Login';
+import LognIn from './Pages/Log_In/LogIn';
 
 const theme = createTheme({
   palette: {
