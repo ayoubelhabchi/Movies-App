@@ -13,7 +13,7 @@ export const favoriteMovies = async (dataMovies) => {
   const movieId = dataMovies.id;
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/movies/favorites/${movieId}`,
+      `${Server_Base_url}movies/favorites/${movieId}`,
       dataMovies,
       config
     );
@@ -35,7 +35,7 @@ export const watchlistMovies = async (dataMovies) => {
   const movieId = dataMovies.id;
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/movies/add-watchlist/${movieId}`,
+      `${Server_Base_url}movies/add-watchlist/${movieId}`,
       dataMovies,
       config
     );
@@ -56,7 +56,7 @@ export const checkWatchlistMovies = async (id) => {
 
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/watchlists/check/movie/${id}`,
+      `${Server_Base_url}movies/watchlists/check/movie/${id}`,
       id,
       config
     );
@@ -76,7 +76,7 @@ export const checkFavoriteMovies = async (id) => {
 
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/favorites/check/movie/${id}`,
+      `${Server_Base_url}movies/favorites/check/movie/${id}`,
       id,
       config
     );
@@ -96,7 +96,7 @@ export const deleteMovieList = async (id) => {
   // const movieId = dataMovies.id
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/favorites/remove/movie/${id}`,
+      `${Server_Base_url}movies/favorites/remove/movie/${id}`,
       id,
       config
     );
@@ -117,7 +117,7 @@ export const getFavoriteMoviesList = async () => {
 
   try {
     const response = await axios.get(
-      `${Server_Base_url}user/movies/favorites/list`,config
+      `${Server_Base_url}movies/favorites/list`,config
     );
     return response.data.data;
   } catch (error) {
@@ -136,7 +136,7 @@ export const getWatchlistMoviesList = async () => {
 
   try {
     const response = await axios.get(
-      `${Server_Base_url}user/movies/watchlist/list`,config
+      `${Server_Base_url}movies/watchlist/list`,config
     );
     return response.data.data;
   } catch (error) {
@@ -154,7 +154,7 @@ export const deleteMovieWatchlist = async (id) => {
   // const movieId = dataMovies.id
   try {
     const response = await axios.post(
-      `${Server_Base_url}user/watchlist/remove/movie/${id}`,
+      `${Server_Base_url}movies/watchlist/remove/movie/${id}`,
       id,
       config
     );

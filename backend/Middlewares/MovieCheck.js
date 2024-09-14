@@ -1,7 +1,7 @@
-const MoviesSchema = require("../Models/Movies");
-const favoriteSchema = require("../Models/MoviesFavorites");
-const MoviesWatchlist = require('../Models/MoviesWatchlist')
-const watchlistCheckSchema = require('../Models/MoviesWatchlistCheck')
+const MoviesSchema = require("../Models/Movies/Movies");
+const favoriteSchema = require("../Models/Movies/MoviesFavorites");
+const MoviesWatchlist = require('../Models/Movies/MoviesWatchlist')
+const watchlistCheckSchema = require('../Models/Movies/MoviesWatchlistCheck')
 
 exports.checkMoviesFavorite = async (req, res, next) => {
   const { movieId } = req.params;

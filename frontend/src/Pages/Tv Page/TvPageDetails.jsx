@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
 import "./TvPageDetails.css";
+
 import { fetchSeriesById } from "../../Apis/ApiServices";
+import { favoriteSeries, checkFavoriteSeries } from "../../Apis/SeriesApis";
+
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { slidesSettings } from "../../tools/carouselSettings";
 
@@ -11,7 +14,6 @@ import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
 import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
-import { CgDetailsMore } from "react-icons/cg";
 import { CiPlay1 } from "react-icons/ci";
 
 import Backdrop from "@mui/material/Backdrop";
@@ -21,8 +23,17 @@ import Fade from "@mui/material/Fade";
 
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
+
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" className=" bg-white" />;
+}
+
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
-import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
+// import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -45,11 +56,20 @@ const style = {
 
 function TvPageDetails() {
   const { id } = useParams();
+  console.log(id);
+  
   const navigate = useNavigate()
 
-  const [movieDetails, setMovieDetails] = useState(null);
+  const [seriesDetails, setSeriesDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isTrailerReady, setIsTrailerReady] = useState(false);
+
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [Transition, setTransition] = useState(() => SlideTransition);
 
   const [open, setOpen] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
@@ -59,6 +79,20 @@ function TvPageDetails() {
 
   const handleOpenDetails = () => setOpenDetails(true);
   const handleCloseDetails = () => setOpenDetails(false);
+
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+  };
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
+  };
 
   const handleTrailerPlay = () => {
     setPlayTrailer(true);
@@ -73,12 +107,12 @@ function TvPageDetails() {
   }
 
   const findtrailer = () => {
-    const trailer = movieDetails.details.videos.results.find(
+    const trailer = seriesDetails.details.videos.results.find(
       (vid) => vid.name === "Official Trailer"
     );
     const key = trailer
       ? trailer.key
-      : movieDetails.details.videos.results[0]?.key;
+      : seriesDetails.details.videos.results[0]?.key;
 
     return (
       <YouTube
@@ -104,24 +138,76 @@ function TvPageDetails() {
     );
   };
 
+  const handleFavorite = async (dataSeries) => {
+    try {
+      const SeriesData = {
+        id: dataSeries.id,
+        name: dataSeries.name,
+        first_air_date: dataSeries.first_air_date,
+        poster_path: dataSeries.poster_path,
+        popularity: dataSeries.popularity,
+        vote_average: dataSeries.vote_average,
+        vote_count: dataSeries.vote_count,
+      };
+
+      const response = await favoriteSeries(SeriesData);
+
+      const { isFavorited } = response;
+
+      const successMessage = response.message;
+      setIsFavorited(!isFavorited);
+      setSuccess(successMessage);
+      setOpenSuccess(true);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
+  const checkFavoriteStatus = async (id) => {
+    console.log(id,"kk");
+    
+    try {
+      const response = await checkFavoriteSeries(id);
+      const { isFavorited } = response;
+      setIsFavorited(isFavorited);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
   useEffect(() => {
-    async function getMoviesDetails() {
+    async function getSeriesDetails() {
       const details = await fetchSeriesById(id);
-      setMovieDetails(details);
+      setSeriesDetails(details);
       console.log(details);
     }
-    getMoviesDetails();
+    getSeriesDetails();
+    checkFavoriteStatus(id)
   }, [id]);
 
-  if (!movieDetails)
+  if (!seriesDetails)
     return <div className=" text-white text-3xl">Loading...</div>;
 
-  const genreIds = movieDetails.details.genres.map((genre) => genre.id);
-  const casts = movieDetails.details?.credits?.cast || [];
-  const productionComanies = movieDetails.details?.production_companies || [];
-  const episodesRunTime = movieDetails.details?.episode_run_time || [];
-  const seasonsArray = movieDetails.details.seasons || [];
-  const seasonCreactors = movieDetails.details.created_by || [];
+  const genreIds = seriesDetails.details.genres.map((genre) => genre.id);
+  const casts = seriesDetails.details?.credits?.cast || [];
+  const productionComanies = seriesDetails.details?.production_companies || [];
+  const episodesRunTime = seriesDetails.details?.episode_run_time || [];
+  const seasonsArray = seriesDetails.details.seasons || [];
+  const seasonCreactors = seriesDetails.details.created_by || [];
 
   const seasonCreatedBy = seasonCreactors.map((creator) => creator.original_name)
   const seasons = seasonsArray.filter((season) => season.season_number !== 0 && season.air_date !== null).map((season) => season);
@@ -158,11 +244,14 @@ function TvPageDetails() {
     });
   };
 
+
+
+
   return (
     <div
       className="tv_details_main_container"
       style={{
-        backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`,
+        backgroundImage: `url(${imageBaseUrl}${seriesDetails.details.backdrop_path})`,
       }}
     >
       <nav className="nav_container">
@@ -220,19 +309,19 @@ function TvPageDetails() {
       <div className="tv_deatils_section">
         <div className="tv_poster_details_container">
           <div className="tv_poster_title">
-            <h1>{movieDetails.details.name}</h1>
+            <h1>{seriesDetails.details.name}</h1>
           </div>
           <div className="tv_poster_ratings">
             <div>
               <LiaImdb className="LiaImdb" />
               <h2 className="tv_vote_average">
-                {movieDetails.details.vote_average} /10
+                {seriesDetails.details.vote_average} /10
               </h2>
             </div>
             <div>
               <AiFillLike className="AiFillLike" />
               <h2 className="tv_vote_count">
-                {movieDetails.details.vote_count}
+                {seriesDetails.details.vote_count}
               </h2>
             </div>
 
@@ -243,11 +332,11 @@ function TvPageDetails() {
 
           <div className="tv_poster_ratings">
             <div>
-              <h3>{movieDetails.details.origin_country}</h3>
+              <h3>{seriesDetails.details.origin_country}</h3>
             </div>
 
             <div>
-              <h3>{movieDetails.details.original_language}</h3>
+              <h3>{seriesDetails.details.original_language}</h3>
             </div>
 
             <div>
@@ -259,25 +348,25 @@ function TvPageDetails() {
             </div>
 
             <div>
-              <h3> {movieDetails.details.status}</h3>
+              <h3> {seriesDetails.details.status}</h3>
             </div>
 
             <div>
-              <h3> {movieDetails.details.first_air_date}</h3>
+              <h3> {seriesDetails.details.first_air_date}</h3>
             </div>
 
             <div>
-              <h3>Total Episodes {movieDetails.details.number_of_episodes}</h3>
+              <h3>Total Episodes {seriesDetails.details.number_of_episodes}</h3>
             </div>
 
             <div>
-              <h3>Total Seasons {movieDetails.details.number_of_seasons}</h3>
+              <h3>Total Seasons {seriesDetails.details.number_of_seasons}</h3>
             </div>
           </div>
 
 
           <div className="tv_poster_overview">
-            <p>{movieDetails.details.overview}</p>
+            <p>{seriesDetails.details.overview}</p>
           </div>
 
           <div className="tv_poster_providers">
@@ -290,7 +379,7 @@ function TvPageDetails() {
 
             <div className="officila_site">
               <a
-                href={movieDetails.details.homepage}
+                href={seriesDetails.details.homepage}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -307,9 +396,17 @@ function TvPageDetails() {
             </div> */}
 
             <div className="whichlist">
-              <button className="tooltip">
-                <MdFavorite className="MdFavorite" />
-                <span className="tooltiptext">Add Favorite</span>
+            <button
+                className="tooltip"
+                onClick={() => handleFavorite(seriesDetails.details)}
+              >
+                <MdFavorite
+                  className="MdFavorite"
+                  style={{ color: isFavorited ? "red" : "white" }}
+                />
+                <span className="tooltiptext">
+                  {isFavorited ? "Remove Favorite" : "Add Favorite"}
+                </span>
               </button>
             </div>
 
@@ -354,7 +451,7 @@ function TvPageDetails() {
         <div className="tv_poster_container">
           <img
             className="img_poster"
-            src={`${imageBaseUrl}${movieDetails.details.poster_path}`}
+            src={`${imageBaseUrl}${seriesDetails.details.poster_path}`}
             alt=""
           />
         </div>
@@ -396,7 +493,7 @@ function TvPageDetails() {
         </Slider>
       </div>
 
-      {movieDetails.details.videos && playTrailer ? findtrailer() : null}
+      {seriesDetails.details.videos && playTrailer ? findtrailer() : null}
 
       {playTrailer && isTrailerReady ? (
         <button onClick={handleTrailerClose} className="trailer_close">
@@ -429,6 +526,44 @@ function TvPageDetails() {
             </Box>
           </Fade>
         </Modal>
+      </div>
+
+      <div>
+        {success && (
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={3000}
+            onClose={handleCloseSuccess}
+            TransitionComponent={Transition}
+            message={success}
+            key={Transition.name}
+            sx={{
+              "& .MuiSnackbarContent-root": {
+                backgroundColor: "white",
+                color: "black",
+                borderRadius: "8px",
+                boxShadow: "0 2px 10px rgba(0, 0, 0, 0.15)",
+              },
+            }}
+          />
+        )}
+
+        {error && (
+          <Snackbar
+            open={openError}
+            autoHideDuration={6000}
+            onClose={handleCloseError}
+          >
+            <Alert
+              onClose={handleCloseError}
+              severity="error"
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
+        )}
       </div>
 
       {/* More Details Section */}

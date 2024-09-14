@@ -8,7 +8,7 @@ import {
   checkFavoriteMovies,
   watchlistMovies,
   checkWatchlistMovies,
-} from "../../Apis/ApiServer";
+} from "../../Apis/MoviesAps";
 import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";

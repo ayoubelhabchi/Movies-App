@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   getWatchlistMoviesList,
   deleteMovieWatchlist,
-} from "../../../Apis/ApiServer";
+} from "../../../Apis/MoviesAps";
 import { FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { styled } from "@mui/material/styles";
