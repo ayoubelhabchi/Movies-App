@@ -10,6 +10,11 @@ router.post('/favorites/check/series/:seriesId',userAuthentication,seriesControl
 router.post('/favorites/remove/sereis/:seriesId',userAuthentication,seriesController.deleteSeriesFavorite)
 router.get('/favorites/list',userAuthentication, seriesController.getSeriesFavoritesList)
 
+//series watchlist routes
+router.post('/add-watchlist/:seriesId',userAuthentication,/*checkMoviesList,*/ seriesController.addWatchlistSeries)
+router.post('/watchlists/check/series/:seriesId',userAuthentication,seriesController.checkSeriesWatchlist)
+router.get('/watchlist/list',userAuthentication, seriesController.getSeriesWatchlistList)
+router.post('/watchlist/remove/series/:seriesId',userAuthentication,seriesController.deleteSeriesWatchlist)
 
 
 module.exports = router;

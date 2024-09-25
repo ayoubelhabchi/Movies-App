@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import YouTube from "react-youtube";
+// import YouTube from "react-youtube";
 import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
 import "./TvPageDetails.css";
 
 import { fetchSeriesById } from "../../Apis/ApiServices";
-import { favoriteSeries, checkFavoriteSeries } from "../../Apis/SeriesApis";
+import { favoriteSeries, checkFavoriteSeries,addWatchlistSeries, checkWatchlistSeries } from "../../Apis/SeriesApis";
 
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { slidesSettings } from "../../tools/carouselSettings";
@@ -12,18 +12,29 @@ import { slidesSettings } from "../../tools/carouselSettings";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import { MdFavorite, MdBookmarkAdd, MdPlayCircle } from "react-icons/md";
+import { MdFavorite, MdBookmarkAdd, MdPlayCircle, MdBookmarkAdded } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 import { CiPlay1 } from "react-icons/ci";
 
-import { Modal, Snackbar, Alert, Slide, AvatarGroup, Avatar, Backdrop, Box, Fade } from "@mui/material";
-
+import {
+  Modal,
+  Snackbar,
+  Alert,
+  Slide,
+  AvatarGroup,
+  Avatar,
+  Backdrop,
+  Box,
+  Fade,
+} from "@mui/material";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" className=" bg-white" />;
 }
 
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
+import TrailerPlayer from "../../tools/Youtube/youtubeTrailer";
+
 // import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
 
 import Slider from "react-slick";
@@ -48,14 +59,15 @@ const style = {
 function TvPageDetails() {
   const { id } = useParams();
   console.log(id);
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
 
   const [seriesDetails, setSeriesDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
-  const [isTrailerReady, setIsTrailerReady] = useState(false);
+  // const [isTrailerReady, setIsTrailerReady] = useState(false);
 
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isAddWatchlist, setIsAddWatchlist] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [error, setError] = useState(null);
@@ -68,8 +80,8 @@ function TvPageDetails() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleOpenDetails = () => setOpenDetails(true);
-  const handleCloseDetails = () => setOpenDetails(false);
+  // const handleOpenDetails = () => setOpenDetails(true);
+  // const handleCloseDetails = () => setOpenDetails(false);
 
   const handleCloseSuccess = (event, reason) => {
     if (reason === "clickaway") {
@@ -93,41 +105,41 @@ function TvPageDetails() {
   };
 
   const handleSeasonId_Number = (seasonId_Number) => {
-    navigate(`/tv/${id}/season/${seasonId_Number}`)
+    navigate(`/tv/${id}/season/${seasonId_Number}`);
     console.log(seasonId_Number);
-  }
-
-  const findtrailer = () => {
-    const trailer = seriesDetails.details.videos.results.find(
-      (vid) => vid.name === "Official Trailer"
-    );
-    const key = trailer
-      ? trailer.key
-      : seriesDetails.details.videos.results[0]?.key;
-
-    return (
-      <YouTube
-        videoId={key}
-        containerClassName={"youtube_container"}
-        className="youtube_container"
-        opts={{
-          width: "100%",
-          height: "100%",
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            cc_load_policy: 0,
-            fs: 0,
-            iv_load_policy: 0,
-            modestbranding: 0,
-            rel: 0,
-            showinfo: 0,
-          },
-        }}
-        onReady={() => setIsTrailerReady(true)}
-      />
-    );
   };
+
+  // const findtrailer = () => {
+  //   const trailer = seriesDetails.details.videos.results.find(
+  //     (vid) => vid.name === "Official Trailer"
+  //   );
+  //   const key = trailer
+  //     ? trailer.key
+  //     : seriesDetails.details.videos.results[0]?.key;
+
+  //   return (
+  //     <YouTube
+  //       videoId={key}
+  //       containerClassName={"youtube_container"}
+  //       className="youtube_container"
+  //       opts={{
+  //         width: "100%",
+  //         height: "100%",
+  //         playerVars: {
+  //           autoplay: 1,
+  //           controls: 0,
+  //           cc_load_policy: 0,
+  //           fs: 0,
+  //           iv_load_policy: 0,
+  //           modestbranding: 0,
+  //           rel: 0,
+  //           showinfo: 0,
+  //         },
+  //       }}
+  //       onReady={() => setIsTrailerReady(true)}
+  //     />
+  //   );
+  // };
 
   const handleFavorite = async (dataSeries) => {
     try {
@@ -161,9 +173,54 @@ function TvPageDetails() {
     }
   };
 
+  const handleAddWatchlist = async (dataSeries) => {
+    const SeriesData = {
+      id: dataSeries.id,
+      name: dataSeries.name,
+      first_air_date: dataSeries.first_air_date,
+      poster_path: dataSeries.poster_path,
+      popularity: dataSeries.popularity,
+      vote_average: dataSeries.vote_average,
+      vote_count: dataSeries.vote_count,
+    };
+
+    try {
+      const response = await addWatchlistSeries(SeriesData);
+
+      const successMessage = response.message;
+      setSuccess(successMessage);
+      setIsAddWatchlist(!isAddWatchlist);
+      setOpenSuccess(true);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
+  const checkWatchlistStatus = async (id) => {
+    try {
+      const response = await checkWatchlistSeries(id);
+      const { isAddWatchlist } = response;
+      setIsAddWatchlist(isAddWatchlist);
+    } catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+        setError(errorMessage);
+        setOpenError(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+        setOpenError(true);
+      }
+    }
+  };
+
   const checkFavoriteStatus = async (id) => {
-    console.log(id,"kk");
-    
     try {
       const response = await checkFavoriteSeries(id);
       const { isFavorited } = response;
@@ -184,10 +241,11 @@ function TvPageDetails() {
     async function getSeriesDetails() {
       const details = await fetchSeriesById(id);
       setSeriesDetails(details);
-      console.log(details);
+      // console.log(details);
     }
     getSeriesDetails();
-    checkFavoriteStatus(id)
+    checkFavoriteStatus(id);
+    checkWatchlistStatus(id)
   }, [id]);
 
   if (!seriesDetails)
@@ -195,15 +253,19 @@ function TvPageDetails() {
 
   const genreIds = seriesDetails.details.genres.map((genre) => genre.id);
   const casts = seriesDetails.details?.credits?.cast || [];
-  const productionComanies = seriesDetails.details?.production_companies || [];
+  // const productionComanies = seriesDetails.details?.production_companies || [];
   const episodesRunTime = seriesDetails.details?.episode_run_time || [];
   const seasonsArray = seriesDetails.details.seasons || [];
   const seasonCreactors = seriesDetails.details.created_by || [];
 
-  const seasonCreatedBy = seasonCreactors.map((creator) => creator.original_name)
-  const seasons = seasonsArray.filter((season) => season.season_number !== 0 && season.air_date !== null).map((season) => season);
+  const seasonCreatedBy = seasonCreactors.map(
+    (creator) => creator.original_name
+  );
+  const seasons = seasonsArray
+    .filter((season) => season.season_number !== 0 && season.air_date !== null)
+    .map((season) => season);
   const episodeTime = episodesRunTime.map((episode) => episode);
-  const compaines = productionComanies.map((company) => company);
+  // const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
 
   const settings = slidesSettings(seasons.length);
@@ -234,9 +296,6 @@ function TvPageDetails() {
       );
     });
   };
-
-
-
 
   return (
     <div
@@ -355,7 +414,6 @@ function TvPageDetails() {
             </div>
           </div>
 
-
           <div className="tv_poster_overview">
             <p>{seriesDetails.details.overview}</p>
           </div>
@@ -387,7 +445,7 @@ function TvPageDetails() {
             </div> */}
 
             <div className="whichlist">
-            <button
+              <button
                 className="tooltip"
                 onClick={() => handleFavorite(seriesDetails.details)}
               >
@@ -402,18 +460,34 @@ function TvPageDetails() {
             </div>
 
             <div className="whichlist">
-              <button className="tooltip">
-                <MdBookmarkAdd className="MdFavorite" />
-                <span className="tooltiptext">Add To Watchlist</span>
+              <button
+                className="tooltip"
+                onClick={() => handleAddWatchlist(seriesDetails.details)}
+              >
+                {isAddWatchlist ? (
+                  <MdBookmarkAdded
+                    className="MdFavorite"
+                    style={{ color: "#4CAF50" }}
+                  />
+                ) : (
+                  <MdBookmarkAdd
+                    className="MdFavorite"
+                    style={{ color: "white" }}
+                  />
+                )}
+                <span className="tooltiptext">
+                  {isAddWatchlist ? "Remove Watchlist" : "Add To Watchlist"}
+                </span>
               </button>
             </div>
           </div>
 
-
           <div className="tv_actors_container">
-          <div className="creators_container">
-              <h2>Created By: <strong>{seasonCreatedBy.join(',')}</strong></h2>
-          </div>
+            <div className="creators_container">
+              <h2>
+                Created By: <strong>{seasonCreatedBy.join(",")}</strong>
+              </h2>
+            </div>
             <h1>Top Cast</h1>
             <AvatarGroup
               max={4}
@@ -448,11 +522,15 @@ function TvPageDetails() {
         </div>
       </div>
 
-      <div className="seasons_container" >
-        <Slider {...settings} >
+      <div className="seasons_container">
+        <Slider {...settings}>
           {seasons.length > 0 ? (
             seasons.map((season, index) => (
-              <div className="season-card" onClick={() => handleSeasonId_Number(season.season_number)} key={index} >
+              <div
+                className="season-card"
+                onClick={() => handleSeasonId_Number(season.season_number)}
+                key={index}
+              >
                 <img
                   src={`${imageBaseUrlSeasons}${season.poster_path}`}
                   alt=""
@@ -484,13 +562,13 @@ function TvPageDetails() {
         </Slider>
       </div>
 
-      {seriesDetails.details.videos && playTrailer ? findtrailer() : null}
+      {/* {seriesDetails.details.videos && playTrailer ? findtrailer() : null}
 
       {playTrailer && isTrailerReady ? (
         <button onClick={handleTrailerClose} className="trailer_close">
           Close
         </button>
-      ) : null}
+      ) : null} */}
 
       {/* Actors Details Section */}
       <div>
@@ -557,8 +635,11 @@ function TvPageDetails() {
         )}
       </div>
 
-      {/* More Details Section */}
-      
+      <TrailerPlayer
+        seriesDetails={seriesDetails}
+        playTrailer={playTrailer}
+        handleTrailerClose={handleTrailerClose}
+      />
     </div>
   );
 }

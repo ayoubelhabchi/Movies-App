@@ -3,11 +3,12 @@ import "./FavoritesList.css";
 import {
   getFavoriteMoviesList,
   deleteMovieList,
-} from "../../../Apis/MoviesAps";
+} from "../../Apis/MoviesAps";
 import {
   getFavoriteSeriesList,
   deleteSeriesList,
-} from "../../../Apis/SeriesApis";
+} from "../../Apis/SeriesApis";
+
 import { FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { styled } from "@mui/material/styles";

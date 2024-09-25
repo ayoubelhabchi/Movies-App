@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import YouTube from "react-youtube";
 import { Link, NavLink, useParams } from "react-router-dom";
 import "./MoviesDetailsPage.css";
+
 import { fetchById } from "../../Apis/ApiServices";
 import {
   favoriteMovies,
@@ -10,20 +10,27 @@ import {
   checkWatchlistMovies,
 } from "../../Apis/MoviesAps";
 import { genreMapMovies, genreColors } from "../../tools/geners";
+
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import {
-  MdFavorite,
-  MdBookmarkAdd,
-  MdBookmarkAdded,
-  MdPlayCircle,
-} from "react-icons/md";
+import { MdFavorite, MdBookmarkAdd, MdBookmarkAdded, MdPlayCircle } from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 
-import { Modal, Snackbar, Alert, Slide, AvatarGroup, Avatar, Backdrop, Box, Fade } from "@mui/material";
+import {
+  Modal,
+  Snackbar,
+  Alert,
+  Slide,
+  AvatarGroup,
+  Avatar,
+  Backdrop,
+  Box,
+  Fade,
+} from "@mui/material";
 
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
+import TrailerPlayer from "../../tools/Youtube/youtubeTrailer";
 
 
 function SlideTransition(props) {
@@ -48,7 +55,6 @@ function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
-  const [isTrailerReady, setIsTrailerReady] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isAddWatchlist, setIsAddWatchlist] = useState(false);
 
@@ -81,40 +87,6 @@ function DetailsPage() {
       return;
     }
     setOpenError(false);
-  };
-
-  const findtrailer = () => {
-    const trailer = movieDetails.details.videos.results.find(
-      (vid) => vid.name === "Official Trailer"
-    );
-    const key = trailer
-      ? trailer.key
-      : movieDetails.details.videos.results[0]?.key;
-
-    // setPlayTrailer(playTrailer ? trailer : movieDetails.details.videos.results[0]?.key)
-
-    return (
-      <YouTube
-        videoId={key}
-        containerClassName={"youtube_container"}
-        className="youtube_container"
-        opts={{
-          width: "100%",
-          height: "100%",
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            cc_load_policy: 0,
-            fs: 0,
-            iv_load_policy: 0,
-            modestbranding: 0,
-            rel: 0,
-            showinfo: 0,
-          },
-        }}
-        onReady={() => setIsTrailerReady(true)}
-      />
-    );
   };
 
   const handleFavorite = async (dataMovies) => {
@@ -159,15 +131,13 @@ function DetailsPage() {
       vote_average: dataMovies.vote_average,
       vote_count: dataMovies.vote_count,
     };
-    
-    setIsAddWatchlist(!isAddWatchlist);
 
     try {
       const response = await watchlistMovies(movieData);
 
-
       const successMessage = response.message;
       setSuccess(successMessage);
+      setIsAddWatchlist(!isAddWatchlist);
       setOpenSuccess(true);
     } catch (error) {
       if (error.response) {
@@ -230,11 +200,7 @@ function DetailsPage() {
 
   const genreIds = movieDetails.details.genres.map((genre) => genre.id);
   const casts = movieDetails.details?.credits?.cast || [];
-  const productionComanies = movieDetails.details?.production_companies || [];
-  const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
-
-  // console.log("compaines", compaines);
 
   // Function to get genre names and apply color styles
   const getGenreNames = (genreIds) => {
@@ -464,13 +430,6 @@ function DetailsPage() {
           />
         </div>
       </div>
-      {movieDetails.details.videos && playTrailer ? findtrailer() : null}
-
-      {playTrailer && isTrailerReady ? (
-        <button onClick={handleTrailerClose} className="trailer_close">
-          Close
-        </button>
-      ) : null}
 
       <div>
         <Modal
@@ -534,6 +493,11 @@ function DetailsPage() {
           </Snackbar>
         )}
       </div>
+      <TrailerPlayer
+        movieDetails={movieDetails}
+        playTrailer={playTrailer}
+        handleTrailerClose={handleTrailerClose}
+      />
     </div>
   );
 }

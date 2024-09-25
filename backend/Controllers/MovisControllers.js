@@ -243,12 +243,12 @@ exports.addFavoriteMovies = async (req, res) => {
     const userId = req.user._id;
   
     try {
-      const existingFavorite = await MoviesSchema.findOne({
+      const existingWatchlist = await MoviesWatchlist.findOne({
         user_id: userId,
         id: movieId,
       });
   
-      if (existingFavorite) {
+      if (existingWatchlist) {
         await MoviesWatchlist.deleteOne({ user_id: userId, id: movieId });
         await watchlistCheckSchema.deleteOne({ user_id: userId, id: movieId });
         return res

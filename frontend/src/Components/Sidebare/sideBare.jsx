@@ -21,8 +21,9 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import FavoritesList from "../Movies/Favorites/FavoritesList";
-import Watchlist from "../Movies/Watchlist/Watchlist";
+
+import FavoritesList from "../Favorites/FavoritesList";
+import Watchlist from "../Watchlist/Watchlist";
 
 const style = {
   position: "absolute",
