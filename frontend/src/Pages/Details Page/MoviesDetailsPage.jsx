@@ -31,7 +31,7 @@ import {
 
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 import TrailerPlayer from "../../tools/Youtube/youtubeTrailer";
-
+import Loader from "../../Components/Loader/Loader";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" className=" bg-white" />;
@@ -51,6 +51,7 @@ const style = {
   p: 2,
 };
 
+
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
@@ -63,7 +64,8 @@ function DetailsPage() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [Transition, setTransition] = useState(() => SlideTransition);
-
+  const [loading, setLoading] = useState(true);
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -187,16 +189,19 @@ function DetailsPage() {
 
   useEffect(() => {
     async function getMoviesDetails() {
+      setLoading(true);
       const details = await fetchById(id);
       setMovieDetails(details);
+      setLoading(false);
     }
     getMoviesDetails();
     checkFavoriteStatus(id);
     checkWatchlistStatus(id);
   }, [id]);
 
-  if (!movieDetails)
-    return <div className=" text-white text-3xl">Loading...</div>;
+  if (loading) {
+    return <Loader />
+  }
 
   const genreIds = movieDetails.details.genres.map((genre) => genre.id);
   const casts = movieDetails.details?.credits?.cast || [];
