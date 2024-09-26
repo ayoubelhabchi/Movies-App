@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import YouTube from "react-youtube";
 import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
 import "./TvPageDetails.css";
 
 import { fetchSeriesById } from "../../Apis/ApiServices";
-import { favoriteSeries, checkFavoriteSeries,addWatchlistSeries, checkWatchlistSeries } from "../../Apis/SeriesApis";
+import {
+  favoriteSeries,
+  checkFavoriteSeries,
+  addWatchlistSeries,
+  checkWatchlistSeries,
+} from "../../Apis/SeriesApis";
 
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { slidesSettings } from "../../tools/carouselSettings";
@@ -12,7 +16,12 @@ import { slidesSettings } from "../../tools/carouselSettings";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import { MdFavorite, MdBookmarkAdd, MdPlayCircle, MdBookmarkAdded } from "react-icons/md";
+import {
+  MdFavorite,
+  MdBookmarkAdd,
+  MdPlayCircle,
+  MdBookmarkAdded,
+} from "react-icons/md";
 import { GoHomeFill } from "react-icons/go";
 import { CiPlay1 } from "react-icons/ci";
 
@@ -34,8 +43,7 @@ function SlideTransition(props) {
 
 import ActorsProfile from "../../Components/Actors Profile/ActorsProfile";
 import TrailerPlayer from "../../tools/Youtube/youtubeTrailer";
-
-// import TvShowDetails from "../../Components/TvShowDetails/TvShowDetails";
+import Loader from "../../Components/Loader/Loader";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -58,13 +66,10 @@ const style = {
 
 function TvPageDetails() {
   const { id } = useParams();
-  console.log(id);
-
   const navigate = useNavigate();
 
   const [seriesDetails, setSeriesDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
-  // const [isTrailerReady, setIsTrailerReady] = useState(false);
 
   const [isFavorited, setIsFavorited] = useState(false);
   const [isAddWatchlist, setIsAddWatchlist] = useState(false);
@@ -76,12 +81,10 @@ function TvPageDetails() {
 
   const [open, setOpen] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  // const handleOpenDetails = () => setOpenDetails(true);
-  // const handleCloseDetails = () => setOpenDetails(false);
 
   const handleCloseSuccess = (event, reason) => {
     if (reason === "clickaway") {
@@ -106,40 +109,7 @@ function TvPageDetails() {
 
   const handleSeasonId_Number = (seasonId_Number) => {
     navigate(`/tv/${id}/season/${seasonId_Number}`);
-    console.log(seasonId_Number);
-  };
-
-  // const findtrailer = () => {
-  //   const trailer = seriesDetails.details.videos.results.find(
-  //     (vid) => vid.name === "Official Trailer"
-  //   );
-  //   const key = trailer
-  //     ? trailer.key
-  //     : seriesDetails.details.videos.results[0]?.key;
-
-  //   return (
-  //     <YouTube
-  //       videoId={key}
-  //       containerClassName={"youtube_container"}
-  //       className="youtube_container"
-  //       opts={{
-  //         width: "100%",
-  //         height: "100%",
-  //         playerVars: {
-  //           autoplay: 1,
-  //           controls: 0,
-  //           cc_load_policy: 0,
-  //           fs: 0,
-  //           iv_load_policy: 0,
-  //           modestbranding: 0,
-  //           rel: 0,
-  //           showinfo: 0,
-  //         },
-  //       }}
-  //       onReady={() => setIsTrailerReady(true)}
-  //     />
-  //   );
-  // };
+  }; // console.log(seasonId_Number);
 
   const handleFavorite = async (dataSeries) => {
     try {
@@ -239,21 +209,22 @@ function TvPageDetails() {
 
   useEffect(() => {
     async function getSeriesDetails() {
+      setLoading(true);
       const details = await fetchSeriesById(id);
       setSeriesDetails(details);
-      // console.log(details);
+      setLoading(false);
     }
     getSeriesDetails();
     checkFavoriteStatus(id);
-    checkWatchlistStatus(id)
+    checkWatchlistStatus(id);
   }, [id]);
 
-  if (!seriesDetails)
-    return <div className=" text-white text-3xl">Loading...</div>;
+  if (loading) {
+    return <Loader />;
+  }
 
   const genreIds = seriesDetails.details.genres.map((genre) => genre.id);
   const casts = seriesDetails.details?.credits?.cast || [];
-  // const productionComanies = seriesDetails.details?.production_companies || [];
   const episodesRunTime = seriesDetails.details?.episode_run_time || [];
   const seasonsArray = seriesDetails.details.seasons || [];
   const seasonCreactors = seriesDetails.details.created_by || [];
@@ -265,7 +236,6 @@ function TvPageDetails() {
     .filter((season) => season.season_number !== 0 && season.air_date !== null)
     .map((season) => season);
   const episodeTime = episodesRunTime.map((episode) => episode);
-  // const compaines = productionComanies.map((company) => company);
   const actors = casts.map((actor) => actor);
 
   const settings = slidesSettings(seasons.length);
@@ -304,56 +274,6 @@ function TvPageDetails() {
         backgroundImage: `url(${imageBaseUrl}${seriesDetails.details.backdrop_path})`,
       }}
     >
-      <nav className="nav_container">
-        <div className="icon_container">
-          <img className="h-12 w-12" src="/popcorn-svgrepo-com.svg" />
-          <h1>Fushaar</h1>
-        </div>
-        <ul className="nav_links">
-          <li className="">
-            <NavLink
-              to="/movies"
-              className={({ isActive }) =>
-                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${
-                  isActive
-                    ? "opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl"
-                    : "opacity-60 text-lg"
-                }`
-              }
-            >
-              Movies
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/tv-shows"
-              className={({ isActive }) =>
-                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${
-                  isActive
-                    ? "opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl"
-                    : "opacity-60 text-lg"
-                }`
-              }
-            >
-              Tv Shows
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/anime"
-              className={({ isActive }) =>
-                `text-white  hover:opacity-100 leading-normal no-underline relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bg-white after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:origin-bottom-right hover:after:origin-bottom-left after:transition-transform after:duration-300 ${
-                  isActive
-                    ? "opacity-100 after:scale-x-100 after:bg-white font-semibold text-xl"
-                    : "opacity-60 text-lg"
-                }`
-              }
-            >
-              Anime
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
       <div className="tv_deatils_shadows"></div>
 
       <div className="tv_deatils_section">
@@ -437,13 +357,6 @@ function TvPageDetails() {
               </a>
             </div>
 
-            {/* <div className="more_details">
-              <button onClick={handleOpenDetails}>
-                <CgDetailsMore className="GoHomeFill" />
-                More Details
-              </button>
-            </div> */}
-
             <div className="whichlist">
               <button
                 className="tooltip"
@@ -485,7 +398,12 @@ function TvPageDetails() {
           <div className="tv_actors_container">
             <div className="creators_container">
               <h2>
-                Created By: <strong>{seasonCreatedBy.join(",")}</strong>
+                Created By:{" "}
+                <strong>
+                  {seasonCreatedBy && seasonCreatedBy.length > 0
+                    ? seasonCreatedBy.join(", ")
+                    : "N/L"}
+                </strong>
               </h2>
             </div>
             <h1>Top Cast</h1>
@@ -561,14 +479,6 @@ function TvPageDetails() {
           )}
         </Slider>
       </div>
-
-      {/* {seriesDetails.details.videos && playTrailer ? findtrailer() : null}
-
-      {playTrailer && isTrailerReady ? (
-        <button onClick={handleTrailerClose} className="trailer_close">
-          Close
-        </button>
-      ) : null} */}
 
       {/* Actors Details Section */}
       <div>

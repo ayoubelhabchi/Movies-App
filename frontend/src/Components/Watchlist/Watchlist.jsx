@@ -10,6 +10,8 @@ import {
   deleteWatchlistSeries,
 } from "../../Apis/SeriesApis";
 
+import Loader from "../Loader/Loader";
+
 import { FaStar } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { styled } from "@mui/material/styles";
@@ -36,17 +38,22 @@ const posterBaseUrl = "https://image.tmdb.org/t/p/w500/";
 function Watchlist() {
   const [favortedList, setFavoritedList] = useState([]);
   const [showMovies, setShowMovies] = useState(true);
-
+  const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
     async function getFavorites() {
       try {
         if (showMovies) {
+          setLoading(true)
           const movieResponse = await getWatchlistMoviesList();
           setFavoritedList(movieResponse);
+          setLoading(false)
         } else {
+          setLoading(true)
           const seriesResponse = await getWatchlistSeries();
           setFavoritedList(seriesResponse);
+          setLoading(false)
         }
       } catch (error) {
         console.error("Failed to fetch watchlist series", error);
@@ -90,37 +97,37 @@ function Watchlist() {
       </div>
       <div>
         <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {favortedList.map((item, index) => (
-              <Grid>
-                <Item className="item-container">
-                  <div className="item-card-container">
-                    <div className="delete-container">
-                      <Tooltip title="Delete">
-                        <IconButton onClick={() => handleDelete(item.id)}>
-                          <MdDelete className="MdOutlineDeleteForever" />
-                        </IconButton>
-                      </Tooltip>
-                    </div>
-                    <img src={`${posterBaseUrl}${item.poster_path}`} alt="" />
-
-                    <div className="item-cards-info-container">
-                      <h1>{item.title || item.name}</h1>
-                      <div>
-                        <FaStar className="FaStar-FaStar" />
-                        <h2>{item.vote_average}</h2>
-                      </div>
+        {loading && (
+          <div className="loader-container">
+            <Loader />
+          </div>
+        )}
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {favortedList.map((item, index) => (
+            <Grid key={index}>
+              <Item className="item-container">
+                <div className="item-card-container">
+                  <div className="delete-container">
+                    <Tooltip title="Delete">
+                      <IconButton onClick={() => handleDelete(item.id)}>
+                        <MdDelete className="MdOutlineDeleteForever" />
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                  <img src={`${posterBaseUrl}${item.poster_path}`} alt="" />
+                  <div className="item-cards-info-container">
+                    <h1>{item.title || item.name}</h1>
+                    <div>
+                      <FaStar className="FaStar-FaStar" />
+                      <h2>{item.vote_average}</h2>
                     </div>
                   </div>
-                </Item>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+                </div>
+              </Item>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
       </div>
     </div>
   );

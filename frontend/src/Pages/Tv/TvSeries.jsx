@@ -58,7 +58,6 @@ function TvSeries() {
         filterByStatus,
         selectedGenres
       );
-      console.log("seres",selectedGenres);
       
       setMovies(movies);
       setTotalPages(totalPages);

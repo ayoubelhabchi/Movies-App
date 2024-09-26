@@ -1,0 +1,27 @@
+.nav_container{
+    z-index: 10;
+    color: white;
+    position: absolute;
+    /* left: 10%; */
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.nav_links{
+    display: flex; 
+    align-items: center;
+    gap: 20px;
+}
+
+.icon_container{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.icon_container h1{
+    font-size: 1.7rem;
+    font-weight: 600;
+}

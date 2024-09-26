@@ -1,4 +1,5 @@
 import React,{ useState, useEffect } from 'react'
+import {useNavigate } from 'react-router-dom';
 import './Anime.css'
 import { genreMapTv, genreColors } from "../../tools/geners";
 import { fetchAnimeOptionFilter } from '../../Apis/ApiServices';
@@ -19,6 +20,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 
 function Anime() {
+  const navigate = useNavigate();
 
   const [filterByYear, setFilterByYear] = useState('');
   const [filterByStatus, setFilterByStatus] = useState('');
@@ -54,8 +56,7 @@ function Anime() {
         filterByStatus,
         selectedGenres
       );
-      console.log("seres",selectedGenres);
-      
+     
       setanimes(animes);
       setTotalPages(totalPages);
     };
@@ -117,6 +118,10 @@ function Anime() {
     setIsSearchVisible(!isSearchVisible);
   };
 
+  const handleGetById = (id) => {
+    console.log("id", id);
+    navigate(`/tv/${id}`);
+  };
   
   return (
     <div className="main_container">
@@ -273,7 +278,7 @@ function Anime() {
           {animes && animes.length > 0 ? (
             <div className='animes_grid'>
               {animes.map((movie) => (
-                <div className='movie_card' key={movie.id}>
+                <div className='movie_card' onClick={() => handleGetById(movie.id)} key={movie.id}>
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     alt={movie.title}

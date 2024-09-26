@@ -5,7 +5,7 @@
   padding: 20px;
   display: grid;
   gap: 10px;
-  justify-content: center;
+  justify-content: left;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 20px;
