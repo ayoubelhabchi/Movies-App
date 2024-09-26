@@ -1,9 +1,6 @@
 import React from "react";
 import "./Loader.css";
-
-import 'ldrs/hourglass'
-
-
+import "ldrs/hourglass";
 
 function Loader() {
   return (
