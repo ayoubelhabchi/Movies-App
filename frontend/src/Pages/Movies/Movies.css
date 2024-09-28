@@ -279,33 +279,38 @@
 @media (max-width: 576px) {
   .main_container {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
   }
+
   .side_tags {
-    background-color: rgba(128, 128, 128, 0.477);
-    height: max-content;
-    border-radius: 18px;
-    padding: 4px 0px;
-    cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.477);
+  height: 40px; 
+  width: 91vw;
+  border-radius: 18px;
+  padding: 4px 0px;
+  cursor: pointer;
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
   }
 
   .tags {
-    display:flexbox;
-    padding: 6px;
-    font-size: small;
+    padding: 8px;
+    font-size: medium;
+    font-weight: 500;
   }
   
   .container_main_tags {
-    padding: 2px;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 20px;
+    padding: 10px; 
+    display: flex; 
+    flex-direction: column-reverse; 
+    gap: 15px;
     width: 100%;
     flex: 1;
   }
+
   .movies_grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -317,7 +322,7 @@
   /* Filter Bar */
   .filter_bar {
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
     padding: 0;
   }
 
@@ -333,7 +338,7 @@
   }
 
   .btn_search_container {
-    padding: 10px 0px;
+    padding: 10px 0px 0px;
   }
 
   .Search_Bar_Movies .Search_Input_Movies:focus {

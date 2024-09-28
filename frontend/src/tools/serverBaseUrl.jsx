@@ -1,3 +1,3 @@
-const Server_Base_url = "http://localhost:3030/"
+const Server_Base_url = "https://fushaar-rw1a.onrender.com"
 
 export {Server_Base_url}
