@@ -17,7 +17,6 @@ export const favoriteMovies = async (dataMovies) => {
       dataMovies,
       config
     );
-    // console.log("Movie Favorited", response.data);
     return response.data;
   } catch (error) {
     console.error("Error while favoriting", error);
