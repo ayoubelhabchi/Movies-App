@@ -42,10 +42,12 @@
       width: 100%;
       z-index: 1000;
     }
-    
-  
-    /* .page-content {
-      margin-top: 0px;
-    } */
+  }
+
+  @media (max-width: 576px) {
+    .page-content{
+      padding: 8px;
+      height: calc(90vh - 10px);
+    }
   }
   

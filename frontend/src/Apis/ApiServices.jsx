@@ -96,12 +96,9 @@ export async function fetchMoviesOptionFilter(
     if (certification) query += `&${certification}`;
     if (genres) query += `&with_genres=${genres.join(",")}`;
 
-    console.log("API Request URL:", query);
-
     const response = await fetch(query);
     const data = await response.json();
-    console.log("data", data.results);
-
+    
     return {
       movies: data.results,
       totalPages: Math.min(data.total_pages, 500),

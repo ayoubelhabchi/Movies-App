@@ -33,7 +33,7 @@ function DropDownBar() {
   };
 
   return (
-    <div>
+    <div className="DropDownBar">
       <BottomNavigation value={value} onChange={handleChange} style={{ backgroundColor: '#121212' }}>
         <BottomNavigationAction
           label="Home"
