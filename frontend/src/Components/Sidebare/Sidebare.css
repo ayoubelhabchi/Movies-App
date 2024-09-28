@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yesteryear&display=swap');
+
+.Container{
+    background-color: #960019d2;
+    height: auto;
+    width: 250px;
+    display: flex;
+    padding: 10px;
+    backdrop-filter: blur(12px); 
+    -webkit-backdrop-filter: blur(10px); 
+    align-items: center;
+    justify-items: center;
+    z-index: 1;
+    transition: width 0.3s ease;
+
+}
+
+.Container.closed {
+    width: 90px;
+    justify-content: center;
+    
+  }
+
+
+h1{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.SideBar_Elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    
+  }
+
+
+
+.Account{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    gap: 6px;
+}
+
+.Account h1{
+    font-size: medium;
+}
+
+
+.Search_Bar_Container {
+    position: fixed;
+    top: 13%;
+    padding: 10px;
+    width: 100%;
+    left: 0;
+}
+
+.Results_Field{
+    height: auto;
+    max-height: 300px;
+    background: #96001997; 
+    backdrop-filter: blur(18px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.306);
+    margin-top: 4px;
+    overflow-y: auto;
+    padding: 0px 8px;
+    
+}
+
+.Results_Container {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .Results_Image img {
+    width: 50px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .Results_Details {
+    flex: 1;
+  }
+  
+  .Results_Details .results_title {
+    font-size: 14px;
+    font-weight:500;
+  }
+  
+  .results_average_vote {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+.results_popularity, .results_vote_average {
+    font-size:x-small;
+    font-weight: 500;
+  }
+
+
+.results_AiFillLike{
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: rgb(47, 222, 85);
+}
+
+.AiFillLike_results, .FaStar_results{
+    font-size: 14px;
+}
+
+.results_FaStar{
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    color: rgb(228, 228, 13);
+}
+
+.Search_Bar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.Search_Bar .IoSearchSharp {
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    padding-left: 8px;
+    z-index: 1;
+}
+
+.Search_Bar .Search_Input {
+    background-color: rgba(255, 255, 255, 0.16);
+    height: 40px;
+    padding-left: 40px; 
+    border: 0;
+    width: 100%;
+    border-radius: 40px;
+    text-align: left;
+    color: white;
+}
+
+
+.Search_Input::placeholder{
+    color: rgba(255, 255, 255, 0.568);
+    font-size: medium;
+}
+
+.Feeds_Icons{
+    display: grid;
+    gap: 20px;
+    justify-items: left;
+    
+}
+
+.Feeds_Icons .icon{
+    color: azure;
+    font-size: 30px;
+    margin-right: 10px;
+}
+.Feeds_Icons h1{
+    color: rgb(184, 181, 181);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.Feed_Container {
+    /* display: flex 1; */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    
+}
+
+
+.Feed_Container h1{
+    color: white;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.CiCircleChevLeft, .CiCircleChevRight, .CiLogout{
+    color: white;
+    font-size: 2.4rem;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.Side_Bar_Icons{
+    position: absolute;
+    bottom: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.Theme_Toggle{
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+}
+
+/* responsive */
+
+@media (max-width: 701px) {
+    .Container {
+      display: none;
+    }
+    
+  }
+  
+  /* Show the SideBar on screens 768px and wider */
+  @media (min-width: 601px) {
+    /* .Container {
+    } */
+  
+    
+  }
+

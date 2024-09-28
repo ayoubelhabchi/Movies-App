@@ -1,0 +1,306 @@
+.Cards_Conainer-Hero {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 20px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: grid;
+}
+
+.Main_card-Hero {
+  height: 100%;
+  width: 100%;
+  /* max-width: 1000px; */
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.img {
+  height: 100%;
+  width: 100vw;
+  object-fit: cover;
+  background-position: center;
+  border-radius: 40px;
+}
+
+.shadow-background-Hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow-overlay-Hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50%;
+  width: 100%;
+  background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 10%,
+      rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+.card-info-container-Hero {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: auto;
+  width: 100%;
+  padding: 25px;
+  z-index: 2;
+  color: #fff;
+  text-align: left;
+}
+
+.card-info-Hero {
+  text-align: left;
+}
+
+.card-info-Hero .Movie_Title-Hero {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  padding-bottom: 10px;
+}
+
+.ratings-votes-container-Hero {
+  display: flex;
+  justify-content: left;  
+  gap: 8px;
+}
+
+.rating-Hero,
+.vots-Hero {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-Hero h2,
+.vots-Hero h2 {
+  font-size: 1.5rem;
+}
+
+.rating-Hero {
+  color: rgb(228, 228, 13);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating-Hero h2 {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.vots-Hero {
+  color: rgb(47, 222, 85);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vots-Hero h2 {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.text-overview{
+  font-size:medium;
+  font-weight: 400;
+}
+
+.dot-separator-Hero {
+  font-size: 1.1rem;
+  color: #dcdcdc;
+}
+
+.data-Hero h2{
+  font-weight: 500;
+}
+
+
+
+.genre-badge {
+  color: #fff;
+  padding: 0.5px 5px;
+  border-radius: 30px;
+  margin: 0; 
+  display: inlineblock;
+  font-size: 1rem;
+}
+
+/* Extra small devices (phones) */
+@media (max-width: 360px) {
+  .Cards_Conainer-Hero {
+    padding-bottom: 0px;
+  }
+
+  .Main_card-Hero {
+    height: 100%;
+    width: 100%;
+    /* max-width: 1000px; */
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .img {
+    height: 62vh;
+    width: 100vw;
+    object-fit: cover;
+    background-position: center;
+    border-radius: 40px;
+  }
+  
+  .card-info-container-Hero {
+    position: absolute;
+    top: 53%;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    z-index: 2;
+    color: #fff;
+    text-align: left;
+  }
+  .text-overview{
+    font-size:small;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+  .card-info-Hero .Movie_Title-Hero {
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 600;
+    padding-bottom: 0px;
+  }
+  
+  .genres-Hero{
+    margin-top: -10px; 
+  }
+
+  .genre-badge {
+    color: #fff;
+    padding: 0.2px 3px;
+    border-radius: 30px;
+    margin: 0px 1px; 
+    display: inline-flexbox;
+    font-size: 0.6rem;
+    
+  }
+  .ratings-votes-container-Hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+  }
+  .rating-Hero h2,
+  .vots-Hero h2 {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .data-Hero h2{
+    font-weight: 400;
+    font-size: x-small;
+  }
+}
+
+/* Small devices (tablets) */
+@media (min-width: 362px) and (max-width: 768px) {
+  .Cards_Conainer-Hero {
+    padding-bottom: 0px;
+  }
+
+  .Main_card-Hero {
+    height: 100%;
+    width: 100%;
+    /* max-width: 1000px; */
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .img {
+    height: 60vh;
+    width: 100vw;
+    object-fit: cover;
+    background-position: center;
+    border-radius: 40px;
+  }
+  
+  .card-info-container-Hero {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    z-index: 2;
+    color: #fff;
+    text-align: left;
+  }
+  .text-overview{
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+  .card-info-Hero .Movie_Title-Hero {
+    font-size: 2rem;
+    font-weight: 600;
+    padding-bottom: 0px;
+  }
+  
+  .genres-Hero{
+    margin-top: -10px; 
+  }
+
+  .genre-badge {
+    color: #fff;
+    padding: 0.2px 3px;
+    border-radius: 30px;
+    margin: 0px 1px; 
+    display: inline-flexbox;
+    font-size: 0.6rem;
+    
+  }
+  .ratings-votes-container-Hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+  }
+  .rating-Hero h2,
+  .vots-Hero h2 {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .data-Hero h2{
+    font-weight: 400;
+    font-size: x-small;
+  }
+}
+
+/* Medium devices (tablets in landscape) */
+@media (min-width: 769px) and (max-width: 992px) {
+  
+}
+
+/* Large devices (desktops) */
+@media (min-width: 993px) {
+  
+}

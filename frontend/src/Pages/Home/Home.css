@@ -1,0 +1,27 @@
+.Components_Container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100svh;
+}
+
+
+@media (max-width: 576px) {
+    .Components_Container {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-bottom: 60px;
+    }
+}
+
+  /* Small devices (tablets) */
+  @media (min-width: 577px) and (max-width: 768px) {
+    
+  }
+  
+  /* Medium devices (tablets in landscape) */
+  @media (min-width: 769px) and (max-width: 992px) {
+    
+  }

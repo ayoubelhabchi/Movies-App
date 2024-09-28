@@ -1,0 +1,149 @@
+.slider-container-trend-movie {
+  height: 100%;
+  width: 100%;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px));
+  display: grid;
+    margin: 0 auto;
+    padding-bottom: 20px;  
+}
+
+
+.slider-container-trend-movie .text-trend-movie{
+padding-bottom: 20px;
+font-size: larger;
+font-weight: 500;
+}
+
+.movie-card-trend-movie {
+    height: 100%;
+    position: relative;
+    margin: 0 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .movie-card-trend-movie:hover{
+    transform: scale(1.05);
+
+}
+  
+  .movie-image-trend-movie {
+    height: 330px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+  
+  .blur-background-trend-movie {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .blur-overlay-trend-movie {
+    width: 100%;
+    background-color: rgba(148, 148, 148, 0.285);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .card-info-container-trend-movie {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  
+  .card-info-trend-movie {
+    color: white;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .card-info-trend-movie .title-trend-movie{
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .card-info-trend-movie .rating-trend-movie:last-of-type {
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+
+  .rating-trend-movie{
+    color: rgb(228, 228, 13);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .vots-trend-movie{
+    color: rgb(47, 222, 85);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+.ratings-votes-container{
+  display: flex;
+  justify-content: left;
+  gap: 5px;
+}
+  
+
+
+
+@media (max-width: 576px) {
+  .movie-card {
+    height: 100%;
+    position: relative;
+    margin: 0 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .movie-image-trend-movie {
+    height: 300px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .card-info-trend-movie .title-trend-movie{
+  margin: 2px 0;
+  }
+
+  .slider-container-trend-movie {
+      padding-bottom: 10px;  
+  }
+
+  .title-trend-movie{
+    line-height: 1;
+  }
+  
+}
+
+/* Small devices (tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  
+}
+
+/* Medium devices (tablets in landscape) */
+@media (min-width: 769px) and (max-width: 992px) {
+  
+}
+
+
+  
