@@ -209,12 +209,9 @@ function TvPageDetails() {
 
   useEffect(() => {
     async function getSeriesDetails() {
-      console.log("setLoading true");
-      
       setLoading(true);
       const details = await fetchSeriesById(id);
       setSeriesDetails(details);
-      console.log("setLoading false");
 
       setLoading(false);
     }
