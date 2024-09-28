@@ -285,15 +285,17 @@
   }
 
   .side_tags {
-  background-color: rgba(128, 128, 128, 0.477);
-  height: 40px; 
-  width: 91vw;
-  border-radius: 18px;
-  padding: 4px 0px;
-  cursor: pointer;
-  display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
+    background-color: rgba(128, 128, 128, 0.477);
+    height: 40px;
+    width: 91vw;
+    border-radius: 30px;
+    padding: 6px 4px;
+    cursor: pointer;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
   }
 
   .tags {
@@ -301,11 +303,11 @@
     font-size: medium;
     font-weight: 500;
   }
-  
+
   .container_main_tags {
-    padding: 10px; 
-    display: flex; 
-    flex-direction: column-reverse; 
+    padding: 10px;
+    display: flex;
+    flex-direction: column-reverse;
     gap: 15px;
     width: 100%;
     flex: 1;
@@ -321,8 +323,8 @@
 
   /* Filter Bar */
   .filter_bar {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     padding: 0;
   }
 
@@ -354,7 +356,6 @@
 
 /* Small devices (tablets) */
 @media (min-width: 431px) and (max-width: 768px) {
-  
 }
 
 /* Medium devices (tablets in landscape) */

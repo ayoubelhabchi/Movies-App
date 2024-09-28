@@ -15,16 +15,17 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { selectTheme } from "../../tools/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme } from "@mui/material";
 
 function Movies() {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
-  
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
+
   const [filterByYear, setFilterByYear] = useState("");
   const [filterByCertification, setFilterByCertification] = useState("");
   const [filterBySort, setFilterBySort] = useState("");
+  const [filterByProvider, setFilterByProvider] = useState("");
   const [filterByLanguage, setFilterByLanguage] = useState("");
   const [filterByCountry, setFilterByCountry] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,6 +39,7 @@ function Movies() {
   const handleFilterByCertification = (event) =>
     setFilterByCertification(event.target.value);
   const handleFilterBySort = (event) => setFilterBySort(event.target.value);
+  const handleFilterByProvider = (event) => setFilterByProvider(event.target.value);
   const handleFilterByLanguage = (event) =>
     setFilterByLanguage(event.target.value);
   const handleFilterByCountry = (event) =>
@@ -53,6 +55,7 @@ function Movies() {
         filterByYear,
         currentPage,
         filterBySort,
+        filterByProvider,
         filterByLanguage,
         filterByCountry,
         filterByCertification,
@@ -69,6 +72,7 @@ function Movies() {
     filterByYear,
     filterByCertification,
     filterBySort,
+    filterByProvider,
     filterByLanguage,
     filterByCountry,
     currentPage,
@@ -151,9 +155,7 @@ function Movies() {
                 <MenuItem value={2021}>2021</MenuItem>
               </Select>
             </FormControl>
-          </ThemeProvider>
 
-          <ThemeProvider theme={selectTheme}>
             <FormControl
               sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
               size="small"
@@ -177,9 +179,33 @@ function Movies() {
                 </MenuItem>
               </Select>
             </FormControl>
-          </ThemeProvider>
 
-          <ThemeProvider theme={selectTheme}>
+            <FormControl
+              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              size="small"
+            >
+              <InputLabel id="filter-sort-label">Providers</InputLabel>
+              <Select
+                labelId="filter-provider-label"
+                id="filter-provider"
+                value={filterByProvider}
+                label="Provider"
+                onChange={handleFilterByProvider}
+              >
+                <MenuItem value="">Provider</MenuItem>
+                <MenuItem value="8">Netflix</MenuItem>
+                <MenuItem value="337">Disney Plus</MenuItem>
+                <MenuItem value="9">
+                Amazon Prime Video
+                </MenuItem>
+                <MenuItem value="350">
+                Apple TV
+                </MenuItem>
+                <MenuItem value="15">Hulu</MenuItem>
+                <MenuItem value="283">Crunchyroll</MenuItem>
+              </Select>
+            </FormControl>
+
             <FormControl
               sx={{ m: 0, paddingRight: 0, minWidth: 147 }}
               size="small"
@@ -212,9 +238,7 @@ function Movies() {
                 </MenuItem>
               </Select>
             </FormControl>
-          </ThemeProvider>
 
-          <ThemeProvider theme={selectTheme}>
             <FormControl
               sx={{ m: 0, paddingRight: 0, minWidth: 125 }}
               size="small"
@@ -241,9 +265,7 @@ function Movies() {
                 <MenuItem value="ar">Arabic</MenuItem>
               </Select>
             </FormControl>
-          </ThemeProvider>
 
-          <ThemeProvider theme={selectTheme}>
             <FormControl
               sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
               size="small"
@@ -369,18 +391,25 @@ function Movies() {
       </div>
 
       <div className="pagination_container">
-      <Stack spacing={2} sx={{ alignItems: "center", flexWrap: "nowrap",paddingBottom:"20px" }}>
-    <Pagination
-      count={totalPages}
-      page={currentPage}
-      onChange={handlePageChange}
-      showFirstButton
-      showLastButton
-      color="primary"
-      siblingCount={0} 
-      boundaryCount={isLargeScreen ? 1 : 0}
-    />
-  </Stack>
+        <Stack
+          spacing={2}
+          sx={{
+            alignItems: "center",
+            flexWrap: "nowrap",
+            paddingBottom: "20px",
+          }}
+        >
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+            color="primary"
+            siblingCount={0}
+            boundaryCount={isLargeScreen ? 1 : 0}
+          />
+        </Stack>
       </div>
     </div>
   );

@@ -102,9 +102,9 @@ function Watchlist() {
             <Loader />
           </div>
         )}
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {favortedList.map((item, index) => (
-            <Grid key={index}>
+            <Grid item xs={6} sm={4} md={4} key={index}>
               <Item className="item-container">
                 <div className="item-card-container">
                   <div className="delete-container">

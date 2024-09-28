@@ -45,8 +45,8 @@
 }
 
 .item-card-container img {
-  height: 300px;
-  width: 200px; 
+  height: auto;
+  width: 100%; 
   object-fit: cover; 
 }
 
@@ -106,4 +106,12 @@
     font-size: 1.5rem;
     color: rgb(253, 58, 58);
     cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .item-card-container img {
+    height: auto;
+    width: auto; 
+    object-fit: cover; 
+  }
 }

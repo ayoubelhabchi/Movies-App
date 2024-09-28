@@ -6,35 +6,41 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { GoHomeFill } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { MdNewspaper, MdFavorite, MdBookmarkAdd } from "react-icons/md";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function DropDownBar() {
-  const [value, setValue] = useState("home");
+function DropDownBar({ handleOpenModal,activeTab, setActiveTab }) {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === '/') {
-      setValue('home');
+      setActiveTab('home');
     } else if (location.pathname === '/trending') {
-      setValue('trending');
+      setActiveTab('trending');
     } else {
-      setValue(null);
+      setActiveTab(null);
     }
-  }, [location.pathname]);
-
+  }, [location.pathname, setActiveTab]);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setActiveTab(newValue);
 
     if (newValue === 'home') {
       navigate('/');
+    } else if (newValue === 'favorites') {
+      handleOpenModal('favorites');
+    } else if (newValue === 'watchlist') {
+      handleOpenModal('watchlist');
     }
   };
 
   return (
     <div className="DropDownBar">
-      <BottomNavigation value={value} onChange={handleChange} style={{ backgroundColor: '#121212' }}>
+      <BottomNavigation
+        value={activeTab}
+        onChange={handleChange}
+        style={{ backgroundColor: "#121212" }}
+      >
         <BottomNavigationAction
           label="Home"
           value="home"
