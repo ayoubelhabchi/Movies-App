@@ -294,6 +294,8 @@
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
   }
 
   .tags {

@@ -76,7 +76,8 @@ export async function fetchMoviesOptionFilter(
   search,
   year,
   page = 1,
-  highScore,
+  sort,
+  provider,
   language,
   country,
   certification,
@@ -90,7 +91,8 @@ export async function fetchMoviesOptionFilter(
     }api_key=${Api_Key}&page=${page}`;
 
     if (year) query += `&primary_release_year=${year}`;
-    if (highScore) query += `&sort_by=${highScore}`;
+    if (sort) query += `&sort_by=${sort}`;
+    if (provider) query += `&watch_region=US&with_watch_providers=${provider}`;
     if (language) query += `&with_origin_country=${language}`;
     if (country) query += `&with_origin_country=${country}`;
     if (certification) query += `&${certification}`;

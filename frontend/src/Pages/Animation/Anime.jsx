@@ -13,12 +13,15 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import { selectTheme } from "../../tools/muiTheme";
 import { ThemeProvider } from "@mui/material/styles";
 
 function Anime() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
 
   const [filterByYear, setFilterByYear] = useState("");
   const [filterByStatus, setFilterByStatus] = useState("");
@@ -345,7 +348,14 @@ function Anime() {
       </div>
 
       <div className="pagination_container">
-        <Stack spacing={2} sx={{ marginTop: "20px", alignItems: "center" }}>
+        <Stack
+          spacing={2}
+          sx={{
+            alignItems: "center",
+            flexWrap: "nowrap",
+            paddingBottom: "20px",
+          }}
+        >
           <Pagination
             count={totalPages}
             page={currentPage}
@@ -353,6 +363,8 @@ function Anime() {
             showFirstButton
             showLastButton
             color="primary"
+            siblingCount={0}
+            boundaryCount={isLargeScreen ? 1 : 0}
           />
         </Stack>
       </div>
