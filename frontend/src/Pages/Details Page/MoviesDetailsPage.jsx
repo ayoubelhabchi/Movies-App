@@ -14,9 +14,16 @@ import { genreMapMovies, genreColors } from "../../tools/geners";
 import { FaStar } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { LiaImdb } from "react-icons/lia";
-import { MdFavorite, MdBookmarkAdd, MdBookmarkAdded, MdPlayCircle } from "react-icons/md";
+import {
+  MdFavorite,
+  MdBookmarkAdd,
+  MdBookmarkAdded,
+  MdPlayCircle,
+} from "react-icons/md";
+import { CiBookmark } from "react-icons/ci";
 import { GoHomeFill } from "react-icons/go";
-
+import { CiHeart } from "react-icons/ci";
+import { IoIosArrowBack } from "react-icons/io";
 import {
   Modal,
   Snackbar,
@@ -51,7 +58,6 @@ const style = {
   p: 2,
 };
 
-
 function DetailsPage() {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
@@ -65,7 +71,7 @@ function DetailsPage() {
   const [success, setSuccess] = useState(null);
   const [Transition, setTransition] = useState(() => SlideTransition);
   const [loading, setLoading] = useState(true);
-  
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -200,7 +206,7 @@ function DetailsPage() {
   }, [id]);
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   const genreIds = movieDetails.details.genres.map((genre) => genre.id);
@@ -220,13 +226,14 @@ function DetailsPage() {
       return (
         <span
           key={id}
+          className="genres"
           style={{
             backgroundColor: backgroundColor,
             color: "#fff",
             padding: "1px 2px 1px",
             borderRadius: "30px",
             margin: "0px 3px 4px",
-            display: "inline-flex",
+            // display: "inline-flex",
             fontWeight: "500",
             fontSize: "14px",
           }}
@@ -238,13 +245,50 @@ function DetailsPage() {
   };
 
   return (
-    <div
-      className="details_main_container"
-      style={{
-        backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`,
-      }}
+    <div className="details_main_container">
+      <div
+        className="background_image"
+        style={{
+          backgroundImage: `url(${imageBaseUrl}${movieDetails.details.backdrop_path})`,
+        }}
+      ></div>
+      <div className="whichlist_drop">
+  <div className="left-section">
+    <IoIosArrowBack className="tooltip MdFavorite" />
+  </div>
+  <div className="right-section">
+    <button
+      className="tooltip"
+      onClick={() => handleFavorite(movieDetails.details)}
     >
-      
+      {isFavorited ? (
+        <MdFavorite className="MdFavorite" style={{ color: "red" }} />
+      ) : (
+        <CiHeart className="MdFavorite" style={{ color: "#E0E0E0" }} />
+      )}
+      <span className="tooltiptext">
+        {isFavorited ? "Remove Favorite" : "Add Favorite"}
+      </span>
+    </button>
+
+    <button
+      className="tooltip"
+      onClick={() => handleWatchlist(movieDetails.details)}
+    >
+      {isAddWatchlist ? (
+        <MdBookmarkAdded
+          className="MdFavorite"
+          style={{ color: "#4CAF50" }}
+        />
+      ) : (
+        <CiBookmark className="MdFavorite" style={{ color: "#E0E0E0" }} />
+      )}
+      <span className="tooltiptext">
+        {isAddWatchlist ? "Remove Watchlist" : "Add To Watchlist"}
+      </span>
+    </button>
+  </div>
+</div>
       <div className="deatils_shadows"></div>
 
       <div className="deatils_section">
@@ -252,20 +296,24 @@ function DetailsPage() {
           <div className="poster_title">
             <h1>{movieDetails.details.title}</h1>
           </div>
-          <div className="poster_ratings">
-            <div>
-              <LiaImdb className="LiaImdb" />
-              <FaStar className="FaStar" />
-              <h2 className="vote_average">
-                {movieDetails.details.vote_average} /10
-              </h2>
-            </div>
-            <div>
-              <AiFillLike className="AiFillLike" />
-              <h2 className="vote_count">{movieDetails.details.vote_count}</h2>
+          <div className="poster_ratings poster_rating">
+            <div className="rating_group">
+              <div className="rating">
+                <LiaImdb className="LiaImdb" />
+                <FaStar className="FaStar" />
+                <h2 className="vote_average">
+                  {movieDetails.details.vote_average}
+                </h2>
+              </div>
+              <div>
+                <AiFillLike className="AiFillLike" />
+                <h2 className="vote_count">
+                  {movieDetails.details.vote_count}
+                </h2>
+              </div>
             </div>
 
-            <div>
+            <div className="genres_main">
               <h3>{getGenreNames(genreIds)}</h3>
             </div>
           </div>

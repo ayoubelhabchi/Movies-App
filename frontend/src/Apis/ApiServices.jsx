@@ -115,7 +115,8 @@ export async function fetchSeriesOptionFilter(
   search,
   year,
   page = 1,
-  highScore,
+  sort,
+  provider,
   language,
   country,
   status,
@@ -129,7 +130,8 @@ export async function fetchSeriesOptionFilter(
     }api_key=${Api_Key}&page=${page}`;
 
     if (year) query += `&first_air_date_year=${year}`;
-    if (highScore) query += `&sort_by=${highScore}`;
+    if (sort) query += `&sort_by=${sort}`;
+    if (provider) query += `&watch_region=US&with_watch_providers=${provider}`;
     if (country) query += `&with_origin_country=${country}`;
     if (language) query += `&with_original_language=${language}`;
     if (status) query += `&with_status=${status}`;
@@ -154,7 +156,8 @@ export async function fetchAnimeOptionFilter(
   search,
   year,
   page = 1,
-  highScore,
+  sort,
+  provider,
   language,
   country,
   status,
@@ -169,7 +172,8 @@ export async function fetchAnimeOptionFilter(
     }api_key=${Api_Key}&page=${page}`;
 
     if (year) query += `&first_air_date_year=${year}`;
-    if (highScore) query += `&sort_by=${highScore}`;
+    if (sort) query += `&sort_by=${sort}`;
+    if (provider) query += `&watch_region=US&with_watch_providers=${provider}`;
     if (country) query += `&with_origin_country=${country}`;
     if (language) query += `&with_original_language=${language}`;
     if (status) query += `&with_status=${status}`;
