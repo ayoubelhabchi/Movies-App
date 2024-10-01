@@ -26,6 +26,7 @@ function Anime() {
   const [filterByYear, setFilterByYear] = useState("");
   const [filterByStatus, setFilterByStatus] = useState("");
   const [filterBySort, setFilterBySort] = useState("");
+  const [filterByProvider, setFilterByProvider] = useState("");
   const [filterByLanguage, setFilterByLanguage] = useState("");
   const [filterByCountry, setFilterByCountry] = useState("");
   const [animes, setanimes] = useState([]);
@@ -38,6 +39,7 @@ function Anime() {
   const handleFilterByYear = (event) => setFilterByYear(event.target.value);
   const handleFilterByStatus = (event) => setFilterByStatus(event.target.value);
   const handleFilterBySort = (event) => setFilterBySort(event.target.value);
+  const handleFilterByProvider = (event) => setFilterByProvider(event.target.value);
   const handleFilterByLanguage = (event) =>
     setFilterByLanguage(event.target.value);
   const handleFilterByCountry = (event) =>
@@ -53,6 +55,7 @@ function Anime() {
         filterByYear,
         currentPage,
         filterBySort,
+        filterByProvider,
         filterByLanguage,
         filterByCountry,
         filterByStatus,
@@ -69,6 +72,7 @@ function Anime() {
     filterByYear,
     filterByStatus,
     filterBySort,
+    filterByProvider,
     filterByLanguage,
     filterByCountry,
     currentPage,
@@ -175,7 +179,32 @@ function Anime() {
               </Select>
             </FormControl>
 
-            {/* Certification Filter */}
+            <FormControl
+              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              size="small"
+            >
+              <InputLabel id="filter-sort-label">Provider</InputLabel>
+              <Select
+                labelId="filter-provider-label"
+                id="filter-provider"
+                value={filterByProvider}
+                label="Provider"
+                onChange={handleFilterByProvider}
+              >
+                <MenuItem value="">Provider</MenuItem>
+                <MenuItem value="8">Netflix</MenuItem>
+                <MenuItem value="337">Disney Plus</MenuItem>
+                <MenuItem value="9">
+                Amazon Prime Video
+                </MenuItem>
+                <MenuItem value="350">
+                Apple TV
+                </MenuItem>
+                <MenuItem value="15">Hulu</MenuItem>
+                <MenuItem value="283">Crunchyroll</MenuItem>
+              </Select>
+            </FormControl>
+            
             <FormControl
               sx={{ m: 0, paddingRight: 0, minWidth: 100 }}
               size="small"
