@@ -137,7 +137,7 @@ function Movies() {
         <div className="filter_bar">
           <ThemeProvider theme={selectTheme}>
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 90 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-year-label">Year</InputLabel>
@@ -157,7 +157,7 @@ function Movies() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-sort-label">Sort By</InputLabel>
@@ -181,7 +181,7 @@ function Movies() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-sort-label">Providers</InputLabel>
@@ -207,7 +207,7 @@ function Movies() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 147 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-certification-label">
@@ -240,7 +240,7 @@ function Movies() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 125 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-language-label">Language</InputLabel>
@@ -267,7 +267,7 @@ function Movies() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-country-label">Country</InputLabel>
