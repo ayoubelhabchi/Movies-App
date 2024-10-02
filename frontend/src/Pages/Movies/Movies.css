@@ -284,10 +284,10 @@
     box-sizing: border-box;
   }
 
-  .side_tags {
+.side_tags {
     background-color: rgba(128, 128, 128, 0.477);
     height: 40px;
-    width: 91vw;
+    width: calc(100vw - 25px); /* Adjust for scrollbar width */
     border-radius: 30px;
     padding: 6px 4px;
     cursor: pointer;
@@ -296,7 +296,8 @@
     white-space: nowrap;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer and Edge */
-  }
+}
+
 
   .tags {
     padding: 8px;
@@ -305,7 +306,7 @@
   }
 
   .container_main_tags {
-    padding: 10px;
+    padding: 10px 4px;
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;

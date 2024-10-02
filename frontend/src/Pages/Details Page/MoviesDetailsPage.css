@@ -290,12 +290,9 @@
   .whichlist_drop {
     position: absolute;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     z-index: 10;
-    right: 4%;
     top: 10%;
-    width: 90%;
+    width: 100%;
   }
   .whichlist_drop .MdFavorite {
     font-size: 2.5rem;
@@ -303,19 +300,26 @@
 
   .whichlist_drop .tooltip {
     background-color: rgba(249, 249, 249, 0.347);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(3px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     padding: 5px;
     border-radius: 35%;
   }
+
   .left-section {
     display: flex;
     align-items: center;
+    position: absolute;
+    left: 4%;
   }
-  
+
   .right-section {
+    position: absolute;
+    right: 2%;
+    top: 0;
     display: grid;
     align-items: center;
     gap: 20px;
+    overflow: hidden;
   }
 }

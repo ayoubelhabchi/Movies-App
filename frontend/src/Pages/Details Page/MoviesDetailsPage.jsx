@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Link, NavLink, useParams } from "react-router-dom";
 import "./MoviesDetailsPage.css";
 
@@ -60,6 +61,8 @@ const style = {
 
 function DetailsPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [movieDetails, setMovieDetails] = useState(null);
   const [playTrailer, setPlayTrailer] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -97,6 +100,9 @@ function DetailsPage() {
     setOpenError(false);
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   const handleFavorite = async (dataMovies) => {
     try {
       const movieData = {
@@ -253,42 +259,42 @@ function DetailsPage() {
         }}
       ></div>
       <div className="whichlist_drop">
-  <div className="left-section">
-    <IoIosArrowBack className="tooltip MdFavorite" />
-  </div>
-  <div className="right-section">
-    <button
-      className="tooltip"
-      onClick={() => handleFavorite(movieDetails.details)}
-    >
-      {isFavorited ? (
-        <MdFavorite className="MdFavorite" style={{ color: "red" }} />
-      ) : (
-        <CiHeart className="MdFavorite" style={{ color: "#E0E0E0" }} />
-      )}
-      <span className="tooltiptext">
-        {isFavorited ? "Remove Favorite" : "Add Favorite"}
-      </span>
-    </button>
+        <div className="left-section"onClick={handleGoBack}>
+          <IoIosArrowBack className="tooltip MdFavorite" />
+        </div>
+        <div className="right-section">
+          <button
+            className="tooltip"
+            onClick={() => handleFavorite(movieDetails.details)}
+          >
+            {isFavorited ? (
+              <MdFavorite className="MdFavorite" style={{ color: "red" }} />
+            ) : (
+              <CiHeart className="MdFavorite" style={{ color: "#E0E0E0" }} />
+            )}
+            <span className="tooltiptext">
+              {isFavorited ? "Remove Favorite" : "Add Favorite"}
+            </span>
+          </button>
 
-    <button
-      className="tooltip"
-      onClick={() => handleWatchlist(movieDetails.details)}
-    >
-      {isAddWatchlist ? (
-        <MdBookmarkAdded
-          className="MdFavorite"
-          style={{ color: "#4CAF50" }}
-        />
-      ) : (
-        <CiBookmark className="MdFavorite" style={{ color: "#E0E0E0" }} />
-      )}
-      <span className="tooltiptext">
-        {isAddWatchlist ? "Remove Watchlist" : "Add To Watchlist"}
-      </span>
-    </button>
-  </div>
-</div>
+          <button
+            className="tooltip"
+            onClick={() => handleWatchlist(movieDetails.details)}
+          >
+            {isAddWatchlist ? (
+              <MdBookmarkAdded
+                className="MdFavorite"
+                style={{ color: "#4CAF50" }}
+              />
+            ) : (
+              <CiBookmark className="MdFavorite" style={{ color: "#E0E0E0" }} />
+            )}
+            <span className="tooltiptext">
+              {isAddWatchlist ? "Remove Watchlist" : "Add To Watchlist"}
+            </span>
+          </button>
+        </div>
+      </div>
       <div className="deatils_shadows"></div>
 
       <div className="deatils_section">
