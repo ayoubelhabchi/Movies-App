@@ -138,7 +138,7 @@ function TvSeries() {
         <div className="filter_bar">
           <ThemeProvider theme={selectTheme}>
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 90 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }} id="demo-select-small-label">
@@ -163,7 +163,7 @@ function TvSeries() {
             {/* Sort Filter */}
             {/* Sort By */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Sort By</InputLabel>
@@ -180,7 +180,7 @@ function TvSeries() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-sort-label">Providers</InputLabel>
@@ -206,7 +206,7 @@ function TvSeries() {
             </FormControl>
             
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 100 }}
+              sx={{ m: 0, paddingRight: 0}}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Status</InputLabel>
@@ -227,7 +227,7 @@ function TvSeries() {
 
             {/* Language Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 130 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Language</InputLabel>
@@ -253,7 +253,7 @@ function TvSeries() {
 
             {/* Country Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Country</InputLabel>
@@ -294,7 +294,7 @@ function TvSeries() {
               )}
               {isSearchVisible && (
                 <input
-                  placeholder="DeadPool..."
+                  placeholder="Suits..."
                   type="text"
                   className="Search_Input_Movies"
                   value={searchQuery}
