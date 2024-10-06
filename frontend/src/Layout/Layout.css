@@ -1,53 +1,61 @@
 /* Layout.css */
 .layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.page-content {
+  margin-top: 60px;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.39);
+}
+
+.bottom_drop {
+  display: none;
+}
+
+@media (min-width: 400px) {
+  .dropdown-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .dropdown-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .bottom_drop {
+    width: 100vw;
+    z-index: 100;
+    position: fixed;
+    bottom: 5%;
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    align-items: center;
   }
-  
-  
-  
-  .main-content {
-    flex: 1;
-  }
-  
-  
-  
+}
+
+@media (max-width: 576px) {
   .page-content {
-    margin-top: 60px;
-    overflow-y: auto;
-    height: calc(100vh - 60px);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px);
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    padding: 20px;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.39);
+    padding: 8px;
+    height: calc(90vh - 10px);
   }
-  
-
-  @media (min-width: 400px) {
-    .dropdown-bar {
-      display: none;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .dropdown-bar {
-      display: block;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      z-index: 1000;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .page-content{
-      padding: 8px;
-      height: calc(90vh - 10px);
-    }
-  }
-  
+}

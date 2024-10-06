@@ -139,7 +139,7 @@ function Anime() {
           <div className="filter_bar">
             {/* Year Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 90 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }} id="demo-select-small-label">
@@ -163,7 +163,7 @@ function Anime() {
 
             {/* Sort Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Sort By</InputLabel>
@@ -180,7 +180,7 @@ function Anime() {
             </FormControl>
 
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel id="filter-sort-label">Provider</InputLabel>
@@ -206,7 +206,7 @@ function Anime() {
             </FormControl>
             
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 100 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Status</InputLabel>
@@ -227,7 +227,7 @@ function Anime() {
 
             {/* Language Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 130 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Language</InputLabel>
@@ -252,7 +252,7 @@ function Anime() {
 
             {/* Country Filter */}
             <FormControl
-              sx={{ m: 0, paddingRight: 0, minWidth: 110 }}
+              sx={{ m: 0, paddingRight: 0 }}
               size="small"
             >
               <InputLabel sx={{ color: "white" }}>Country</InputLabel>

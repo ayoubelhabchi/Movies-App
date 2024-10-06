@@ -305,7 +305,7 @@ function DetailsPage() {
           <div className="poster_ratings poster_rating">
             <div className="rating_group">
               <div className="rating">
-                <LiaImdb className="LiaImdb" />
+                {/* <LiaImdb className="LiaImdb" /> */}
                 <FaStar className="FaStar" />
                 <h2 className="vote_average">
                   {movieDetails.details.vote_average}
@@ -334,7 +334,7 @@ function DetailsPage() {
             </div>
 
             <div>
-              <h3 className=" bg-gray-400 rounded-full p0.5 px-0.5">
+              <h3 className="runtime">
                 {movieDetails.details.runtime} min
               </h3>
             </div>

@@ -279,6 +279,14 @@
     gap: 4px;
   }
 
+  .runtime{
+    background-color: rgb(156, 156, 156);
+    border-radius: 30px;
+    padding: 0px 2px;
+    font-size: small;
+  }
+
+
   .whichlist button {
     display: none;
   }
@@ -291,7 +299,7 @@
     position: absolute;
     display: flex;
     z-index: 10;
-    top: 10%;
+    top: 2%;
     width: 100%;
   }
   .whichlist_drop .MdFavorite {
@@ -311,6 +319,7 @@
     align-items: center;
     position: absolute;
     left: 4%;
+    top: 2%;
   }
 
   .right-section {
